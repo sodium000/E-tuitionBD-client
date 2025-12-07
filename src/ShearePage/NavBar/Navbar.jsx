@@ -35,7 +35,7 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    <a className="btn btn-primary">Login</a>
+                    <a className="btn bg-purple-300">Login</a>
                     <div className="dropdown dropdown-end ml-5">
                         <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                             <div className="w-10 rounded-full">
