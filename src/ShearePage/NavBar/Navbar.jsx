@@ -1,7 +1,10 @@
 import React from 'react';
 import { NavLink } from 'react-router';
+import useAuth from '../../hook/useAuth';
+import Loading from '../../Component/Loading/Loading';
 
 const Navbar = () => {
+    const { user, loding, GoogleSignOut } = useAuth()
     const Link = <>
         <li><NavLink>Tuitions</NavLink></li>
         <li><NavLink>Tutors</NavLink></li>
@@ -35,27 +38,36 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    <NavLink to='/login' className="btn bg-purple-300">Login</NavLink>
-                    <div className="dropdown dropdown-end ml-5">
-                        <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-                            <div className="w-10 rounded-full">
-                                <img
-                                    alt="Tailwind CSS Navbar component"
-                                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                    {
+                        loding ? <><Loading></Loading></>
+                            :
+                            user ? <><NavLink onClick={() => GoogleSignOut()} className="btn bg-purple-300">Log Out</NavLink></>
+                                :
+                                <NavLink to='/login' className="btn bg-purple-300">Login</NavLink>
+                    }
+                    {
+                        user ? <div className="dropdown dropdown-end ml-5">
+                            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                                <div className="w-10 rounded-full">
+                                    <img
+                                        alt="Tailwind CSS Navbar component"
+                                        src={user.photoURL} />
+                                </div>
                             </div>
+                            <ul
+                                tabIndex="-1"
+                                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+                                <li>
+                                    <a className="justify-between">
+                                        {user.displayName}
+                                    </a>
+                                </li>
+                                <li><a>Settings</a></li>
+                            </ul>
                         </div>
-                        <ul
-                            tabIndex="-1"
-                            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-                            <li>
-                                <a className="justify-between">
-                                    Profile
-                                </a>
-                            </li>
-                            <li><a>Settings</a></li>
-                            <li><a>Logout</a></li>
-                        </ul>
-                    </div>
+                            :
+                            <></>
+                    }
                 </div>
             </div>
         </div>
