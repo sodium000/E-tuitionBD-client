@@ -15,7 +15,7 @@ const Registration = () => {
                         <h2 className="mt-6 text-center text-3xl font-bold tracking-tight">
                             Register
                         </h2>
-                        <div className="mt-2 w-24 h-1 bg-primary mx-auto"></div>
+                        <div className="mt-2 w-40 h-1 bg-primary mx-auto"></div>
                     </div>
                     <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-10/12">
                         <div className="bg-background-light dark:bg-gray-800 py-8 px-4 shadow-sm rounded-lg sm:px-10">
@@ -105,6 +105,17 @@ const Registration = () => {
                                                     required
                                                     type="email"
                                                 />
+                                            </div>
+                                        </div>
+
+                                        {/* Photo Field */}
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300" htmlFor="email">
+                                                PhotoURL<span className="text-red-500">*</span>
+                                            </label>
+                                            <div className="mt-1">
+                                                <input type="file" id="Photo"
+                                                    name="PhotoURL" className="file-input file-input-ghost file-input-info w-full appearance-none rounded-md border px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary focus:outline-none focus:ring-primary sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
                                             </div>
                                         </div>
 
@@ -290,6 +301,17 @@ const Registration = () => {
                                                 </div>
                                             </div>
 
+                                            {/* Photo Field */}
+                                            <div>
+                                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300" htmlFor="email">
+                                                    PhotoURL<span className="text-red-500">*</span>
+                                                </label>
+                                                <div className="mt-1">
+                                                    <input type="file" id="Photo"
+                                                        name="PhotoURL" className="file-input file-input-ghost file-input-info w-full appearance-none rounded-md border px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary focus:outline-none focus:ring-primary sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
+                                                </div>
+                                            </div>
+
                                             {/* Phone Field */}
                                             <div>
                                                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300" htmlFor="phone">
@@ -377,7 +399,7 @@ const Registration = () => {
                                     </div>
                                 </div>
                                 <div className="mt-6">
-                                    <Link 
+                                    <Link
                                         to='/login'
                                         className="flex w-full justify-center rounded-md border border-gray-300 dark:border-gray-600 bg-background-light dark:bg-gray-700 py-3 px-4 text-base font-medium text-gray-700 dark:text-gray-200 shadow-sm hover:bg-gray-50 dark:hover:bg-gray-600"
                                     >
