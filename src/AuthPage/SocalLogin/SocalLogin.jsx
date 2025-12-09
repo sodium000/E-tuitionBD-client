@@ -1,21 +1,32 @@
 import React from 'react';
 import { useNavigate } from 'react-router';
 import useAuth from '../../hook/useAuth';
+import useAxiosSecure from '../../hook/useAxiosSecure';
 
 const SocalLogin = () => {
+    const axiosSecure = useAxiosSecure();
     const navigate = useNavigate();
     const { GoogleSignIN } = useAuth();
-
     const RegWithGoogle = () => {
+        console.log("user hit")
         GoogleSignIN()
-            .then(() => {
-                navigate("/");
+            .then((result) => {
+                const userInfo = {
+                    email: result.user.email,
+                    displayName: result.user.displayName,
+                    photoURL: result.user.photoURL,
+                    role: "student"
+                }
+                console.log("tonmoy")
+                axiosSecure.post('/users', userInfo)
+                    .then(res => {
+                        console.log('user data has been stored', res.data)
+                        navigate('/');
+                    })
             }).catch((error) => {
                 if (error.code === 'auth/popup-closed-by-user') {
                     window.location.reload();
                 }
-                console.log(error.code)
-
             });
     }
     return (

@@ -26,7 +26,8 @@ const router = createBrowserRouter([
         },
         {
             path :"registration",
-            Component: Registration
+            Component: Registration,
+            loader: () => fetch('/warehouses.json').then(res => res.json())
         },
     ]
   },
