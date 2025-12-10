@@ -4,6 +4,9 @@ import MainHomePage from "../HomePage/MainHomePage/MainHomePage";
 import AuthPageLayout from "../Layout/AuthPageLayout";
 import Login from "../AuthPage/Login/Login";
 import Registration from "../AuthPage/Registration/Registration";
+import AddPost from "../Component/AddPost/AddPost";
+import TutionPost from "../Component/TutionPost/TutionPost";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -13,6 +16,15 @@ const router = createBrowserRouter([
         {
             index : true,
             Component:MainHomePage
+        },
+        {
+            path : "AddPost",               
+            element : <PrivateRoute><AddPost></AddPost></PrivateRoute>,
+            loader: () => fetch('/warehouses.json').then(res => res.json())
+        },
+        {
+            path : "TutionPost",
+            Component:TutionPost,
         },
     ]
   },

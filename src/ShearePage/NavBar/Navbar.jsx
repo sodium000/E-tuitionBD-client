@@ -6,8 +6,11 @@ import Loading from '../../Component/Loading/Loading';
 const Navbar = () => {
     const { user, loding, GoogleSignOut } = useAuth()
     const Link = <>
-        <li><NavLink>Tuitions</NavLink></li>
+        <li><NavLink to='TutionPost'>Tuitions</NavLink></li>
         <li><NavLink>Tutors</NavLink></li>
+        {
+            user? <li><NavLink to='AddPost'>Add Tution</NavLink></li> : ""
+        }
         <li><NavLink>About</NavLink></li>
         <li><NavLink>Contact</NavLink></li>
         <li><NavLink>Office Location</NavLink></li>
