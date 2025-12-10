@@ -1,15 +1,20 @@
 
 import React, { useState } from 'react';
-import { Link, useLoaderData } from 'react-router';
+import { Link, useLoaderData, useNavigate } from 'react-router';
 import SocalLogin from '../SocalLogin/SocalLogin';
 import { useForm, useWatch } from 'react-hook-form';
-// import useAxiosSecure from '../../hook/useAxiosSecure';
+import axios from 'axios';
+import useAxiosSecure from '../../hook/useAxiosSecure';
+import useAuth from '../../hook/useAuth';
 
 const Registration = () => {
 
+    const { registerUser, Updateprofile } = useAuth();
+
     const [userType, setUserType] = useState('tutor');
     const { register, handleSubmit, control, formState: { errors } } = useForm();
-    // const axiosSecure = useAxiosSecure();
+    const axiosSecure = useAxiosSecure();
+    const navigate = useNavigate();
 
     const TuitionRegion = useWatch({ control, name: 'TuitionRegion' });
 
@@ -29,53 +34,71 @@ const Registration = () => {
 
         const ProfilImage = data.PhotoUrl[0];
 
-        const fromData = new FormData()
-        fromData.append('image', ProfilImage);
-        const image_Api_Url = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_host}`
-        console.log(image_Api_Url);
-        if (userType === 'tutor') {
-            console.log(data)
-        }
 
-        // registerUser(data.Email, data.Password)
-        //     .then(() => {
-        //         // Store the image in from data 
-        //         const fromData = new FormData()
-        //         fromData.append('image', ProfilImage);
+        registerUser(data.Email, data.password)
+            .then(() => {
+                // Store the image in from data 
+                const fromData = new FormData()
+                fromData.append('image', ProfilImage);
 
 
+                const image_Api_Url = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_host}`
 
 
+                axios.post(image_Api_Url, fromData)
+                    .then(res => {
+                        const photoURL = res.data.data.url;
 
-        //         axios.post(image_Api_Url, fromData)
-        //             .then(res => {
+                        if (userType === 'tutor') {
+                            // create user in the database
+                            const userInfo = {
+                                Email: data.Email,
+                                displayName: data.Name,
+                                photoURL: photoURL,
+                                Phone: data.Phone,
+                                PreferredArea: data.PreferredArea,
+                                TuitionRegion: data.TuitionRegion,
+                                selectDistrict: data.selectDistrict,
+                                role: 'tutor'
 
-        //                 const photoURL = res.data.data.url;
-        //                 // create user in the database
-        //                 const userInfo = {
-        //                     email: data.email,
-        //                     displayName: data.name,
-        //                     photoURL: photoURL
-        //                 }
-        //                 axiosSecure.post('/users', userInfo)
-        //                     .then(res => {
-        //                         if (res.data.insertedId) {
-        //                             console.log('user created in the database');
-        //                         }
-        //                     })
+                            }
+                            axiosSecure.post('/users', userInfo)
+                                .then(res => {
+                                    if (res.data.insertedId) {
+                                        console.log('user created in the database');
+                                    }
+                                })
+                        }
+                        if (userType === 'student') {
+                            // create user in the database
+                            const userInfo = {
+                                Email: data.Email,
+                                displayName: data.Name,
+                                photoURL: photoURL,
+                                Phone: data.Phone,
+                                role: 'student'
 
-        //                 // update user profile
-        //                 const UserProfile = {
-        //                     displayName: data.Name,
-        //                     photoURL: photoURL
-        //                 }
-        //                 Updateprofile(UserProfile)
-        //                     .then(() => {
-        //                         navigate(location?.state || '/')
-        //                     })
-        //             })
-        //     })
-        //     .catch(error => console.log(error))
+                            }
+                            axiosSecure.post('/users', userInfo)
+                                .then(res => {
+                                    if (res.data.insertedId) {
+                                        console.log('user created in the database');
+                                    }
+                                })
+                        }
+
+                        // update user profile
+                        const UserProfile = {
+                            displayName: data.Name,
+                            photoURL: photoURL
+                        }
+                        Updateprofile(UserProfile)
+                            .then(() => {
+                                navigate('/')
+                            })
+                    })
+            })
+            .catch(error => console.log(error))
     }
 
     return (
@@ -485,33 +508,6 @@ const Registration = () => {
                                                 }
                                             </div>
 
-                                            {/* Phone Field */}
-                                            <div>
-                                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300" htmlFor="phone">
-                                                    Phone <span className="text-red-500">*</span>
-                                                </label>
-                                                <div className="mt-1">
-                                                    <input
-                                                        className="form-input block w-full appearance-none rounded-md border px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary focus:outline-none focus:ring-primary sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                                                        placeholder="ex: 01..."
-                                                        type="tel"
-                                                        {...register('Phone', {
-                                                            required: true,
-                                                            minLength: 11,
-                                                            maxLength: 11
-                                                        })}
-                                                    />
-                                                    {
-                                                        errors.Phone?.type === "required" && <p className='text-red-500 font-bold'>Phone number require</p>
-                                                    }
-                                                    {
-                                                        errors.Phone?.type === "minLength" && <p className='text-red-500 font-bold'>Phone number not less than 11</p>
-                                                    }
-                                                    {
-                                                        errors.Phone?.type === "maxLength" && <p className='text-red-500 font-bold'>Phone number not more than 11</p>
-                                                    }
-                                                </div>
-                                            </div>
 
                                             {/* Password Fields */}
                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
