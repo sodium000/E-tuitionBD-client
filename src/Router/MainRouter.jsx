@@ -7,6 +7,8 @@ import Registration from "../AuthPage/Registration/Registration";
 import AddPost from "../Component/AddPost/AddPost";
 import TutionPost from "../Component/TutionPost/TutionPost";
 import PrivateRoute from "./PrivateRoute";
+import Tutors from "../Component/Tutors/Tutors";
+import ViewDetails from "../Component/ViewDetails/ViewDetails";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +28,14 @@ const router = createBrowserRouter([
             path : "TutionPost",
             Component:TutionPost,
         },
+        {
+            path : "Tutors",
+            Component:Tutors,
+        },
+        {
+            path : "viewdetails/:id",
+            Component:ViewDetails,
+        }
     ]
   },
   {

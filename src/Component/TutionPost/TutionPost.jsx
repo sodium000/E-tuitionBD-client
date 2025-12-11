@@ -13,9 +13,8 @@ import {
   MdMenuBook,
   MdPayments,
   MdArrowForward,
-  MdDarkMode,
-  MdLightMode,
 } from "react-icons/md";
+import { Link } from "react-router";
 
 const TutionPost = () => {
   const [jobs, setJobs] = useState([]);
@@ -221,10 +220,12 @@ const TutionPost = () => {
                       Posted at:{" "}
                       <span className="text-text-primary-light">{postedAt}</span>
                     </div>
-                    <button className="w-full sm:w-auto bg-linear-to-r from-primary to-fuchsia-700 hover:from-fuchsia-700 hover:to-primary text-white text-sm font-semibold py-2.5 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform active:scale-95 flex justify-center items-center group">
-                      View Details
-                      <MdArrowForward className="text-[18px] ml-1 transition-transform group-hover:translate-x-1" />
-                    </button>
+                    <Link to={`/viewdetails/${job._id}`}>
+                      <button className="w-full sm:w-auto bg-linear-to-r from-primary to-fuchsia-700 hover:from-fuchsia-700 hover:to-primary text-white text-sm font-semibold py-2.5 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform active:scale-95 flex justify-center items-center group">
+                        View Details
+                        <MdArrowForward className="text-[18px] ml-1 transition-transform group-hover:translate-x-1" />
+                      </button>
+                    </Link>
                   </div>
                 </div>
               </div>
