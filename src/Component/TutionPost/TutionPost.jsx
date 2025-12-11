@@ -20,20 +20,20 @@ const TutionPost = () => {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const fetchJobs = async (search = "") => {
-    try {
-      setLoading(true);
-      const res = await axios.get(
-        `http://localhost:3000/post?search=${search}`
-      );
+    const fetchJobs = async (search = "") => {
+      try {
+        setLoading(true);
+        const res = await axios.get(
+          `http://localhost:3000/post?search=${search}`
+        );
 
-      setJobs(res.data);
-    } catch (error) {
-      console.error("Error fetching jobs:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+        setJobs(res.data);
+      } catch (error) {
+        console.error("Error fetching jobs:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
   console.log(jobs);
 
