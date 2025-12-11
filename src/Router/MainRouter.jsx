@@ -9,6 +9,7 @@ import TutionPost from "../Component/TutionPost/TutionPost";
 import PrivateRoute from "./PrivateRoute";
 import Tutors from "../Component/Tutors/Tutors";
 import ViewDetails from "../Component/ViewDetails/ViewDetails";
+import TutorDetails from "../Component/TutorDetails/TutorDetails";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
         {
             path : "viewdetails/:id",
             Component:ViewDetails,
+        },
+        {
+            path : "TutorDetails/:id/tutor",
+            Component:TutorDetails,
         }
     ]
   },

@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { FaMapMarkerAlt, FaCalendarAlt, FaClock, FaUser, FaUsers, FaBookOpen, FaMoneyBillWave, FaArrowLeft, FaUserGraduate, FaChalkboardTeacher } from "react-icons/fa";
-import {  useNavigate, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import useAxiosSecure from "../../hook/useAxiosSecure";
 import Loading from "../Loading/Loading";
 import useAuth from "../../hook/useAuth";
@@ -29,7 +29,7 @@ const JobDetails = () => {
     const axiosSecure = useAxiosSecure();
     const [jobs, setJobs] = useState([]);
     const [loading, setLoading] = useState(false);
-    const { user} = useAuth();
+    const { user } = useAuth();
     const navigate = useNavigate()
 
 
@@ -180,16 +180,18 @@ const JobDetails = () => {
                                     </div>
 
                                     <div className="flex flex-col gap-4">
-                                            {
-                                                user ? <button className="w-full bg-pink-600 text-white font-bold py-4 px-6 rounded-xl shadow-lg hover:bg-pink-700 transition transform hover:scale-105 flex items-center justify-center gap-2 text-lg">
-                                            Apply for this job 
-                                        </button>:
-                                        <button className="w-full bg-pink-600 text-white font-bold py-4 px-6 rounded-xl shadow-lg hover:bg-pink-700 transition transform hover:scale-105 flex items-center justify-center gap-2 text-lg">
-                                            Login Fast
-                                        </button>
-                                            }
+                                        {
+                                            user ? <button className="w-full bg-pink-600 text-white font-bold py-4 px-6 rounded-xl shadow-lg hover:bg-pink-700 transition transform hover:scale-105 flex items-center justify-center gap-2 text-lg">
+                                                Apply for this job
+                                            </button> :
+                                                <Link to='/login'>
+                                                    <button className="w-full bg-pink-600 text-white font-bold py-4 px-6 rounded-xl shadow-lg hover:bg-pink-700 transition transform hover:scale-105 flex items-center justify-center gap-2 text-lg">
+                                                        Login Fast For Apply 
+                                                    </button>
+                                                </Link>
+                                        }
 
-                                        <button onClick={()=>navigate(-1)} className="w-full bg-white text-gray-600 border border-gray-300 font-semibold py-3 px-6 rounded-xl hover:bg-gray-100 transition flex items-center justify-center gap-2">
+                                        <button onClick={() => navigate(-1)} className="w-full bg-white text-gray-600 border border-gray-300 font-semibold py-3 px-6 rounded-xl hover:bg-gray-100 transition flex items-center justify-center gap-2">
                                             <FaArrowLeft /> Go Back to All Jobs
                                         </button>
                                     </div>
