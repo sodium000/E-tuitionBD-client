@@ -28,7 +28,7 @@ const AddPost = () => {
 
     const handelTution = (data) => {
         console.log(data)
-        console.log(typeof(data))
+        console.log(typeof (data))
         axiosSecure.post('/post', data)
             .then(res => {
                 if (res.data.insertedId) {
@@ -47,7 +47,7 @@ const AddPost = () => {
                     <div className="absolute top-1/2 left-1/2 w-72 h-72 bg-indigo-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
                 </div>
 
-                <form onSubmit={handleSubmit(handelTution)} className="relative bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl p-8 md:p-12 w-full max-w-2xl">
+                <form onSubmit={handleSubmit(handelTution)} className="relative bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl p-8 md:p-12 w-full max-w-7xl">
                     {/* Header */}
                     <div className="text-center mb-10">
                         <div className="inline-flex items-center justify-center w-20 h-20 bg-linear-to-br from-purple-600 via-pink-500 to-indigo-600 rounded-2xl mb-6 shadow-lg transform hover:rotate-6 transition-transform duration-300">
@@ -62,8 +62,8 @@ const AddPost = () => {
                         </div>
                         <p className="text-gray-600 text-lg">Make your personalized tutoring Post</p>
                     </div>
-                    <div className="space-y-6">
-                        {/*  Medium */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {/* Medium */}
                         <div className="group">
                             <label className="flex items-center text-sm font-bold text-gray-700 mb-3 uppercase tracking-wide">
                                 <div className="w-8 h-8 bg-linear-to-br from-purple-100 to-purple-200 rounded-lg flex items-center justify-center mr-3">
@@ -72,19 +72,18 @@ const AddPost = () => {
                                 Medium
                             </label>
                             <select
-                                defaultValue=''
-                                {...register("Medium", {
-                                    required: true
-                                })}
-                                className="w-full px-5 py-4 bg-linear-to-br from-gray-50 to-gray-100 border-2 border-gray-200 rounded-2xl focus:border-purple-500 focus:ring-4 focus:ring-purple-100 focus:bg-white transition-all outline-none text-lg font-medium cursor-pointer"
+                                defaultValue=""
+                                {...register("Medium", { required: true })}
+                                className="w-full px-5 py-4 bg-linear-to-br from-gray-50 to-gray-100 border-2 border-gray-200 rounded-2xl focus:border-purple-500 focus:ring-4 focus:ring-purple-100 text-lg font-medium"
                             >
-                                <option disabled value="">Select  Medium</option>
-                                <option >Bangla  Medium</option>
-                                <option>English  Medium</option>
+                                <option disabled value="">Select Medium</option>
+                                <option>Bangla Medium</option>
+                                <option>English Medium</option>
                             </select>
-                            {errors.Medium && <p className="mt-2 text-sm text-red-500 font-medium">Medium is required</p>}
+                            {errors.Medium && <p className="text-sm text-red-500">Medium is required</p>}
                         </div>
-                        {/* Class Input */}
+
+                        {/* Class */}
                         <div className="group">
                             <label className="flex items-center text-sm font-bold text-gray-700 mb-3 uppercase tracking-wide">
                                 <div className="w-8 h-8 bg-linear-to-br from-purple-100 to-purple-200 rounded-lg flex items-center justify-center mr-3">
@@ -94,16 +93,14 @@ const AddPost = () => {
                             </label>
                             <input
                                 type="text"
-                                {...register('Class', {
-                                    required: true
-                                })}
-                                placeholder="e.g., Grade 10, Year 12, Class IX"
-                                className="w-full px-5 py-4 bg-linear-to-br from-gray-50 to-gray-100 border-2 border-gray-200 rounded-2xl focus:border-purple-500 focus:ring-4 focus:ring-purple-100 focus:bg-white transition-all outline-none text-lg font-medium placeholder:text-gray-400"
+                                {...register("Class", { required: true })}
+                                placeholder="e.g., Grade 10"
+                                className="w-full px-5 py-4 bg-linear-to-br from-gray-50 to-gray-100 border-2 border-gray-200 rounded-2xl focus:border-purple-500 focus:ring-4 focus:ring-purple-100 text-lg font-medium"
                             />
-                            {errors.Class && <p className="mt-2 text-sm text-red-500 font-medium">class is required</p>}
+                            {errors.Class && <p className="text-sm text-red-500">Class is required</p>}
                         </div>
 
-                        {/* Salary Input */}
+                        {/* Salary */}
                         <div className="group">
                             <label className="flex items-center text-sm font-bold text-gray-700 mb-3 uppercase tracking-wide">
                                 <div className="w-8 h-8 bg-linear-to-br from-pink-100 to-pink-200 rounded-lg flex items-center justify-center mr-3">
@@ -112,20 +109,18 @@ const AddPost = () => {
                                 Salary Per Session
                             </label>
                             <div className="relative">
-                                <span className="absolute left-5 top-1/2 -translate-y-1/2 text-2xl font-bold text-gray-400">৳</span>
+                                <span className="absolute left-5 top-1/2 -translate-y-1/2 text-2xl text-gray-400">৳</span>
                                 <input
                                     type="number"
+                                    {...register("Salary", { required: true })}
                                     placeholder="500"
-                                    {...register("Salary", {
-                                        required: true
-                                    })}
-                                    className="w-full pl-12 pr-5 py-4 bg-linear-to-br from-gray-50 to-gray-100 border-2 border-gray-200 rounded-2xl focus:border-pink-500 focus:ring-4 focus:ring-pink-100 focus:bg-white transition-all outline-none text-lg font-medium placeholder:text-gray-400"
+                                    className="w-full pl-12 pr-5 py-4 bg-linear-to-br from-gray-50 to-gray-100 border-2 border-gray-200 rounded-2xl focus:border-pink-500 focus:ring-4 focus:ring-pink-100 text-lg font-medium"
                                 />
                             </div>
-                            {errors.Salary && <p className="mt-2 text-sm text-red-500 font-medium">Salary is required</p>}
+                            {errors.Salary && <p className="text-sm text-red-500">Salary is required</p>}
                         </div>
 
-                        {/* Subject Select */}
+                        {/* Subject */}
                         <div className="group">
                             <label className="flex items-center text-sm font-bold text-gray-700 mb-3 uppercase tracking-wide">
                                 <div className="w-8 h-8 bg-linear-to-br from-indigo-100 to-indigo-200 rounded-lg flex items-center justify-center mr-3">
@@ -134,17 +129,14 @@ const AddPost = () => {
                                 Subject
                             </label>
                             <input
-                                placeholder='Name your subject'
-                                {...register('Subject', {
-                                    required: true
-                                })}
-                                className="w-full px-5 py-4 bg-linear-to-br from-gray-50 to-gray-100 border-2 border-gray-200 rounded-2xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 focus:bg-white transition-all outline-none text-lg font-medium "
-                            >
-                            </input>
-                            {errors.Subject && <p className="mt-2 text-sm text-red-500 font-medium">Subject is required</p>}
+                                {...register("Subject", { required: true })}
+                                placeholder="Name your subject"
+                                className="w-full px-5 py-4 bg-linear-to-br from-gray-50 to-gray-100 border-2 border-gray-200 rounded-2xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 text-lg font-medium"
+                            />
+                            {errors.Subject && <p className="text-sm text-red-500">Subject is required</p>}
                         </div>
 
-                        {/* Tutoring Type Select */}
+                        {/* Tutoring Type */}
                         <div className="group">
                             <label className="flex items-center text-sm font-bold text-gray-700 mb-3 uppercase tracking-wide">
                                 <div className="w-8 h-8 bg-linear-to-br from-purple-100 to-purple-200 rounded-lg flex items-center justify-center mr-3">
@@ -153,17 +145,15 @@ const AddPost = () => {
                                 Tutoring Type
                             </label>
                             <select
-                                defaultValue=''
-                                {...register('Tutoring', {
-                                    required: true
-                                })}
-                                className="w-full px-5 py-4 bg-linear-to-br from-gray-50 to-gray-100 border-2 border-gray-200 rounded-2xl focus:border-purple-500 focus:ring-4 focus:ring-purple-100 focus:bg-white transition-all outline-none text-lg font-medium cursor-pointer"
+                                defaultValue=""
+                                {...register("Tutoring", { required: true })}
+                                className="w-full px-5 py-4 bg-linear-to-br from-gray-50 to-gray-100 border-2 border-gray-200 rounded-2xl focus:border-purple-500 focus:ring-4 focus:ring-purple-100 text-lg font-medium"
                             >
                                 <option disabled value="">Select type</option>
-                                <option > Online</option>
-                                <option > In-Person</option>
+                                <option>Online</option>
+                                <option>In-Person</option>
                             </select>
-                            {errors.Tutoring && <p className="mt-2 text-sm text-red-500 font-medium">Tutoring is required </p>}
+                            {errors.Tutoring && <p className="text-sm text-red-500">Tutoring type is required</p>}
                         </div>
 
                         {/* Gender */}
@@ -175,20 +165,18 @@ const AddPost = () => {
                                 Gender
                             </label>
                             <select
-                                defaultValue=''
-                                {...register('Gender', {
-                                    required: true
-                                })}
-                                className="w-full px-5 py-4 bg-linear-to-br from-gray-50 to-gray-100 border-2 border-gray-200 rounded-2xl focus:border-purple-500 focus:ring-4 focus:ring-purple-100 focus:bg-white transition-all outline-none text-lg font-medium cursor-pointer"
+                                defaultValue=""
+                                {...register("Gender", { required: true })}
+                                className="w-full px-5 py-4 bg-linear-to-br from-gray-50 to-gray-100 border-2 border-gray-200 rounded-2xl focus:border-purple-500 focus:ring-4 focus:ring-purple-100 text-lg font-medium"
                             >
-                                <option disabled value="" >Select type</option>
+                                <option disabled value="">Select type</option>
                                 <option>Male</option>
                                 <option>Female</option>
                             </select>
-                            {errors.Gender && <p className="mt-2 text-sm text-red-500 font-medium">Gender is required</p>}
+                            {errors.Gender && <p className="text-sm text-red-500">Gender is required</p>}
                         </div>
 
-                        {/* Location */}
+                        {/* Region */}
                         <div className="group">
                             <label className="flex items-center text-sm font-bold text-gray-700 mb-3 uppercase tracking-wide">
                                 <div className="w-8 h-8 bg-linear-to-br from-purple-100 to-purple-200 rounded-lg flex items-center justify-center mr-3">
@@ -197,41 +185,41 @@ const AddPost = () => {
                                 Location
                             </label>
                             <select
-                                defaultValue=''
-                                className="w-full px-5 py-4 bg-linear-to-br from-gray-50 to-gray-100 border-2 border-gray-200 rounded-2xl focus:border-purple-500 focus:ring-4 focus:ring-purple-100 focus:bg-white transition-all outline-none text-lg font-medium cursor-pointer"
-                                {...register('TuitionRegion', { required: true })}
+                                defaultValue=""
+                                {...register("TuitionRegion", { required: true })}
+                                className="w-full px-5 py-4 bg-linear-to-br from-gray-50 to-gray-100 border-2 border-gray-200 rounded-2xl focus:border-purple-500 focus:ring-4 focus:ring-purple-100 text-lg font-medium"
                             >
-                                <option disabled value="" >Select type</option>
+                                <option disabled value="">Select Region</option>
                                 {regions.map((r, i) => (
                                     <option key={i} value={r}>{r}</option>
                                 ))}
                             </select>
-                            {errors.TuitionRegion && <p className="mt-2 text-sm text-red-500 font-medium">Location is required</p>}
+                            {errors.TuitionRegion && <p className="text-sm text-red-500">Location is required</p>}
                         </div>
 
-                        {/* area */}
+                        {/* District */}
                         <div className="group">
                             <label className="flex items-center text-sm font-bold text-gray-700 mb-3 uppercase tracking-wide">
                                 <div className="w-8 h-8 bg-linear-to-br from-purple-100 to-purple-200 rounded-lg flex items-center justify-center mr-3">
                                     <CiLocationArrow1 className="w-4 h-4 text-purple-600" />
                                 </div>
-                                Districts
+                                District
                             </label>
                             <select
-                                defaultValue=''
-                                className="w-full px-5 py-4 bg-linear-to-br from-gray-50 to-gray-100 border-2 border-gray-200 rounded-2xl focus:border-purple-500 focus:ring-4 focus:ring-purple-100 focus:bg-white transition-all outline-none text-lg font-medium cursor-pointer"
-                                {...register('selectDistrict', { required: true })}
+                                defaultValue=""
+                                {...register("selectDistrict", { required: true })}
+                                className="w-full px-5 py-4 bg-linear-to-br from-gray-50 to-gray-100 border-2 border-gray-200 rounded-2xl focus:border-purple-500 focus:ring-4 focus:ring-purple-100 text-lg font-medium"
                             >
-                                <option disabled value="" >Select type</option>
-                                {
-                                    districtsByRegion(TuitionRegion).map((r, i) => <option key={i} value={r}>{r}</option>)
-                                }
+                                <option disabled value="">Select District</option>
+                                {districtsByRegion(TuitionRegion).map((r, i) => (
+                                    <option key={i} value={r}>{r}</option>
+                                ))}
                             </select>
-                            {errors.selectDistrict && <p className="mt-2 text-sm text-red-500 font-medium">Area is requried</p>}
+                            {errors.selectDistrict && <p className="text-sm text-red-500">District is required</p>}
                         </div>
 
-                        {/* Day Select */}
-                        <div className="group">
+                        {/* Day */}
+                        <div className="group md:col-span-2">
                             <label className="flex items-center text-sm font-bold text-gray-700 mb-3 uppercase tracking-wide">
                                 <div className="w-8 h-8 bg-linear-to-br from-pink-100 to-pink-200 rounded-lg flex items-center justify-center mr-3">
                                     <BiCalendar className="w-4 h-4 text-pink-600" />
@@ -239,24 +227,20 @@ const AddPost = () => {
                                 Preferred Day
                             </label>
                             <input
-                                placeholder='How many day you need'
-                                name="day"
-                                {...register('Day', {
-                                    required: true
-                                })}
-                                className="w-full px-5 py-4 bg-linear-to-br from-gray-50 to-gray-100 border-2 border-gray-200 rounded-2xl focus:border-pink-500 focus:ring-4 focus:ring-pink-100 focus:bg-white transition-all outline-none text-lg font-medium "
-                            >
-                            </input>
-                            {errors.Day && <p className="mt-2 text-sm text-red-500 font-medium">Day is required</p>}
+                                {...register("Day", { required: true })}
+                                placeholder="How many days you need"
+                                className="w-full px-5 py-4 bg-linear-to-br from-gray-50 to-gray-100 border-2 border-gray-200 rounded-2xl focus:border-pink-500 focus:ring-4 focus:ring-pink-100 text-lg font-medium"
+                            />
+                            {errors.Day && <p className="text-sm text-red-500">Day is required</p>}
                         </div>
-
-                        <button
-                            type='submit'
-                            className="w-full bg-linear-to-r from-purple-600 via-pink-500 to-indigo-600 text-white font-bold text-lg py-5 px-8 rounded-2xl shadow-xl hover:shadow-2xl hover:shadow-purple-500/50 transform hover:scale-105 active:scale-100 transition-all duration-200 mt-8"
-                        >
-                            Submit Registration ✨
-                        </button>
                     </div>
+
+                    <button
+                        type="submit"
+                        className="w-full bg-linear-to-r from-purple-600 via-pink-500 to-indigo-600 text-white font-bold text-lg py-5 px-8 rounded-2xl shadow-xl hover:scale-105 active:scale-100 transition-all duration-200 mt-8"
+                    >
+                        Submit Registration ✨
+                    </button>
                 </form>
             </div>
         </div>

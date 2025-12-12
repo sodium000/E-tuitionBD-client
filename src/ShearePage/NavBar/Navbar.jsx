@@ -8,12 +8,16 @@ const Navbar = () => {
     const Link = <>
         <li><NavLink to='TutionPost'>Tuitions</NavLink></li>
         <li><NavLink to='Tutors'>Tutors</NavLink></li>
-        {
-            user? <li><NavLink to='AddPost'>Add Tution</NavLink></li> : ""
-        }
         <li><NavLink>About</NavLink></li>
         <li><NavLink>Contact</NavLink></li>
         <li><NavLink>Office Location</NavLink></li>
+        {
+            user? <>
+            <li><NavLink to="/dashboard/PostTable">Dashboard</NavLink></li>
+            </> 
+            : ""
+            
+        }
     </>
     return (
         <div className='sticky top-0 z-50'>
