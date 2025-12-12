@@ -103,8 +103,8 @@ const DashboardLayout = () => {
                                 <SidebarLink to="/dashboard/PostTable" icon={GrUserManager} label="My Tuitions" dataTip="My Tuitions" />
                                 <SidebarLink to="/dashboard/AddPost" icon={MdPostAdd} label="Post New Tuition" dataTip="Post New Tuition" />
                                 <SidebarLink to="/dashboard/applicationTable" icon={GrUserManager} label="Applied Tutors" dataTip="Applied Tutors" />
-                                <SidebarLink to="/dashboard/users-management" icon={MdPayments } label="Payments" dataTip="Payments" />
-                                <SidebarLink to="/dashboard/users-management" icon={FaUsers} label="Profile Settings" dataTip="Profile Settings" />
+                                <SidebarLink to="/dashboard/paymentTable" icon={MdPayments } label="Payments" dataTip="Payments" />
+                                <SidebarLink to="/dashboard/profileSection" icon={FaUsers} label="Profile Settings" dataTip="Profile Settings" />
                             </div>
                         )}
                     </ul>

@@ -14,6 +14,8 @@ import TutorApplicationForm from "../Component/TutorApplicationForm/TutorApplica
 import DashboardLayout from "../Layout/DashboardLayout";
 import PostTable from "../StudentDashbord/EditModal";
 import ApplicationTable from "../StudentDashbord/ApplicationTable";
+import PaymentTable from "../StudentDashbord/PaymentTable";
+import ProfileSection from "../StudentDashbord/ProfileSection";
 
 const router = createBrowserRouter([
     {
@@ -78,6 +80,14 @@ const router = createBrowserRouter([
             {
                 path: "applicationTable",
                 element: <PrivateRoute><ApplicationTable></ApplicationTable></PrivateRoute>,
+            },
+            {
+                path: "paymentTable",
+                element: <PrivateRoute><PaymentTable></PaymentTable></PrivateRoute>,
+            },
+            {
+                path: "profileSection",
+                element: <PrivateRoute><ProfileSection></ProfileSection></PrivateRoute>,
             },
         ]
     }
