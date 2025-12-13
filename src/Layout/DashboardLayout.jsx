@@ -2,15 +2,18 @@
 /* eslint-disable react-hooks/static-components */
 import React from 'react';
 import { NavLink, Outlet, Link } from 'react-router';
-import { FaMotorcycle, FaUsers, FaHome } from 'react-icons/fa';
+import { FaMotorcycle, FaUsers, FaHome, FaAlignJustify, FaMoneyCheck } from 'react-icons/fa';
 import { RiEBikeFill } from 'react-icons/ri';
 import { MdPostAdd } from "react-icons/md";
 import { MdPayments } from "react-icons/md";
 import { GrUserManager } from "react-icons/gr";
+import { BiSolidInstitution } from 'react-icons/bi';
+import { TbFileReport } from "react-icons/tb";
+import { CiSquareCheck } from "react-icons/ci";
 
 
 const DashboardLayout = () => {
-    const role = 'Student';
+    const role = 'admin';
 
     const SidebarLink = ({ to, icon: Icon, label, dataTip }) => (
         <li>
@@ -84,17 +87,17 @@ const DashboardLayout = () => {
                         {role === 'Tutor' && (
                             <div className="space-y-1 pt-4">
                                 <p className="text-xs font-semibold uppercase text-gray-400 dark:text-gray-500 px-3 pb-1">Tutor Tools</p>
-                                <SidebarLink to="/dashboard/approve-riders" icon={FaMotorcycle} label="My Applications" dataTip="My Applications" />
-                                <SidebarLink to="/dashboard/assign-riders" icon={RiEBikeFill} label="Tutor Ongoing Tuitions" dataTip="Tutor Ongoing Tuitions" />
-                                <SidebarLink to="/dashboard/users-management" icon={FaUsers} label="Revenue History" dataTip="Revenue History" />
+                                <SidebarLink to="/dashboard/myapplications" icon={FaAlignJustify} label="My Applications" dataTip="My Applications" />
+                                <SidebarLink to="/dashboard/ongoingtuitions" icon={BiSolidInstitution} label="Tutor Ongoing Tuitions" dataTip="Tutor Ongoing Tuitions" />
+                                <SidebarLink to="/dashboard/revenueHistory" icon={FaMoneyCheck} label="Revenue History" dataTip="Revenue History" />
                             </div>
                         )}
                         {role === 'admin' && (
                             <div className="space-y-1 pt-4">
                                 <p className="text-xs font-semibold uppercase text-gray-400 dark:text-gray-500 px-3 pb-1">Admin Tools</p>
-                                <SidebarLink to="/dashboard/approve-riders" icon={FaMotorcycle} label="Approve Post" dataTip="Approve Post" />
-                                <SidebarLink to="/dashboard/assign-riders" icon={RiEBikeFill} label="Reports & Analytics" dataTip="Reports & Analytics" />
-                                <SidebarLink to="/dashboard/users-management" icon={FaUsers} label="Users Management" dataTip="Users Management" />
+                                <SidebarLink to="/dashboard/TuitionPostReview" icon={CiSquareCheck} label="Approve Post" dataTip="Approve Post" />
+                                <SidebarLink to="/dashboard/AdminFinancialDashboard" icon={TbFileReport} label="Reports & Analytics" dataTip="Reports & Analytics" />
+                                <SidebarLink to="/dashboard/UserManagementDashboard" icon={FaUsers} label="Users Management" dataTip="Users Management" />
                             </div>
                         )}
                         {role === 'Student' && (

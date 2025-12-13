@@ -37,7 +37,6 @@ const TutorApplicationForm = () => {
         // Here you would typically send data to an API
     };
 
-    // --- Dynamic Education Field Handlers ---
 
     const addEducationField = () => {
         const newEducation = [...educationFields, { degree: '', institution: '', year: '' }];
@@ -49,7 +48,6 @@ const TutorApplicationForm = () => {
         setValue('education', newEducation);
     };
 
-    // --- Input Field Helper Component (Optional but clean) ---
     const InputField = ({ icon: Icon, label, name, type = 'text', required = true, min = null, max = null }) => (
         <div className="flex flex-col space-y-1">
             <label htmlFor={name} className="text-sm font-medium text-gray-700 flex items-center">

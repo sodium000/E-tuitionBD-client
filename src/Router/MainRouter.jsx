@@ -16,6 +16,12 @@ import PostTable from "../StudentDashbord/EditModal";
 import ApplicationTable from "../StudentDashbord/ApplicationTable";
 import PaymentTable from "../StudentDashbord/PaymentTable";
 import ProfileSection from "../StudentDashbord/ProfileSection";
+import MyApplications from "../TutorDashbord/MyApplications";
+import OngoingTuitions from "../TutorDashbord/OngoingTuitions";
+import RevenueHistory from "../TutorDashbord/RevenueHistory";
+import UserManagementDashboard from "../AdminDashbord/UserManagementDashboard";
+import TuitionPostReview from "../AdminDashbord/TuitionPostReview";
+import AdminFinancialDashboard from "../AdminDashbord/AdminFinancialDashboard";
 
 const router = createBrowserRouter([
     {
@@ -89,6 +95,31 @@ const router = createBrowserRouter([
                 path: "profileSection",
                 element: <PrivateRoute><ProfileSection></ProfileSection></PrivateRoute>,
             },
+            {
+                path: "myapplications",
+                element: <PrivateRoute><MyApplications></MyApplications></PrivateRoute>,
+            },
+            {
+                path: "ongoingtuitions",
+                element: <PrivateRoute><OngoingTuitions></OngoingTuitions></PrivateRoute>,
+            },
+            {
+                path: "revenueHistory",
+                element: <PrivateRoute><RevenueHistory></RevenueHistory></PrivateRoute>,
+            },
+            {
+                path: "UserManagementDashboard",
+                element: <PrivateRoute><UserManagementDashboard></UserManagementDashboard></PrivateRoute>,
+            },
+            {
+                path: "TuitionPostReview",
+                element: <PrivateRoute><TuitionPostReview></TuitionPostReview></PrivateRoute>,
+            },
+            {
+                path: "AdminFinancialDashboard",
+                element: <PrivateRoute><AdminFinancialDashboard></AdminFinancialDashboard></PrivateRoute>,
+            },
+
         ]
     }
 ]);
