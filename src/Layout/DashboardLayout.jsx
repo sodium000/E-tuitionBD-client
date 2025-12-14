@@ -9,12 +9,12 @@ import { GrUserManager } from "react-icons/gr";
 import { BiSolidInstitution } from 'react-icons/bi';
 import { TbFileReport } from "react-icons/tb";
 import { CiSquareCheck } from "react-icons/ci";
-// import useRole from '../hook/useRole';
+import useRole from '../hook/useRole';
 
 
 const DashboardLayout = () => {
-    // const { role } = useRole();
-    const role = 'Student'
+    const { role } = useRole();
+    // const role = 'Student'
 
     const SidebarLink = ({ to, icon: Icon, label, dataTip }) => (
         <li>
@@ -85,7 +85,7 @@ const DashboardLayout = () => {
 
                     <ul className="menu p-4 w-full space-y-2 text-base">
                         <SidebarLink to="/" icon={FaHome} label="Homepage" dataTip="Homepage" />
-                        {role === 'Tutor' && (
+                        {role === 'tutor' && (
                             <div className="space-y-1 pt-4">
                                 <p className="text-xs font-semibold uppercase text-gray-400 dark:text-gray-500 px-3 pb-1">Tutor Tools</p>
                                 <SidebarLink to="/dashboard/myapplications" icon={FaAlignJustify} label="My Applications" dataTip="My Applications" />
@@ -101,7 +101,7 @@ const DashboardLayout = () => {
                                 <SidebarLink to="/dashboard/UserManagementDashboard" icon={FaUsers} label="Users Management" dataTip="Users Management" />
                             </div>
                         )}
-                        {role === 'Student' && (
+                        {role === 'student' && (
                             <div className="space-y-1 pt-4">
                                 <p className="text-xs font-semibold uppercase text-gray-400 dark:text-gray-500 px-3 pb-1">Student Tools</p>
                                 <SidebarLink to="/dashboard/PostTable" icon={GrUserManager} label="My Tuitions" dataTip="My Tuitions" />

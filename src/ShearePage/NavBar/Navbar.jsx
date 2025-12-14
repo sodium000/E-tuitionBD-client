@@ -3,10 +3,12 @@ import { NavLink } from 'react-router';
 import useAuth from '../../hook/useAuth';
 import Loading from '../../Component/Loading/Loading';
 import useAxiosSecure from '../../hook/useAxiosSecure';
+import useRole from '../../hook/useRole';
 
 const Navbar = () => {
     const { user, loding, GoogleSignOut } = useAuth();
     const axiosSecure = useAxiosSecure();
+    const { role, roleLoading } = useRole();
 
 
     const logout = () => {
@@ -20,18 +22,32 @@ const Navbar = () => {
 
     }
     const Link = <>
-        <li><NavLink to='TutionPost'>Tuitions</NavLink></li>
         <li><NavLink to='Tutors'>Tutors</NavLink></li>
         <li><NavLink>About</NavLink></li>
         <li><NavLink>Contact</NavLink></li>
         <li><NavLink>Office Location</NavLink></li>
-        {
-            user ? <>
-                <li><NavLink to="/dashboard/PostTable">Dashboard</NavLink></li>
-            </>
-                : ""
 
+        {
+            loding ? <Loading></Loading>
+                :
+                <>
+                    {!roleLoading && user && role === 'tutor' && (
+                        <>
+                            <li><NavLink to='TutionPost'>Tuitions</NavLink></li>
+                            <li><NavLink to="/dashboard/myapplications">Dashboard(Tutor)</NavLink></li>
+                        </>
+                    )}
+                    {!roleLoading && user && role === 'admin' && (
+                        <li><NavLink to="/dashboard/TuitionPostReview">Dashboard(Admin)</NavLink></li>
+                    )}
+                    {!roleLoading && user && role === 'student' && (
+                        <>
+                            <li><NavLink to="/dashboard/PostTable">Dashboard(Student)</NavLink></li>
+                        </>
+                    )}
+                </>
         }
+
     </>
     return (
         <div className='sticky top-0 z-50'>
