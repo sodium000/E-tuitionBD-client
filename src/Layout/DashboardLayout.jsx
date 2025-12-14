@@ -3,17 +3,17 @@
 import React from 'react';
 import { NavLink, Outlet, Link } from 'react-router';
 import { FaMotorcycle, FaUsers, FaHome, FaAlignJustify, FaMoneyCheck } from 'react-icons/fa';
-import { RiEBikeFill } from 'react-icons/ri';
 import { MdPostAdd } from "react-icons/md";
 import { MdPayments } from "react-icons/md";
 import { GrUserManager } from "react-icons/gr";
 import { BiSolidInstitution } from 'react-icons/bi';
 import { TbFileReport } from "react-icons/tb";
 import { CiSquareCheck } from "react-icons/ci";
+import useRole from '../hook/useRole';
 
 
 const DashboardLayout = () => {
-    const role = 'admin';
+    const { role } = useRole();
 
     const SidebarLink = ({ to, icon: Icon, label, dataTip }) => (
         <li>

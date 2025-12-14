@@ -48,7 +48,7 @@ const TutorDetails = () => {
         placeOfLearning: "Online (Zoom/Google Meet) or Tutor's Residence",
         daysPerWeek: 4,
         expectedMinimumSalary: "$50/hour - $75/hour",
-        preferredAreaToTeach: "Physics, Advanced Mathematics, Test Preparation",
+        preferredAreaToTeach: "dhanmondi,tejgon",
     };
     return (
         <div>

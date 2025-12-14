@@ -1,7 +1,8 @@
 import React from 'react';
 import { MdLocationPin } from 'react-icons/md';
+import { Link } from 'react-router';
 
-const Tutors = ({ name = "Tonmoy", college="dhaka", subject = "bangla", location = "dhaka", profileImageUrl, isOnline = true }) => {
+const Tutors = ({ name = "Tonmoy", college = "dhaka", subject = "bangla", location = "dhaka", profileImageUrl, isOnline = true }) => {
     return (
         <>
             <div className="w-full mt-10 max-w-xs  sm:max-w-sm bg-card-light dark:bg-card-dark rounded-2xl shadow-2xl dark:shadow-slate-900/50 border border-slate-200 dark:border-slate-800 overflow-hidden relative group transform transition-all duration-500 hover:scale-[1.02] hover:shadow-3xl dark:hover:shadow-primary/40">
@@ -42,12 +43,13 @@ const Tutors = ({ name = "Tonmoy", college="dhaka", subject = "bangla", location
                 {/* View Details Button Section */}
                 <div className="absolute bottom-0 left-0 w-full">
                     <div className="relative w-full h-16 overflow-hidden">
-                        <button
-                            className="w-full h-full bg-purple-300 font-bold text-xl flex items-center justify-center transition-all duration-300 hover:tracking-wide active:opacity-100 relative z-10"
-                            onClick={() => console.log(`Viewing details for ${name}`)}
-                        >
-                            View Details
-                        </button>
+                        <Link to="/TutorDetails/:id/tutor">
+                            <button
+                                className="w-full h-full bg-purple-300 font-bold text-xl flex items-center justify-center transition-all duration-300 hover:tracking-wide active:opacity-100 relative z-10"
+                            >
+                                View Details
+                            </button>
+                        </Link>
                         <div className="absolute top-0 left-0 h-full w-16  opacity-10 transform skew-x-[-20deg] -translate-x-8 pointer-events-none z-20"></div>
 
                         <div className="absolute top-0 left-0 h-full w-1/3 bg-linear-to-r from-black/20 to-transparent pointer-events-none z-10"></div>
