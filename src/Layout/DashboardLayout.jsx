@@ -9,11 +9,12 @@ import { GrUserManager } from "react-icons/gr";
 import { BiSolidInstitution } from 'react-icons/bi';
 import { TbFileReport } from "react-icons/tb";
 import { CiSquareCheck } from "react-icons/ci";
-import useRole from '../hook/useRole';
+// import useRole from '../hook/useRole';
 
 
 const DashboardLayout = () => {
-    const { role } = useRole();
+    // const { role } = useRole();
+    const role = 'Student'
 
     const SidebarLink = ({ to, icon: Icon, label, dataTip }) => (
         <li>

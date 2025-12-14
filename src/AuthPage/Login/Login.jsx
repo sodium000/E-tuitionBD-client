@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router';
 import SocalLogin from '../SocalLogin/SocalLogin';
+// import { useForm } from 'react-hook-form';
 
 const Login = () => {
     const [userType, setUserType] = useState('tutor');
+    // const { register, handleSubmit, control, formState: { errors } } = useForm();
     return (
         <div className='grid grid-cols-2 mt-20'>
             <div className=' justify-center items-center flex'>

@@ -2,9 +2,23 @@ import React from 'react';
 import { NavLink } from 'react-router';
 import useAuth from '../../hook/useAuth';
 import Loading from '../../Component/Loading/Loading';
+import useAxiosSecure from '../../hook/useAxiosSecure';
 
 const Navbar = () => {
-    const { user, loding, GoogleSignOut } = useAuth()
+    const { user, loding, GoogleSignOut } = useAuth();
+    const axiosSecure = useAxiosSecure();
+
+
+    const logout = () => {
+        GoogleSignOut();
+        axiosSecure.post('/logout')
+            .then(res => {
+                if (res) {
+                    console.log('cookies deleted', res);
+                }
+            })
+
+    }
     const Link = <>
         <li><NavLink to='TutionPost'>Tuitions</NavLink></li>
         <li><NavLink to='Tutors'>Tutors</NavLink></li>
@@ -12,11 +26,11 @@ const Navbar = () => {
         <li><NavLink>Contact</NavLink></li>
         <li><NavLink>Office Location</NavLink></li>
         {
-            user? <>
-            <li><NavLink to="/dashboard/PostTable">Dashboard</NavLink></li>
-            </> 
-            : ""
-            
+            user ? <>
+                <li><NavLink to="/dashboard/PostTable">Dashboard</NavLink></li>
+            </>
+                : ""
+
         }
     </>
     return (
@@ -48,7 +62,7 @@ const Navbar = () => {
                     {
                         loding ? <><Loading></Loading></>
                             :
-                            user ? <><NavLink onClick={() => GoogleSignOut()} className="btn bg-purple-300">Log Out</NavLink></>
+                            user ? <><NavLink onClick={() => logout()} className="btn bg-purple-300">Log Out</NavLink></>
                                 :
                                 <NavLink to='/login' className="btn bg-purple-300">Login</NavLink>
                     }

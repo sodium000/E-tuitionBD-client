@@ -12,13 +12,13 @@ const SocalLogin = () => {
         GoogleSignIN()
             .then((result) => {
                 const userInfo = {
-                    email: result.user.email,
+                    Email: result.user.email,
                     displayName: result.user.displayName,
                     photoURL: result.user.photoURL,
                     role: "student"
                 }
                 console.log("tonmoy")
-                axiosSecure.post('/users', userInfo)
+                axiosSecure.post('/Googleusers', userInfo)
                     .then(res => {
                         console.log('user data has been stored', res.data)
                         navigate('/');

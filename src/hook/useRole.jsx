@@ -13,7 +13,7 @@ const useRole = () => {
         queryFn: async () => {
             const res = await axiosSecure.get(`/users/${user.email}/role`);
             
-            return res.data?.role || 'user';
+            return res.data?.role || 'Student';
         }
     })
 
