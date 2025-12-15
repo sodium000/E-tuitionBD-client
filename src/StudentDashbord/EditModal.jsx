@@ -138,14 +138,14 @@ const PostTable = () => {
     const { data: posts = [], isLoading, isFetching } = useQuery({
         queryKey: ['posts', user?.email],
         queryFn: async () => {
-            const res = await axiosSecure.get(`/post${user?.email ? `?email=${encodeURIComponent(user.email)}` : ''}`);
+            const res = await axiosSecure.get(`/post/${user.email}/all`);
             return res.data || [];
         },
         enabled: !!axiosSecure,
     });
 
     const updateMutation = useMutation({
-        mutationFn: ({ id, payload }) => axiosSecure.patch(`/post/${id}`, payload),
+        mutationFn: ({ id, payload }) => axiosSecure.patch(`/post/${id}/postdata`, payload),
         onSuccess: () => {
             queryClient.invalidateQueries(['posts', user?.email]);
             setEditingPost(null);
@@ -153,7 +153,7 @@ const PostTable = () => {
     });
 
     const deleteMutation = useMutation({
-        mutationFn: (id) => axiosSecure.delete(`/post/${id}`),
+        mutationFn: (id) => axiosSecure.delete(`/post/${id}/deleted`),
         onSuccess: () => {
             queryClient.invalidateQueries(['posts', user?.email]);
         },
@@ -202,7 +202,7 @@ const PostTable = () => {
                         {posts.map((post) => (
                             <tr key={post._id} className="hover:bg-gray-50 transition duration-150">
                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                    #{post?._id?.slice(-6).toUpperCase() || 'N/A'}
+                                    {post?._id?.slice(-6).toUpperCase() || 'N/A'}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                     {formatDate(post?.createdAt)}

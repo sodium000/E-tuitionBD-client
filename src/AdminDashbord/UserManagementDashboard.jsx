@@ -1,91 +1,247 @@
 import React, { useState } from 'react';
-// Import necessary icons from react-icons
-// You might need to install this: npm install react-icons
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useForm } from 'react-hook-form';
 import {
-    MdEdit,
-    MdDelete,
     MdPerson,
-    MdAdminPanelSettings
+    MdAdminPanelSettings,
+    MdVisibility,
+    MdClose
 } from 'react-icons/md';
+import useAxiosSecure from '../hook/useAxiosSecure';
 
-// --- 1. Mock Data and Constants ---
-const initialUsers = [
-    {
-        id: 1,
-        name: 'Alice Johnson',
-        email: 'alice.j@platform.com',
-        role: 'Admin', // 'Admin', 'Tutor', 'Student'
-        status: 'Active',
-    },
-    {
-        id: 2,
-        name: 'Bob Smith',
-        email: 'bob.s@platform.com',
-        role: 'Tutor',
-        status: 'Active',
-    },
-    {
-        id: 3,
-        name: 'Charlie Brown',
-        email: 'charlie.b@platform.com',
-        role: 'Student',
-        status: 'Active',
-    },
-    {
-        id: 4,
-        name: 'Diana Prince',
-        email: 'diana.p@platform.com',
-        role: 'Student',
-        status: 'Suspended',
-    },
-];
+// --- Constants ---
+const ROLES = ['admin', 'tutor', 'student'];
 
-const ROLES = ['Admin', 'Tutor', 'Student'];
+const UserDetailsModal = ({ user, onClose, onSave, isSaving }) => {
+    const { register, handleSubmit, formState: { errors }, reset } = useForm({
+        defaultValues: {
+            displayName: user?.displayName || '',
+            Email: user?.Email || '',
+            Phone: user?.Phone || '',
+            PreferredArea: user?.PreferredArea || '',
+            TuitionRegion: user?.TuitionRegion || '',
+            selectDistrict: user?.selectDistrict || '',
+            role: user?.role || 'student',
+        },
+    });
 
-// --- 2. Main Component ---
-const UserManagementDashboard = () => {
-    const [users, setUsers] = useState(initialUsers);
-
-    // Placeholder for the actual API call to update user data
-    const handleUpdate = (id) => {
-        alert(`Initiating Edit for User ID: ${id}`);
-        // In a real app, this would open a modal/form to edit name/email/status
-    };
-
-    // Placeholder for the actual API call to delete a user
-    const handleDelete = (id) => {
-        if (window.confirm(`Are you sure you want to delete User ID: ${id}?`)) {
-            // API call here. If successful:
-            setUsers(users.filter(user => user.id !== id));
-            alert(`User ID: ${id} deleted.`);
+    React.useEffect(() => {
+        if (user) {
+            reset({
+                displayName: user?.displayName || '',
+                Email: user?.Email || '',
+                Phone: user?.Phone || '',
+                PreferredArea: user?.PreferredArea || '',
+                TuitionRegion: user?.TuitionRegion || '',
+                selectDistrict: user?.selectDistrict || '',
+                role: user?.role || 'student',
+            });
         }
+    }, [user, reset]);
+
+    const onSubmit = (data) => {
+        onSave(user?._id, data);
     };
 
-    // Logic to change the user's role
-    const handleRoleChange = (userId, newRole) => {
-        if (newRole === 'Admin' && !window.confirm(`Are you sure you want to promote this user to Admin?`)) {
+    if (!user) return null;
+
+    return (
+        <div className="fixed inset-0 bg-black/40 flex justify-center items-center z-50">
+            <div className="bg-white p-6 rounded-lg shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto transform transition-all duration-300">
+                <div className="flex justify-between items-center mb-4 border-b pb-2">
+                    <h3 className="text-xl font-semibold text-gray-800">
+                        User Details & Edit
+                    </h3>
+                    <button
+                        onClick={onClose}
+                        className="text-gray-500 hover:text-gray-800 transition duration-150"
+                    >
+                        <MdClose className="text-2xl" />
+                    </button>
+                </div>
+
+                <div className="mb-6 p-4 bg-gray-50 rounded-lg">
+                    <div className="flex items-center gap-4 mb-4">
+                        {user.photoURL && (
+                            <img 
+                                src={user.photoURL} 
+                                alt={user.displayName}
+                                className="w-20 h-20 rounded-full object-cover"
+                            />
+                        )}
+                        <div>
+                            <h4 className="text-lg font-semibold">{user.displayName}</h4>
+                            <p className="text-sm text-gray-600">{user.Email}</p>
+                        </div>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4 text-sm">
+                        <div>
+                            <label className="block text-xs font-medium text-gray-500">Created At</label>
+                            <p className="text-gray-900">{user.createdAt || 'N/A'}</p>
+                        </div>
+                        <div>
+                            <label className="block text-xs font-medium text-gray-500">Photo URL</label>
+                            <p className="text-gray-900 truncate">{user.photoURL || 'N/A'}</p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                    <div className="grid grid-cols-2 gap-4">
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700">Display Name</label>
+                            <input 
+                                {...register("displayName", { required: true })} 
+                                className="mt-1 block w-full border border-gray-300 rounded-md p-2" 
+                            />
+                            {errors.displayName && <p className="text-red-500 text-xs mt-1">Name is required.</p>}
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700">Email</label>
+                            <input 
+                                {...register("Email", { required: true })} 
+                                className="mt-1 block w-full border border-gray-300 rounded-md p-2 bg-gray-100" 
+                                disabled
+                            />
+                            <p className="text-xs text-gray-500 mt-1">Email cannot be changed</p>
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4">
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700">Phone</label>
+                            <input 
+                                {...register("Phone")} 
+                                className="mt-1 block w-full border border-gray-300 rounded-md p-2" 
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700">Role</label>
+                            <select 
+                                {...register("role", { required: true })} 
+                                className="mt-1 block w-full border border-gray-300 rounded-md p-2"
+                            >
+                                {ROLES.map(role => (
+                                    <option key={role} value={role}>
+                                        {role.charAt(0).toUpperCase() + role.slice(1)}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-3 gap-4">
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700">Preferred Area</label>
+                            <input 
+                                {...register("PreferredArea")} 
+                                className="mt-1 block w-full border border-gray-300 rounded-md p-2" 
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700">Tuition Region</label>
+                            <input 
+                                {...register("TuitionRegion")} 
+                                className="mt-1 block w-full border border-gray-300 rounded-md p-2" 
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700">District</label>
+                            <input 
+                                {...register("selectDistrict")} 
+                                className="mt-1 block w-full border border-gray-300 rounded-md p-2" 
+                            />
+                        </div>
+                    </div>
+
+                    <button
+                        type="submit"
+                        disabled={isSaving}
+                        className="w-full bg-indigo-600 text-white p-3 rounded-md font-semibold hover:bg-indigo-700 transition duration-150 mt-6 disabled:opacity-60"
+                    >
+                        {isSaving ? 'Saving...' : 'Save Changes'}
+                    </button>
+                </form>
+            </div>
+        </div>
+    );
+};
+
+const UserManagementDashboard = () => {
+    const [selectedUser, setSelectedUser] = useState(null);
+    const axiosSecure = useAxiosSecure();
+    const queryClient = useQueryClient();
+
+    // Fetch all users
+    const { data: users = [], isLoading } = useQuery({
+        queryKey: ['allusers'],
+        queryFn: async () => {
+            const res = await axiosSecure.get('/alluser');
+            return res.data || [];
+        },
+    });
+
+    // Update user mutation
+    const updateMutation = useMutation({
+        mutationFn: async ({ id, data }) => {
+            const res = await axiosSecure.patch(`/users/${id}`, data);
+            return res.data;
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries(['allusers']);
+            setSelectedUser(null);
+        },
+    });
+
+    // Handle view/edit - open modal
+    const handleViewEdit = (user) => {
+        setSelectedUser(user);
+    };
+
+    const handleSave = (id, data) => {
+        updateMutation.mutate({ id, data });
+    };
+
+    const handleRoleChange = async (userId, newRole) => {
+        if (newRole === 'admin' && !window.confirm(`Are you sure you want to promote this user to Admin?`)) {
             return;
         }
 
-        // API call here to update role. If successful:
-        setUsers(users.map(user =>
-            user.id === userId ? { ...user, role: newRole } : user
-        ));
+        try {
+            await axiosSecure.patch(`/users/${userId}`, { role: newRole });
+            queryClient.invalidateQueries(['allusers']);
+        } catch (error) {
+            console.error('Error updating role:', error);
+            alert('Failed to update role');
+        }
     };
 
-    // Helper to determine role styling
+
     const getRoleStyle = (role) => {
-        switch (role) {
-            case 'Admin':
+        switch (role?.toLowerCase()) {
+            case 'admin':
                 return 'bg-red-500 text-white';
-            case 'Tutor':
+            case 'tutor':
                 return 'bg-indigo-100 text-indigo-700';
-            case 'Student':
+            case 'student':
                 return 'bg-green-100 text-green-700';
             default:
                 return 'bg-gray-200 text-gray-700';
         }
     };
+
+    if (isLoading) {
+        return (
+            <div className="p-6 bg-gray-50 min-h-screen flex items-center justify-center">
+                <div className="text-gray-600">Loading users...</div>
+            </div>
+        );
+    }
 
 
     return (
@@ -94,7 +250,7 @@ const UserManagementDashboard = () => {
                 <MdAdminPanelSettings className="text-red-600" /> Admin User Management
             </h2>
             <p className="text-gray-600 mb-8">
-                Admins can update user information, delete user accounts, or change user roles.
+                Admins can update user information and change user roles.
             </p>
 
             <div className="overflow-x-auto shadow-2xl rounded-lg border border-gray-200">
@@ -120,64 +276,61 @@ const UserManagementDashboard = () => {
                     </thead>
                     <tbody className="divide-y divide-gray-100">
                         {users.map((user) => (
-                            <tr key={user.id} className="hover:bg-indigo-50 transition duration-150">
+                            <tr key={user._id} className="hover:bg-indigo-50 transition duration-150">
 
                                 {/* Name */}
-                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 flex items-center gap-2">
-                                    <MdPerson className="text-xl text-gray-500" />
-                                    {user.name}
+                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                    <div className="flex items-center gap-2">
+                                        {user.photoURL ? (
+                                            <img 
+                                                src={user.photoURL} 
+                                                alt={user.displayName}
+                                                className="w-8 h-8 rounded-full object-cover"
+                                            />
+                                        ) : (
+                                            <MdPerson className="text-xl text-gray-500" />
+                                        )}
+                                        <span>{user.displayName || 'N/A'}</span>
+                                    </div>
                                 </td>
 
                                 {/* Email */}
                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                                    {user.email}
+                                    {user.Email || 'N/A'}
                                 </td>
 
                                 {/* Role Dropdown */}
                                 <td className="px-6 py-4 whitespace-nowrap text-sm">
                                     <select
-                                        value={user.role}
-                                        onChange={(e) => handleRoleChange(user.id, e.target.value)}
+                                        value={user.role || 'student'}
+                                        onChange={(e) => handleRoleChange(user._id, e.target.value)}
                                         className={`p-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 ${getRoleStyle(user.role)} bg-opacity-70`}
                                     >
                                         {ROLES.map(role => (
-                                            <option key={role} value={role}>{role}</option>
+                                            <option key={role} value={role}>
+                                                {role.charAt(0).toUpperCase() + role.slice(1)}
+                                            </option>
                                         ))}
                                     </select>
                                 </td>
 
-                                {/* Status */}
+                                {/* Status - showing active for now */}
                                 <td className="px-6 py-4 whitespace-nowrap text-sm">
-                                    <span
-                                        className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${user.status === 'Active'
-                                                ? 'bg-green-100 text-green-800'
-                                                : 'bg-red-100 text-red-800'
-                                            }`}
-                                    >
-                                        {user.status}
+                                    <span className="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                        Active
                                     </span>
                                 </td>
 
                                 {/* Actions */}
                                 <td className="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
                                     <div className="flex justify-center space-x-3">
-
-                                        {/* Edit Button */}
+                                        {/* View/Edit Button */}
                                         <button
-                                            onClick={() => handleUpdate(user.id)}
+                                            onClick={() => handleViewEdit(user)}
                                             className="text-indigo-600 hover:text-indigo-900 transition duration-150 p-2 rounded-full hover:bg-indigo-100"
-                                            title="Edit User Details"
+                                            title="View/Edit User Details"
                                         >
-                                            <MdEdit className="text-xl" />
-                                        </button>
-
-                                        {/* Delete Button */}
-                                        <button
-                                            onClick={() => handleDelete(user.id)}
-                                            className="text-red-600 hover:text-red-900 transition duration-150 p-2 rounded-full hover:bg-red-100"
-                                            title="Delete Account"
-                                        >
-                                            <MdDelete className="text-xl" />
+                                            <MdVisibility className="text-xl" />
                                         </button>
                                     </div>
                                 </td>
@@ -191,6 +344,16 @@ const UserManagementDashboard = () => {
                     </div>
                 )}
             </div>
+
+            {/* Modal for user details and edit */}
+            {selectedUser && (
+                <UserDetailsModal
+                    user={selectedUser}
+                    onClose={() => setSelectedUser(null)}
+                    onSave={handleSave}
+                    isSaving={updateMutation.isPending}
+                />
+            )}
         </div>
     );
 };
