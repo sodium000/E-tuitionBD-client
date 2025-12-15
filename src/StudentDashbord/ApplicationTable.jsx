@@ -1,46 +1,39 @@
-import React, { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import React from 'react';
 import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
-
-const initialApplications = [
-  {
-    id: 'A001',
-    name: 'Aisha Rahman',
-    photo: 'https://i.pravatar.cc/100?img=1',
-    qualifications: 'BSc in Mathematics',
-    experience: '3 Years',
-    salary: 'BDT 10,000 / Month',
-    status: 'Pending',
-  },
-  {
-    id: 'A002',
-    name: 'Karim Ahmed',
-    photo: 'https://i.pravatar.cc/100?img=2',
-    qualifications: 'BA in English',
-    experience: '2 Years',
-    salary: 'BDT 8,500 / Month',
-    status: 'Pending',
-  },
-  {
-    id: 'A003',
-    name: 'Nadia Khan',
-    photo: 'https://i.pravatar.cc/100?img=3',
-    qualifications: 'MSc in Physics',
-    experience: '5 Years',
-    salary: 'BDT 12,000 / Month',
-    status: 'Accepted',
-  },
-];
+import useAxiosSecure from '../hook/useAxiosSecure';
+import useAuth from '../hook/useAuth';
 
 const ApplicationTable = () => {
-  const [applications, setApplications] = useState(initialApplications);
+  const axiosSecure = useAxiosSecure();
+  const { user } = useAuth();
 
-  const updateStatus = (id, status) => {
-    setApplications(apps =>
-      apps.map(app =>
-        app.id === id ? { ...app, status } : app
+
+  const { data: posts = [] } = useQuery({
+    queryKey: ['posts', user?.email],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/post/${user?.email}/getpost`);
+      return res.data || [];
+    },
+  });
+
+  const { data: applications = [] } = useQuery({
+    queryKey: ['applications', posts.map(p => p._id)],
+    enabled: posts.length > 0,
+    queryFn: async () => {
+      const responses = await Promise.all(
+        posts.map(post => axiosSecure.get(`/post/${post._id}/apply`))
       )
-    );
+      const all = responses.flatMap(res => res.data || []);
+      return all;
+    },
+  });
+
+  const updateStatus = async (id, status) => {
+   const res = await axiosSecure.patch(`/post/${id}/update`,{ status });
+   console.log(res);
   };
+
 
   return (
     <div className="p-8 bg-gray-50 min-h-screen">
@@ -62,34 +55,29 @@ const ApplicationTable = () => {
 
           <tbody className="divide-y">
             {applications.map(app => (
-              <tr key={app.id} className="hover:bg-gray-50">
+              <tr key={app._id} className="hover:bg-gray-50">
                 {/* Tutor Info */}
                 <td className="px-6 py-4 flex items-center gap-3">
-                  <img
-                    src={app.photo}
-                    alt={app.name}
-                    className="w-10 h-10 rounded-full object-cover"
-                  />
-                  <span className="font-medium">{app.name}</span>
+                  <span className="font-medium">{app.tutorName}</span>
                 </td>
 
                 <td className="px-6 py-4">{app.qualifications}</td>
                 <td className="px-6 py-4">{app.experience}</td>
-                <td className="px-6 py-4">{app.salary}</td>
+                <td className="px-6 py-4">{app.expectedSalary}</td>
 
                 {/* Actions */}
                 <td className="px-6 py-4 space-x-2">
                   {app.status === 'Pending' && (
                     <>
                       <button
-                        onClick={() => updateStatus(app.id, 'Accepted')}
+                        onClick={() => updateStatus(app._id, 'Accepted')}
                         className="inline-flex items-center px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700"
                       >
                         <FaCheckCircle className="mr-1" /> Accept
                       </button>
 
                       <button
-                        onClick={() => updateStatus(app.id, 'Rejected')}
+                        onClick={() => updateStatus(app._id, 'Rejected')}
                         className="inline-flex items-center px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700"
                       >
                         <FaTimesCircle className="mr-1" /> Reject
@@ -98,7 +86,7 @@ const ApplicationTable = () => {
                   )}
 
                   {app.status !== 'Pending' && (
-                    <span className="text-gray-500 text-sm">
+                    <span className="text-gray-500  text-sm">
                       {app.status}
                     </span>
                   )}

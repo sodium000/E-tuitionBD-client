@@ -248,7 +248,6 @@ import React, { useState, useEffect } from 'react';
 
 
         const handleParcelDelete = id => {
-            console.log(id);
 
             Swal.fire({
                 title: "Are you sure?",
