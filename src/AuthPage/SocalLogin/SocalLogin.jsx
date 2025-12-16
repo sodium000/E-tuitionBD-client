@@ -17,10 +17,9 @@ const SocalLogin = () => {
                     photoURL: result.user.photoURL,
                     role: "student"
                 }
-                console.log("tonmoy")
                 axiosSecure.post('/Googleusers', userInfo)
                     .then(res => {
-                        console.log('user data has been stored', res.data)
+                        console.log('user data ', res.data)
                         navigate('/');
                     })
             }).catch((error) => {

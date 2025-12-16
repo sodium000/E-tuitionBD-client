@@ -198,7 +198,6 @@ const UserManagementDashboard = () => {
         },
     });
 
-    // Handle view/edit - open modal
     const handleViewEdit = (user) => {
         setSelectedUser(user);
     };
@@ -213,7 +212,8 @@ const UserManagementDashboard = () => {
         }
 
         try {
-            await axiosSecure.patch(`/users/${userId}`, { role: newRole });
+            console.log(userId)
+            await axiosSecure.patch(`/users/${userId}/role`, { role: newRole });
             queryClient.invalidateQueries(['allusers']);
         } catch (error) {
             console.error('Error updating role:', error);

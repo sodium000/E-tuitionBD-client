@@ -113,7 +113,6 @@ const TutionPost = () => {
                 className="bg-background-light font-display flex items-center justify-center transition-colors duration-300"
               >
                 <div className="w-full max-w-md bg-surface-light rounded-xl shadow-lg border border-gray-200 overflow-hidden relative">
-                  {/* === Card Header === */}
                   <div className="p-5 pb-2">
                     <div className="flex justify-between items-start mb-3">
                       <div className="flex items-center text-text-secondary-light text-sm font-medium">

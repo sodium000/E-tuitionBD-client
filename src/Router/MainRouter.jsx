@@ -22,6 +22,8 @@ import RevenueHistory from "../TutorDashbord/RevenueHistory";
 import UserManagementDashboard from "../AdminDashbord/UserManagementDashboard";
 import TuitionPostReview from "../AdminDashbord/TuitionPostReview";
 import AdminFinancialDashboard from "../AdminDashbord/AdminFinancialDashboard";
+import AdminRoute from './AdminRoute'
+import updateProfile from "../Component/UpdateTutorProfile/updateProfile";
 
 const router = createBrowserRouter([
     {
@@ -43,6 +45,10 @@ const router = createBrowserRouter([
             {
                 path: "viewdetails/:id",
                 Component: ViewDetails,
+            },
+            {
+                path: "updateProfile",
+                Component: updateProfile,
             },
             {
                 path: "TutorDetails/:id/tutor",
@@ -109,7 +115,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "UserManagementDashboard",
-                element: <PrivateRoute><UserManagementDashboard></UserManagementDashboard></PrivateRoute>,
+                element: <AdminRoute><UserManagementDashboard></UserManagementDashboard></AdminRoute>,
             },
             {
                 path: "TuitionPostReview",

@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router';
+import { Link, NavLink } from 'react-router';
 import useAuth from '../../hook/useAuth';
 import Loading from '../../Component/Loading/Loading';
 import useAxiosSecure from '../../hook/useAxiosSecure';
@@ -9,6 +9,7 @@ const Navbar = () => {
     const { user, loding, GoogleSignOut } = useAuth();
     const axiosSecure = useAxiosSecure();
     const { role, roleLoading } = useRole();
+    console.log(role)
 
 
     const logout = () => {
@@ -21,7 +22,7 @@ const Navbar = () => {
             })
 
     }
-    const Link = <>
+    const link = <>
         <li><NavLink to='Tutors'>Tutors</NavLink></li>
         <li><NavLink>About</NavLink></li>
         <li><NavLink>Contact</NavLink></li>
@@ -61,16 +62,16 @@ const Navbar = () => {
                             tabIndex="-1"
                             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
                             {
-                                Link
+                                link
                             }
                         </ul>
                     </div>
-                    <a className="btn btn-ghost text-xl">eTuitionBd</a>
+                    <Link to={'/'} className="btn btn-ghost text-xl">eTuitionBd</Link>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">
                         {
-                            Link
+                            link
                         }
                     </ul>
                 </div>

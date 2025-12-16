@@ -9,12 +9,11 @@ import { GrUserManager } from "react-icons/gr";
 import { BiSolidInstitution } from 'react-icons/bi';
 import { TbFileReport } from "react-icons/tb";
 import { CiSquareCheck } from "react-icons/ci";
-// import useRole from '../hook/useRole';
+import useRole from '../hook/useRole';
 
 
 const DashboardLayout = () => {
-    // const { role } = useRole();
-    const role = 'admin'
+    const { role } = useRole();
 
     const SidebarLink = ({ to, icon: Icon, label, dataTip }) => (
         <li>
@@ -41,13 +40,11 @@ const DashboardLayout = () => {
     );
 
     return (
-        // Using DaisyUI's drawer structure
         <div className="drawer lg:drawer-open min-h-screen bg-gray-50 dark:bg-gray-900">
             <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
 
             <div className="drawer-content flex flex-col">
                 <nav className="flex items-center justify-between w-full h-16 bg-white shadow-lg dark:bg-gray-800 p-4">
-                    {/* Sidebar Toggle Button */}
                     <label htmlFor="my-drawer-4" aria-label="open sidebar" className="btn btn-square btn-ghost lg:hidden text-gray-700 dark:text-gray-300">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
                     </label>

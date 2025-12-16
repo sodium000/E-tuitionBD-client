@@ -189,7 +189,6 @@ const Login = () => {
                                         </>
                                 }
                             </form>
-                            {/* Sign In Link Section */}
                             <div className="mt-6">
                                 <div className="relative">
                                     <div className="absolute inset-0 flex items-center">
