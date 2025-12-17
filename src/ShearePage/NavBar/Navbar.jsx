@@ -9,7 +9,6 @@ const Navbar = () => {
     const { user, loding, GoogleSignOut } = useAuth();
     const axiosSecure = useAxiosSecure();
     const { role, roleLoading } = useRole();
-    console.log(role)
 
 
     const logout = () => {
@@ -23,7 +22,6 @@ const Navbar = () => {
 
     }
     const link = <>
-        <li><NavLink to='Tutors'>Tutors</NavLink></li>
         <li><NavLink>About</NavLink></li>
         <li><NavLink>Contact</NavLink></li>
         <li><NavLink>Office Location</NavLink></li>
@@ -35,6 +33,7 @@ const Navbar = () => {
                     {!roleLoading && user && role === 'tutor' && (
                         <>
                             <li><NavLink to='TutionPost'>Tuitions</NavLink></li>
+                            <li><NavLink to='updateProfile'>Update Profile</NavLink></li>
                             <li><NavLink to="/dashboard/myapplications">Dashboard(Tutor)</NavLink></li>
                         </>
                     )}
@@ -44,6 +43,7 @@ const Navbar = () => {
                     {!roleLoading && user && role === 'student' && (
                         <>
                             <li><NavLink to="/dashboard/PostTable">Dashboard(Student)</NavLink></li>
+                            <li><NavLink to='Tutors'>Tutors</NavLink></li>
                         </>
                     )}
                 </>

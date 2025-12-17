@@ -23,7 +23,9 @@ import UserManagementDashboard from "../AdminDashbord/UserManagementDashboard";
 import TuitionPostReview from "../AdminDashbord/TuitionPostReview";
 import AdminFinancialDashboard from "../AdminDashbord/AdminFinancialDashboard";
 import AdminRoute from './AdminRoute'
-import updateProfile from "../Component/UpdateTutorProfile/updateProfile";
+import PaymentSuccess from "../Component/Payment/PaymentSuccess";
+import PaymentCancelled from "../Component/Payment/PaymentCancelled";
+// import Payment from "../Component/Payment/Payment";
 
 const router = createBrowserRouter([
     {
@@ -47,16 +49,25 @@ const router = createBrowserRouter([
                 Component: ViewDetails,
             },
             {
-                path: "updateProfile",
-                Component: updateProfile,
-            },
-            {
                 path: "TutorDetails/:id/tutor",
                 Component: TutorDetails,
             },
             {
                 path: "Tutorapply",
                 Component: TutorApplicationForm,
+            },
+            // {
+            //     path: 'payment/:postid',
+            //     Component: Payment
+            // },
+
+            {
+                path: 'payment-success',
+                Component: PaymentSuccess
+            },
+            {
+                path: 'payment-cancelled',
+                Component: PaymentCancelled
             }
         ]
     },
@@ -79,7 +90,7 @@ const router = createBrowserRouter([
 
         path: 'dashboard',
         element: <PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
-        children : [
+        children: [
             {
                 path: "AddPost",
                 element: <PrivateRoute><AddPost></AddPost></PrivateRoute>,

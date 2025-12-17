@@ -27,8 +27,6 @@ const AddPost = () => {
 
 
     const handelTution = (data) => {
-        console.log(data)
-        console.log(typeof (data))
         axiosSecure.post('/post', data)
             .then(res => {
                 if (res.data.insertedId) {

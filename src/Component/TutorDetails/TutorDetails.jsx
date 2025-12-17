@@ -1,4 +1,5 @@
 
+import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import {
     FaUserGraduate,
@@ -7,24 +8,54 @@ import {
     FaMapMarkerAlt,
     FaCalendarAlt,
     FaMoneyBillWave,
-    FaRulerCombined,
     FaChevronLeft,
     FaCheckCircle
 } from 'react-icons/fa';
+import { useNavigate, useParams } from 'react-router';
+import useAxiosSecure from '../../hook/useAxiosSecure';
+import Loading from '../Loading/Loading';
+import useAuth from '../../hook/useAuth';
 
 const TutorDetails = () => {
+    const axiosSecure = useAxiosSecure();
+    const { id } = useParams();
+    let navigate = useNavigate();
+    const {user} = useAuth();
+    console.log(user)
 
 
 
-    const handleGoBack = () => {
-        console.log("Navigating back...");
-        // Example: history.back() or router.push('/previous-page')
+    const { data: tutorDetails, isLoading } = useQuery({
+        queryKey: ['tutorDetails'],
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/tutor/${id}/tutorDetails`);
+            return res.data;
+        }
+    });
+
+    console.log(tutorDetails);
+
+
+
+    const handleGoBack = () => {    
+        navigate(-1)
     };
 
-    const handleApply = () => {
-        console.log("Applying for tutoring session...");
-        // Example: API call to submit application
-        alert("Application sent successfully!");
+
+    const handleApply = async() => {
+        const paymentInfo = {
+            TutorName : tutorDetails.displayName,
+            TutorFee : tutorDetails.expectedMinimumSalary,
+            TutorId : tutorDetails._id,
+            StudentName : user.displayName,
+            StudentEmail : user.email
+        }
+
+        const res = await axiosSecure.post('/payment-checkout-session', paymentInfo);
+
+        console.log(res.data);
+        
+        window.location.assign(res.data.url);
     };
 
     const renderDetailItem = (Icon, title, value) => (
@@ -38,18 +69,12 @@ const TutorDetails = () => {
             </div>
         </div>
     );
-    const tutorData = {
-        name: "Dr. Evelyn Reed, Ph.D.",
-        degree: "Ph.D. in Physics",
-        institution: "Massachusetts Institute of Technology (MIT)",
-        year: 2015,
-        preferredTime: "4:00 PM - 8:00 PM (Weekdays)",
-        preferredClass: "High School AP Physics, College-Level Calculus, SAT Math Prep",
-        placeOfLearning: "Online (Zoom/Google Meet) or Tutor's Residence",
-        daysPerWeek: 4,
-        expectedMinimumSalary: "$50/hour - $75/hour",
-        preferredAreaToTeach: "dhanmondi,tejgon",
-    };
+
+    if (isLoading) {
+        return <Loading></Loading>
+    }
+
+
     return (
         <div>
             <div className="min-h-screen bg-gray-100 p-4 sm:p-8">
@@ -71,14 +96,13 @@ const TutorDetails = () => {
                         </button>
                     </div>
 
-                    {/* Profile Header (Image and Name) */}
                     <div className="p-6 sm:p-8 grid grid-cols-1 md:grid-cols-3 gap-8 items-center bg-blue-700 text-white">
 
                         {/* Image Section */}
                         <div className="md:col-span-1 flex justify-center">
                             <img
-                                src={tutorData.imageURL}
-                                alt={`Profile of ${tutorData.name}`}
+                                src={tutorDetails.photoURL}
+                                alt={`Profile of ${tutorDetails.photoURL}`}
                                 className="w-48 h-48 rounded-full border-4 border-white object-cover shadow-lg"
                             />
                         </div>
@@ -86,7 +110,7 @@ const TutorDetails = () => {
                         {/* Name and Title */}
                         <div className="md:col-span-2 text-center md:text-left">
                             <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tighter">
-                                {tutorData.name}
+                                {tutorDetails.displayName}
                             </h1>
                             <p className="mt-2 text-blue-200 text-xl font-light">
                                 Advanced STEM Educator & Consultant
@@ -94,20 +118,19 @@ const TutorDetails = () => {
                         </div>
                     </div>
 
-                    {/* Main Content Grid */}
                     <div className="p-6 sm:p-8 space-y-10">
 
-                        {/* 1. Key Preference Details (using simple divs) */}
+
                         <section>
                             <h2 className="text-2xl font-bold mb-5 text-gray-800">🎯 Key Tutoring Preferences</h2>
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
 
-                                {renderDetailItem(FaClock, "Preferred Time", tutorData.preferredTime)}
-                                {renderDetailItem(FaMapMarkerAlt, "Learning Place", tutorData.placeOfLearning)}
-                                {renderDetailItem(FaCalendarAlt, "Days Per Week", `${tutorData.daysPerWeek} Days`)}
-                                {renderDetailItem(FaMoneyBillWave, "Minimum Salary", tutorData.expectedMinimumSalary)}
-                                {renderDetailItem(FaBookOpen, "Preferred Class", tutorData.preferredClass)}
-                                {renderDetailItem(FaMapMarkerAlt, "Area to Teach", tutorData.preferredAreaToTeach)}
+                                {renderDetailItem(FaClock, "Preferred Time", tutorDetails.preferredTime)}
+                                {renderDetailItem(FaMapMarkerAlt, "Learning Place", tutorDetails.placeOfLearning)}
+                                {renderDetailItem(FaCalendarAlt, "Days Per Week", `${tutorDetails.daysPerWeek} Days`)}
+                                {renderDetailItem(FaMoneyBillWave, "Minimum Salary", tutorDetails.expectedMinimumSalary)}
+                                {renderDetailItem(FaBookOpen, "Preferred Class", tutorDetails.preferredClass)}
+                                {renderDetailItem(FaMapMarkerAlt, "Area to Teach", tutorDetails.preferredAreaToTeach)}
 
                             </div>
                         </section>
@@ -123,9 +146,9 @@ const TutorDetails = () => {
                             <div className="space-y-6">
                                 <div className="pl-6 border-l-4 border-blue-400 relative">
                                     <div className="absolute -left-2 top-0 w-4 h-4 bg-blue-600 rounded-full ring-4 ring-white"></div>
-                                    <p className="font-bold text-xl text-gray-800">{tutorData.degree}</p>
-                                    <p className="text-base italic text-gray-600">{tutorData.institution}</p>
-                                    <p className="text-sm text-gray-500 mt-1">Graduated: {tutorData.year}</p>
+                                    <p className="font-bold text-xl text-gray-800">{tutorDetails.education.degree}</p>
+                                    <p className="text-base italic text-gray-600">{tutorDetails.education.institution}</p>
+                                    <p className="text-sm text-gray-500 mt-1">Graduated: {tutorDetails.education.year}</p>
                                 </div>
                             </div>
                         </section>
