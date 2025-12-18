@@ -1,0 +1,58 @@
+[
+  {
+    "userName": "John Doe",
+    "review": "Great session! The tutor was very patient and explained complex concepts clearly.",
+    "ratings": 4.5,
+    "user_photoURL": "https://randomuser.me/api/portraits/men/10.jpg",
+    "date": "2024-05-08T14:30:00.000Z"
+  },
+  {
+    "userName": "Jane Smith",
+    "review": "Good explanation of the topics, though the session started a few minutes late.",
+    "ratings": 3.8,
+    "user_photoURL": "https://randomuser.me/api/portraits/women/25.jpg",
+    "date": "2024-06-10T10:15:00.000Z"
+  },
+  {
+    "userName": "Alex Brown",
+    "review": "Excellent tutor! My understanding of Calculus has improved significantly in just one week.",
+    "ratings": 5.0,
+    "user_photoURL": "https://randomuser.me/api/portraits/men/34.jpg",
+    "date": "2024-07-01T08:50:00.000Z"
+  },
+  {
+    "userName": "Lisa White",
+    "review": "Very professional and responsive to my questions. Highly organized lesson plan.",
+    "ratings": 4.2,
+    "user_photoURL": "https://randomuser.me/api/portraits/women/12.jpg",
+    "date": "2024-07-15T09:10:00.000Z"
+  },
+  {
+    "userName": "David Lee",
+    "review": "The tutor didn't seem prepared for the specific topics I requested. Quite disappointed.",
+    "ratings": 2.9,
+    "user_photoURL": "https://randomuser.me/api/portraits/men/19.jpg",
+    "date": "2024-08-02T16:45:00.000Z"
+  },
+  {
+    "userName": "Nina Khan",
+    "review": "Superb experience! The interactive teaching style made learning very fun and easy.",
+    "ratings": 4.9,
+    "user_photoURL": "https://randomuser.me/api/portraits/women/8.jpg",
+    "date": "2024-08-10T12:00:00.000Z"
+  },
+  {
+    "userName": "Michael Jordan",
+    "review": "Decent teaching, but I think we need better study materials for practice.",
+    "ratings": 3.3,
+    "user_photoURL": "https://randomuser.me/api/portraits/men/22.jpg",
+    "date": "2024-08-14T18:20:00.000Z"
+  },
+  {
+    "userName": "Emma Watson",
+    "review": "Encouraging and knowledgeable. I feel much more confident for my upcoming exams!",
+    "ratings": 4.7,
+    "user_photoURL": "https://randomuser.me/api/portraits/women/5.jpg",
+    "date": "2024-08-20T07:30:00.000Z"
+  }
+]

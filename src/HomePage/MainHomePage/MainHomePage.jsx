@@ -6,8 +6,12 @@ import StudentWork from '../../Component/StudentWork/StudentWork';
 import Brand from '../../Component/Brand/Brand';
 import TuitionSelection from '../../Component/TuitionSelection/TuitionSelection';
 import Updatshow from '../updatShow/updatshow'
+import Review from '../../Component/Review/Review';
+
+const reviewsPromise = fetch('/reviews.json').then(res => res.json());
 
 const MainHomePage = () => {
+
     return (
         <div>
             <Banner></Banner>
@@ -15,9 +19,11 @@ const MainHomePage = () => {
             <Updatshow></Updatshow>
             <TuitionSelection></TuitionSelection>
             <Brand></Brand>
-            <HowItWorks></HowItWorks>
-            <StudentWork></StudentWork>
-            
+            <div className='grid grid-cols-1 md:grid-cols-2  '>
+                <HowItWorks></HowItWorks>
+                <StudentWork></StudentWork>
+            </div>
+            <Review reviewsPromise={reviewsPromise}></Review>
         </div>
     );
 };
