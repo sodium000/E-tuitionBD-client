@@ -12,7 +12,7 @@ const AdminFinancialDashboard = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        axios.get('http://localhost:5000/payments/all')
+        axios.get('http://localhost:3000/payments/all')
             .then(res => {
                 setPayments(res.data);
                 setLoading(false);

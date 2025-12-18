@@ -37,7 +37,7 @@ const Registration = () => {
 
         registerUser(data.Email, data.password)
             .then(() => {
-                // Store the image in from data 
+
                 const fromData = new FormData()
                 fromData.append('image', ProfilImage);
 

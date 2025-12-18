@@ -11,6 +11,7 @@ const Navbar = () => {
     const { role, roleLoading } = useRole();
 
 
+
     const logout = () => {
         GoogleSignOut();
         axiosSecure.post('/logout')
@@ -32,8 +33,8 @@ const Navbar = () => {
                 <>
                     {!roleLoading && user && role === 'tutor' && (
                         <>
-                            <li><NavLink to='TutionPost'>Tuitions</NavLink></li>
-                            <li><NavLink to='updateProfile'>Update Profile</NavLink></li>
+                            <li><NavLink to='/TutionPost'>Tuitions</NavLink></li>
+                            <li><NavLink to='/Tutorapply'>Update Profile</NavLink></li>
                             <li><NavLink to="/dashboard/myapplications">Dashboard(Tutor)</NavLink></li>
                         </>
                     )}

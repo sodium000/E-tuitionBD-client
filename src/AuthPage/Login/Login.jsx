@@ -73,7 +73,7 @@ const Login = () => {
                                                 />
                                             </div>
                                         </div>
-                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div className=''>
                                             <div>
                                                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300" htmlFor="password">
                                                     Password <span className="text-red-500">*</span>
@@ -85,22 +85,6 @@ const Login = () => {
                                                         id="password"
                                                         name="password"
                                                         placeholder="Password"
-                                                        required
-                                                        type="password"
-                                                    />
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300" htmlFor="re-password">
-                                                    Re-Password <span className="text-red-500">*</span>
-                                                </label>
-                                                <div className="mt-1">
-                                                    <input
-                                                        autoComplete="new-password"
-                                                        className="form-input block w-full appearance-none rounded-md border px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary focus:outline-none focus:ring-primary sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                                                        id="re-password"
-                                                        name="re-password"
-                                                        placeholder="Re-enter Password"
                                                         required
                                                         type="password"
                                                     />
@@ -139,7 +123,7 @@ const Login = () => {
                                                     />
                                                 </div>
                                             </div>
-                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                            <div className="">
                                                 <div>
                                                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300" htmlFor="password">
                                                         Password <span className="text-red-500">*</span>
@@ -151,22 +135,6 @@ const Login = () => {
                                                             id="password"
                                                             name="password"
                                                             placeholder="Password"
-                                                            required
-                                                            type="password"
-                                                        />
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300" htmlFor="re-password">
-                                                        Re-Password <span className="text-red-500">*</span>
-                                                    </label>
-                                                    <div className="mt-1">
-                                                        <input
-                                                            autoComplete="new-password"
-                                                            className="form-input block w-full appearance-none rounded-md border px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary focus:outline-none focus:ring-primary sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                                                            id="re-password"
-                                                            name="re-password"
-                                                            placeholder="Re-enter Password"
                                                             required
                                                             type="password"
                                                         />

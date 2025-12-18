@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
@@ -9,7 +10,7 @@ const ApplicationTable = () => {
   const { user } = useAuth();
 
 
-  const { data: posts = [] } = useQuery({
+  const { data: posts = [], } = useQuery({
     queryKey: ['posts', user?.email],
     queryFn: async () => {
       const res = await axiosSecure.get(`/post/${user?.email}/getpost`);
@@ -17,7 +18,7 @@ const ApplicationTable = () => {
     },
   });
 
-  const { data: applications = [] } = useQuery({
+  const { data: applications = [],refetch } = useQuery({
     queryKey: ['applications', posts.map(p => p._id)],
     enabled: posts.length > 0,
     queryFn: async () => {
@@ -28,10 +29,12 @@ const ApplicationTable = () => {
       return all;
     },
   });
+  console.log(applications, posts)
 
   const updateStatus = async (id, status) => {
-   const res = await axiosSecure.patch(`/post/${id}/update`,{ status });
-   console.log(res);
+    const res = await axiosSecure.patch(`/post/${id}/update`, { status });
+    refetch();
+
   };
 
 

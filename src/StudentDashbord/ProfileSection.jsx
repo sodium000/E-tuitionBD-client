@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { MdEdit, MdClose, MdAccountCircle, MdEmail, MdPerson } from 'react-icons/md';
 
-// --- 1. DUMMY DATA & STATE ---
+
 const initialUserData = {
     name: 'Ahmed Kabir',
     email: 'ahmed.kabir@example.com',
@@ -12,7 +12,7 @@ const initialUserData = {
     profilePicUrl: 'https://via.placeholder.com/150/007bff/ffffff?text=AK', // Placeholder image URL
 };
 
-// --- 2. EDIT MODAL COMPONENT ---
+
 const EditProfileModal = ({ userData, onClose, onSave }) => {
     // Initialize React Hook Form with the current user data
     const { register, handleSubmit, formState: { errors } } = useForm({
@@ -38,7 +38,6 @@ const EditProfileModal = ({ userData, onClose, onSave }) => {
 
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
 
-                    {/* Name Field */}
                     <div>
                         <label className="text-sm font-medium text-gray-700 flex items-center mb-1"><MdPerson className="mr-1" /> Full Name</label>
                         <input
@@ -48,7 +47,7 @@ const EditProfileModal = ({ userData, onClose, onSave }) => {
                         {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>}
                     </div>
 
-                    {/* Email Field */}
+
                     <div>
                         <label className="text-sm font-medium text-gray-700 flex items-center mb-1"><MdEmail className="mr-1" /> Email Address</label>
                         <input
@@ -65,7 +64,6 @@ const EditProfileModal = ({ userData, onClose, onSave }) => {
                         {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
                     </div>
 
-                    {/* Phone Field */}
                     <div>
                         <label className="text-sm font-medium text-gray-700 flex items-center mb-1">Phone Number</label>
                         <input
@@ -74,7 +72,7 @@ const EditProfileModal = ({ userData, onClose, onSave }) => {
                         />
                     </div>
 
-                    {/* Address Field */}
+
                     <div>
                         <label className="text-sm font-medium text-gray-700 flex items-center mb-1">Address</label>
                         <input
@@ -83,7 +81,7 @@ const EditProfileModal = ({ userData, onClose, onSave }) => {
                         />
                     </div>
 
-                    {/* Bio Field */}
+
                     <div>
                         <label className="text-sm font-medium text-gray-700 flex items-center mb-1">Bio</label>
                         <textarea
@@ -106,12 +104,10 @@ const EditProfileModal = ({ userData, onClose, onSave }) => {
 };
 
 
-// --- 3. MAIN PROFILE SECTION COMPONENT ---
 const ProfileSection = () => {
     const [userData, setUserData] = useState(initialUserData);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    // Handler for saving changes from the modal
     const handleSave = (updatedData) => {
         setUserData(updatedData);
         setIsModalOpen(false); // Close modal
@@ -135,9 +131,9 @@ const ProfileSection = () => {
                 </div>
 
                 <div className="flex flex-col items-center border-b pb-6 mb-6">
-                    {/* Profile Picture */}
+
                     <div className="relative">
-                        {/*  */}
+
                         <img
                             className="h-24 w-24 rounded-full object-cover ring-4 ring-indigo-500 ring-offset-2 shadow-lg"
                             src={userData.profilePicUrl}
@@ -145,7 +141,6 @@ const ProfileSection = () => {
                         />
                     </div>
 
-                    {/* Name and Email */}
                     <h3 className="mt-4 text-2xl font-bold text-gray-900 flex items-center">
                         <MdPerson className="mr-2 text-indigo-600" />
                         {userData.name}
@@ -156,7 +151,7 @@ const ProfileSection = () => {
                     </p>
                 </div>
 
-                {/* Additional Details Section */}
+
                 <div className="space-y-4">
                     <DetailBlock icon={<MdAccountCircle />} label="Phone" value={userData.phone} />
                     <DetailBlock icon={<MdAccountCircle />} label="Address" value={userData.address} />
@@ -164,7 +159,7 @@ const ProfileSection = () => {
                 </div>
             </div>
 
-            {/* Render Modal */}
+
             {isModalOpen && (
                 <EditProfileModal
                     userData={userData}
@@ -176,7 +171,6 @@ const ProfileSection = () => {
     );
 };
 
-// Helper component for detail blocks
 const DetailBlock = ({ icon, label, value }) => (
     <div className="flex items-start p-3 bg-gray-50 rounded-lg">
         <div className="text-indigo-600 mr-3 mt-1">{icon}</div>

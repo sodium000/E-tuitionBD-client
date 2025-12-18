@@ -9,7 +9,6 @@ import {
 } from 'react-icons/md';
 import useAxiosSecure from '../hook/useAxiosSecure';
 
-// --- Constants ---
 const ROLES = ['admin', 'tutor', 'student'];
 
 const UserDetailsModal = ({ user, onClose, onSave, isSaving }) => {
@@ -177,7 +176,6 @@ const UserManagementDashboard = () => {
     const axiosSecure = useAxiosSecure();
     const queryClient = useQueryClient();
 
-    // Fetch all users
     const { data: users = [], isLoading } = useQuery({
         queryKey: ['allusers'],
         queryFn: async () => {
@@ -186,7 +184,6 @@ const UserManagementDashboard = () => {
         },
     });
 
-    // Update user mutation
     const updateMutation = useMutation({
         mutationFn: async ({ id, data }) => {
             const res = await axiosSecure.patch(`/users/${id}`, data);

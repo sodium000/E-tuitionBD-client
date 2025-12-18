@@ -1,9 +1,10 @@
 import React from 'react';
+import Marquee from 'react-fast-marquee';
 
 const Banner = () => {
     return (
         <div>
-            <div className="grid lg:grid-cols-2 gap-8 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
                 <div className="text-center lg:text-left">
                     <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold  text-gray-900 leading-tight">
                         Best Tutoring Platform for <span className='text-purple-800'> Home & Online Tuitions</span>
@@ -35,15 +36,27 @@ const Banner = () => {
                     </div>
                     <div className="mt-10 text-left md:mt-6">
                         <h2 className="text-lg font-medium text-gray-700">Divisional Tutors:</h2>
-                        <div className="mt-4 flex flex-wrap gap-4">
-                            {[{ name: "Barishal", count: 468 }, { name: "Khulna", count: 1616 }, { name: "Sylhet", count: 860 }].map((item) => (
-                                <div key={item.name} className="bg-gray-100 px-4 py-1 rounded-full border border-purple-500">
-                                    <p className="text-gray-800">
-                                        {item.name}: <span className="font-semibold text-gray-900">{item.count}</span>
-                                    </p>
-                                </div>
-                            ))}
-                        </div>
+                        <div className="mt-4 flex flex-wrap gap-4 ">
+                            <Marquee
+                                autoFill={true}
+                            >
+                                {[{ name: "Barishal", count: 468 },
+                                { name: "Khulna", count: 280 },
+                                { name: "Mymenshing", count: 120 },
+                                { name: "Dhaka", count: 1200 },
+                                { name: "Chittogram", count: 1600 },
+                                { name: "Rongpur", count: 136 },
+                                { name: "Rajshahi", count: 1900 },
+                                { name: "Cumilla", count: 1423 },
+                                { name: "Sylhet", count: 860 }].map((item) => (
+                                    <div key={item.name} className="bg-gray-100 mx-2  px-4 py-1 rounded-full border border-purple-500">
+                                        <p className="text-gray-800">
+                                            {item.name}: <span className="font-semibold text-gray-900">{item.count}</span>
+                                        </p>
+                                    </div>
+                                ))}
+                            </Marquee>
+                        </div>  
                     </div>
                 </div>
 

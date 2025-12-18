@@ -21,8 +21,8 @@ const DashboardLayout = () => {
                 to={to}
                 className={({ isActive }) =>
                     `flex items-center space-x-3 p-4 rounded-lg transition duration-200 
-                     hover:bg-blue-500 hover:text-white group
-                     ${isActive
+                    hover:bg-blue-500 hover:text-white group
+                    ${isActive
                         ? 'bg-blue-600 text-white shadow-md'
                         : 'text-gray-600 dark:text-gray-300'
                     }`
