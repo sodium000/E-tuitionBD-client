@@ -1,197 +1,149 @@
-import React, { useState } from 'react';
-// Import necessary icons from react-icons
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import {
     MdAccountBalance,
-    MdTrendingUp,
     MdAttachMoney,
     MdReceipt,
-    MdOutlineGavel,
-    MdArrowUpward,
 } from 'react-icons/md';
+import Loading from '../Component/Loading/Loading';
 
-// --- 1. Mock Data ---
-const mockFinancialSummary = {
-    platformEarnings: 15420.75, // Total revenue generated from all fees
-    totalPayouts: 145000.00,  // Total amount paid out to Tutors
-    netProfit: 920.75,         // platformEarnings - totalOperatingCosts (simplified)
-    transactionVolume: 245000.00, // Total value of all successful transactions
-    successRate: 98.5,           // Success rate percentage
-};
-
-const initialTransactions = [
-    {
-        id: 1001,
-        date: '2025-12-10',
-        description: 'Tutor Fee - Calculus I (Tutor: Bob S.)',
-        amount: 350.00,
-        fee: 7.00, // Service fee deducted
-        netAmount: 343.00,
-        type: 'Tuition Payment',
-        status: 'Success',
-    },
-    {
-        id: 1002,
-        date: '2025-12-05',
-        description: 'Tutor Payout - Monthly Withdrawal (Tutor: Alice J.)',
-        amount: -1500.00,
-        fee: 0.00,
-        netAmount: -1500.00,
-        type: 'Payout',
-        status: 'Success',
-    },
-    {
-        id: 1003,
-        date: '2025-11-28',
-        description: 'Tutor Fee - Python Intro (Tutor: Charlie B.)',
-        amount: 180.00,
-        fee: 3.60,
-        netAmount: 176.40,
-        type: 'Tuition Payment',
-        status: 'Success',
-    },
-];
-
-// --- 2. Helper Components ---
-
-// Dashboard card for displaying summary metrics
-const AdminStatCard = ({ title, value, icon, iconColor, unit = '$' }) => {
-    return (
-        <div className="bg-white p-6 rounded-xl shadow-lg border-l-4 border-l-indigo-500 flex items-start space-x-4">
-            <div className={`p-3 rounded-full ${iconColor} bg-opacity-20`}>
-                {React.cloneElement(icon, { className: 'text-2xl ' + iconColor })}
-            </div>
-            <div>
-                <p className="text-sm font-medium text-gray-500">{title}</p>
-                <p className="text-3xl font-extrabold text-gray-900 mt-1">
-                    {unit}{value.toLocaleString('en-US', { minimumFractionDigits: 2 })}
-                </p>
-            </div>
-        </div>
-    );
-};
-
-
-// --- 3. Main Component ---
 const AdminFinancialDashboard = () => {
-    const [transactions] = useState(initialTransactions);
+    const [payments, setPayments] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        axios.get('http://localhost:5000/payments/all')
+            .then(res => {
+                setPayments(res.data);
+                setLoading(false);
+            })
+            .catch(err => {
+                console.error(err);
+                setLoading(false);
+            });
+    }, []);
+
+    const totalAmount = payments.reduce((sum, p) => sum + p.amount, 0);
+    const totalTransactions = payments.length;
+
+    if (loading) {
+        return <div className="text-center py-20"><Loading></Loading></div>;
+    }
 
     return (
         <div className="p-6 bg-gray-50 min-h-screen">
             <h2 className="text-3xl font-bold text-gray-800 mb-8 flex items-center gap-2">
-                <MdAccountBalance className="text-indigo-600" /> Platform Financial Overview
+                <MdAccountBalance className="text-indigo-600" />
+                Admin Financial Dashboard
             </h2>
-            <p className="text-gray-600 mb-8">
-                Review total platform earnings, transaction volume, and a history of all **successful** financial movements.
-            </p>
 
-            {/* --- Financial Summary Cards --- */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
-                <AdminStatCard
-                    title="Total Transaction Volume"
-                    value={mockFinancialSummary.transactionVolume}
-                    icon={<MdTrendingUp />}
-                    iconColor="text-green-600"
-                />
-                <AdminStatCard
-                    title="Total Platform Earnings (Fees)"
-                    value={mockFinancialSummary.platformEarnings}
-                    icon={<MdAttachMoney />}
-                    iconColor="text-indigo-600"
-                />
-                <AdminStatCard
-                    title="Total Payouts to Tutors"
-                    value={mockFinancialSummary.totalPayouts}
-                    icon={<MdOutlineGavel />}
-                    iconColor="text-orange-600"
-                />
-                <AdminStatCard
-                    title="Success Rate"
-                    value={mockFinancialSummary.successRate}
-                    icon={<MdArrowUpward />}
-                    iconColor="text-teal-600"
-                    unit=""
-                />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+
+                <div className="bg-white p-6 rounded-xl shadow">
+                    <p className="text-sm text-gray-500">Total Transactions</p>
+                    <p className="text-3xl font-bold text-indigo-600">
+                        {totalTransactions}
+                    </p>
+                </div>
+
+                <div className="bg-white p-6 rounded-xl shadow">
+                    <p className="text-sm text-gray-500">Total Amount</p>
+                    <p className="text-3xl font-bold text-green-600">
+                        ৳{totalAmount.toLocaleString()}
+                    </p>
+                </div>
+
+                <div className="bg-white p-6 rounded-xl shadow">
+                    <p className="text-sm text-gray-500">Currency</p>
+                    <p className="text-3xl font-bold text-gray-700 uppercase">
+                        BDT
+                    </p>
+                </div>
+
             </div>
 
-            {/* --- Successful Transaction History Table --- */}
-            <h3 className="text-2xl font-semibold text-gray-800 mb-5 flex items-center gap-2">
-                <MdReceipt className="text-indigo-600" /> Successful Transaction History
+            <h3 className="text-2xl font-semibold mb-4 flex items-center gap-2">
+                <MdReceipt className="text-indigo-600" />
+                Payment History
             </h3>
 
-            <div className="overflow-x-auto shadow-xl rounded-lg border border-gray-200">
-                <table className="min-w-full divide-y divide-gray-200 bg-white">
+            <div className="overflow-x-auto bg-white shadow rounded-lg">
+                <table className="min-w-full divide-y divide-gray-200">
+
                     <thead className="bg-gray-100">
                         <tr>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Date
-                            </th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Description
-                            </th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Type
-                            </th>
-                            <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Gross Amount
-                            </th>
-                            <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Platform Fee
-                            </th>
-                            <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Net Amount
-                            </th>
+                            <th className="px-5 py-3 text-left text-xs font-medium">Date</th>
+                            <th className="px-5 py-3 text-left text-xs font-medium">Student</th>
+                            <th className="px-5 py-3 text-left text-xs font-medium">Tutor</th>
+                            <th className="px-5 py-3 text-left text-xs font-medium">Tracking ID</th>
+                            <th className="px-5 py-3 text-left text-xs font-medium">Transaction</th>
+                            <th className="px-5 py-3 text-right text-xs font-medium">Amount</th>
+                            <th className="px-5 py-3 text-center text-xs font-medium">Status</th>
                         </tr>
                     </thead>
+
                     <tbody className="divide-y divide-gray-200">
-                        {transactions.map((tx) => (
-                            <tr key={tx.id} className="hover:bg-gray-50 transition duration-150">
+                        {payments.map(payment => (
+                            <tr key={payment._id} className="hover:bg-gray-50">
 
                                 {/* Date */}
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                                    {tx.date}
+                                <td className="px-5 py-4 text-sm">
+                                    {new Date(payment.paidAt).toLocaleDateString()}
                                 </td>
 
-                                {/* Description */}
-                                <td className="px-6 py-4 text-sm font-medium text-gray-900">
-                                    {tx.description}
+                                {/* Student */}
+                                <td className="px-5 py-4 text-sm">
+                                    <p className="font-medium">{payment.StudentName}</p>
+                                    <p className="text-gray-500 text-xs">{payment.StudentEmail}</p>
                                 </td>
 
-                                {/* Type */}
-                                <td className="px-6 py-4 whitespace-nowrap text-sm">
-                                    <span
-                                        className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${tx.type === 'Tuition Payment'
-                                                ? 'bg-blue-100 text-blue-800'
-                                                : 'bg-orange-100 text-orange-800'
-                                            }`}
+                                {/* Tutor */}
+                                <td className="px-5 py-4 text-sm">
+                                    <p className="font-medium">{payment.TutorName}</p>
+                                    <p className="text-gray-500 text-xs">ID: {payment.TutorId}</p>
+                                </td>
+
+                                {/* Tracking */}
+                                <td className="px-5 py-4 text-sm">
+                                    {payment.trackingId}
+                                </td>
+
+                                {/* Transaction */}
+                                <td className="px-5 py-4 text-sm">
+                                    <p className="truncate max-w-[180px]">
+                                        {payment.transactionId}
+                                    </p>
+                                </td>
+
+                                {/* Amount */}
+                                <td className="px-5 py-4 text-right font-semibold">
+                                    ৳{payment.amount.toLocaleString()}
+                                </td>
+
+                                {/* Status */}
+                                <td className="px-5 py-4 text-center">
+                                    <span className={`px-3 py-1 rounded-full text-xs font-semibold
+                    ${payment.paymentStatus === 'paid'
+                                            ? 'bg-green-100 text-green-700'
+                                            : 'bg-red-100 text-red-700'}`}
                                     >
-                                        {tx.type}
+                                        {payment.paymentStatus}
                                     </span>
                                 </td>
 
-                                {/* Gross Amount */}
-                                <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium text-gray-800">
-                                    ${tx.amount.toFixed(2)}
-                                </td>
-
-                                {/* Platform Fee */}
-                                <td className="px-6 py-4 whitespace-nowrap text-right text-sm text-red-600 font-medium">
-                                    -${tx.fee.toFixed(2)}
-                                </td>
-
-                                {/* Net Amount */}
-                                <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-bold text-green-700">
-                                    ${tx.netAmount.toFixed(2)}
-                                </td>
                             </tr>
                         ))}
                     </tbody>
+
                 </table>
-                {transactions.length === 0 && (
-                    <div className="text-center py-10 text-gray-500 bg-white">
-                        No successful transactions have been recorded yet.
+
+                {payments.length === 0 && (
+                    <div className="text-center py-10 text-gray-500">
+                        No payment records found
                     </div>
                 )}
             </div>
+
         </div>
     );
 };

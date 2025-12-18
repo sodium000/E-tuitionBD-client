@@ -43,7 +43,7 @@ const Navbar = () => {
                     {!roleLoading && user && role === 'student' && (
                         <>
                             <li><NavLink to="/dashboard/PostTable">Dashboard(Student)</NavLink></li>
-                            <li><NavLink to='Tutors'>Tutors</NavLink></li>
+                            <li><NavLink to='/Tutors'>Tutors</NavLink></li>
                         </>
                     )}
                 </>

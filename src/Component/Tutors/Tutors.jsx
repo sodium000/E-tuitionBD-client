@@ -1,17 +1,17 @@
 import React from 'react';
 import { MdLocationPin } from 'react-icons/md';
 import { Link } from 'react-router';
-import useAxiosSecure from '../../hook/useAxiosSecure';
+import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
 import Loading from '../Loading/Loading';
 
 const Tutors = () => {
-    const axiosSecure = useAxiosSecure();
-
     const { data: tutor, isLoading } = useQuery({
         queryKey: ['tutor'],
         queryFn: async () => {
-            const res = await axiosSecure.get(`/tutor/data`);
+            const res = await axios.get(`http://localhost:3000/tutor/data`, {
+                withCredentials: false,
+            });
             return res.data;
         }
     });
