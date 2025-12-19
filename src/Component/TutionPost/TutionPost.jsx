@@ -35,8 +35,6 @@ const TutionPost = () => {
       }
     };
 
-  console.log(jobs);
-
   useEffect(() => {
     fetchJobs("");
   }, []);

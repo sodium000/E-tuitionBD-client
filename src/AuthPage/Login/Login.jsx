@@ -1,35 +1,41 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import SocalLogin from '../SocalLogin/SocalLogin';
 import { useForm } from 'react-hook-form';
 import useAuth from '../../hook/useAuth';
 import Swal from 'sweetalert2';
+import useAxiosSecure from '../../hook/useAxiosSecure';
 
 const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { signInUser, setLoading } = useAuth()
 
-    const location = useLocation()
+    const location = useLocation();
+    const navigate = useNavigate();
+    const axiosSecure = useAxiosSecure();
+    const login = async (data) => {
+        try {
+            const result = await signInUser(data.Email, data.Password);
 
-    const login = (data) => {
-        signInUser(data.Email, data.Password)
-            .then(() => {
-                console.log(location)
+            const loginData = { Email: data.Email };
 
-            })
-            .catch((error) => {
-                if (error.code === 'auth/invalid-credential') {
-                    Swal.fire({
-                        title: "User Not found",
-                        text: "That thing is still around?",
-                        icon: "question"
-                    });
-                    setLoading(false);
-                }
-                
-            });
+            const res = await axiosSecure.post('/login', loginData);
 
-    }
+            console.log(res.data);
+            navigate(location?.state || '/');
+
+        } catch (error) {
+
+            if (error.code === 'auth/invalid-credential') {
+                Swal.fire({
+                    title: "User Not Found",
+                    text: "Invalid email or password",
+                    icon: "error",
+                });
+            }
+        }
+        setLoading(false);
+    };
     return (
         <div className='grid grid-cols-2 mt-20'>
             <div className=' justify-center items-center flex'>

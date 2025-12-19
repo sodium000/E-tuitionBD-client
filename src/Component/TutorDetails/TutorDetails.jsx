@@ -76,7 +76,6 @@ const JobDetails = () => {
 
     const getFilteredSubjects = () => {
         if (!job?.Subject && !job?.preferredClass) return [];
-        // Support both field names from your data
         const rawSubjects = job.Subject || job.preferredClass;
         const subjects = Array.isArray(rawSubjects) ? rawSubjects : rawSubjects.split(",").map(s => s.trim());
         return subjects.filter(s => s.toLowerCase().includes(subjectSearch.toLowerCase()));
@@ -115,23 +114,18 @@ const JobDetails = () => {
                             <div className="space-y-8">
                                 {/* Subjects Section */}
                                 <div>
-                                    <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-4">
-                                        <h3 className="text-lg font-bold text-slate-800 flex items-center gap-2">
-                                            <FaBookOpen className="text-blue-500" /> Teaching Subjects
-                                        </h3>
-                                        <div className="relative">
-                                            <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm" />
-                                            <input
-                                                type="text"
-                                                placeholder="Search subjects..."
-                                                className="pl-9 pr-4 py-2 bg-gray-50 border-none rounded-xl text-sm focus:ring-2 focus:ring-blue-500 w-full sm:w-48"
-                                                onChange={(e) => setSubjectSearch(e.target.value)}
-                                            />
-                                        </div>
-                                    </div>
+                                    <h3 className="text-lg font-bold text-slate-800 flex items-center gap-2 mb-4">
+                                        <FaBookOpen className="text-blue-500" /> Subjects
+                                    </h3>
                                     <div className="flex flex-wrap gap-2">
-                                        {getFilteredSubjects().map((sub, i) => (
-                                            <span key={i} className="bg-slate-100 text-slate-700 px-4 py-2 rounded-xl text-sm font-semibold border border-slate-200">
+                                        {(Array.isArray(job.preferredClass)
+                                            ? job.preferredClass
+                                            : job.preferredClass?.split(",").map(s => s.trim()) || []
+                                        ).map((sub, i) => (
+                                            <span
+                                                key={i}
+                                                className="bg-slate-100 text-slate-700 px-4 py-2 rounded-xl text-sm font-semibold border border-slate-200"
+                                            >
                                                 {sub}
                                             </span>
                                         ))}
@@ -169,7 +163,7 @@ const JobDetails = () => {
                                 <p className="text-gray-500 text-xs italic mb-6">Posted: {job.createdAt}</p>
 
                                 {user ? (
-                                    role === "tutor" ? (
+                                    role === "student" ? (
                                         <button onClick={() => setIsModalOpen(true)} className="w-full py-4 bg-pink-600 text-white rounded-2xl font-bold hover:bg-pink-700 transition-all shadow-lg shadow-pink-200">
                                             Contact Tutor
                                         </button>
@@ -221,7 +215,7 @@ const JobDetails = () => {
                                 <div>
                                     <label className="block text-xs font-bold text-gray-500 uppercase mb-2">Short Message</label>
                                     <textarea
-                                        {...register("qualifications", { required: true })}
+                                        {...register("comment", { required: true })}
                                         className="w-full p-4 bg-gray-50 border-none rounded-2xl focus:ring-2 focus:ring-pink-500 h-24"
                                         placeholder="Briefly describe your requirements..."
                                     />
