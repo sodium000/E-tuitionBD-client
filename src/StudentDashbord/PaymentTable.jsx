@@ -8,12 +8,14 @@ import Loading from '../Component/Loading/Loading';
 
 const TutorDetailsModal = ({ tutorId, onClose }) => {
     const axiosSecure = useAxiosSecure();
-    
+
     const { data: tutor, isLoading } = useQuery({
         queryKey: ['tutorDetails', tutorId],
         queryFn: async () => {
             const res = await axiosSecure.get(`/tutor/${tutorId}/tutorDetails`);
+            console.log(res.data)
             return res.data;
+
         },
         enabled: !!tutorId,
     });
@@ -65,19 +67,19 @@ const TutorDetailsModal = ({ tutorId, onClose }) => {
                     <DetailField label="Name" value={tutor.displayName || tutor.name} />
                     <DetailField label="Email" value={tutor.Email || tutor.email} icon={<MdEmail />} />
                     <DetailField label="Phone" value={tutor.Phone || tutor.phone} icon={<MdPhone />} />
-                    
+
                     {tutor.PreferredArea && (
                         <DetailField label="Preferred Area" value={tutor.PreferredArea} icon={<MdLocationOn />} />
                     )}
-                    
+
                     {tutor.TuitionRegion && (
                         <DetailField label="Tuition Region" value={tutor.TuitionRegion} icon={<MdLocationOn />} />
                     )}
-                    
+
                     {tutor.selectDistrict && (
                         <DetailField label="District" value={tutor.selectDistrict} icon={<MdLocationOn />} />
                     )}
-                    
+
                     {tutor.preferredAreaToTeach && (
                         <DetailField label="Preferred Area to Teach" value={tutor.preferredAreaToTeach} icon={<MdLocationOn />} />
                     )}
@@ -164,7 +166,6 @@ const PaymentTable = () => {
         setSelectedTutorId(tutorId);
     };
 
-    // Helper function for Tailwind status styling
     const getStatusStyle = (status) => {
         switch (status?.toLowerCase()) {
             case 'paid':

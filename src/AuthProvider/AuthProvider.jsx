@@ -28,7 +28,6 @@ const AuthProvider = ({ children }) => {
       const Updateprofile = (Profile)=> {
         return updateProfile(auth.currentUser, Profile)
         .then(()=>{
-            alert("update profile")
         })
         .catch((error)=>{
             console.log(error);

@@ -13,6 +13,7 @@ import {
     FaMoneyBillWave,
     FaGlobe,
 } from 'react-icons/fa';
+import { SiGoogleclassroom } from "react-icons/si";
 import useAuth from '../../hook/useAuth';
 import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../../hook/useAxiosSecure';
@@ -55,11 +56,9 @@ const TutorApplicationForm = () => {
 
 
     const onSubmit = (data) => {
-        console.log("Form Data Submitted:", data);
         axiosSecure.patch(`/tutor/${user.email}/dataupdate`, data)
             .then(res => {
                 if (res.data.insertedId) {
-                    console.log('user update in database in the database');
                     resetForm();
                 }
             })
@@ -124,6 +123,8 @@ const TutorApplicationForm = () => {
 
                         {/* Expected Minimum Salary */}
                         <InputField icon={FaMoneyBillWave} label="Expected Minimum Salary (e.g., $50/hour)" name="expectedMinimumSalary" />
+
+                        <InputField icon={SiGoogleclassroom} label="Which class" name="Class" />
 
                     </div>
                 </section>

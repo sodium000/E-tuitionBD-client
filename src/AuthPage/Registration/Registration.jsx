@@ -6,6 +6,7 @@ import { useForm, useWatch } from 'react-hook-form';
 import axios from 'axios';
 import useAxiosSecure from '../../hook/useAxiosSecure';
 import useAuth from '../../hook/useAuth';
+import Swal from 'sweetalert2';
 
 const Registration = () => {
 
@@ -59,13 +60,26 @@ const Registration = () => {
                                 PreferredArea: data.PreferredArea,
                                 TuitionRegion: data.TuitionRegion,
                                 selectDistrict: data.selectDistrict,
-                                role: 'tutor'
+                                role: 'tutor',
+                                status: 'pending'
 
                             }
                             axiosSecure.post('/users', userInfo)
                                 .then(res => {
                                     if (res.data.insertedId) {
-                                        console.log('user created in the database');
+                                        const UserProfile = {
+                                            displayName: data.Name,
+                                            photoURL: photoURL
+                                        }
+                                        Updateprofile(UserProfile)
+                                            .then(() => {
+                                                navigate('/')
+                                            })
+                                        Swal.fire({
+                                            title: "Tutor Create.Now update your profile",
+                                            icon: "success",
+                                            draggable: true
+                                        });
                                     }
                                 })
                         }
@@ -82,20 +96,22 @@ const Registration = () => {
                             axiosSecure.post('/users', userInfo)
                                 .then(res => {
                                     if (res.data.insertedId) {
-                                        console.log('user created in the database');
+                                        const UserProfile = {
+                                            displayName: data.Name,
+                                            photoURL: photoURL
+                                        }
+                                        Updateprofile(UserProfile)
+                                            .then(() => {
+                                                navigate('/')
+                                            })
+                                        Swal.fire({
+                                            title: "As Student Create.",
+                                            icon: "success",
+                                            draggable: true
+                                        });
                                     }
                                 })
                         }
-
-                        // update user profile
-                        const UserProfile = {
-                            displayName: data.Name,
-                            photoURL: photoURL
-                        }
-                        Updateprofile(UserProfile)
-                            .then(() => {
-                                navigate('/')
-                            })
                     })
             })
             .catch(error => console.log(error))

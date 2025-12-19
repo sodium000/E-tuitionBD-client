@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
-import { FaMapMarkerAlt, FaCalendarAlt, FaClock, FaUser, FaUsers, FaBookOpen, FaMoneyBillWave, FaArrowLeft, FaUserGraduate, FaChalkboardTeacher, FaTimes, FaSearch } from "react-icons/fa";
+import { FaMapMarkerAlt, FaCalendarAlt, FaClock, FaUser, FaUsers, FaBookOpen, FaMoneyBillWave, FaArrowLeft, FaUserGraduate, FaChalkboardTeacher, FaTimes, FaSearch, FaGraduationCap, FaPhoneAlt } from "react-icons/fa";
 import { useNavigate, useParams, Link } from "react-router";
-import { motion, AnimatePresence } from "framer-motion"; // Added for animations
+import { motion, AnimatePresence } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { TbCurrencyTaka } from "react-icons/tb";
 import useAxiosSecure from "../../hook/useAxiosSecure";
@@ -20,7 +20,7 @@ const DetailItem = ({ icon: Icon, label, value }) => (
             <Icon className="text-sm mr-1.5 text-blue-500" />
             {label}
         </div>
-        <p className="font-bold text-gray-800 text-sm md:text-base truncate w-full">{value}</p>
+        <p className="font-bold text-gray-800 text-sm md:text-base truncate w-full">{value || "N/A"}</p>
     </motion.div>
 );
 
@@ -41,7 +41,7 @@ const JobDetails = () => {
         const fetchJob = async () => {
             try {
                 setLoading(true);
-                const res = await axiosSecure.get(`/post/${id}`);
+                const res = await axiosSecure.get(`/tutor/${id}/tutorDetails`);
                 setJob(res.data);
             } catch (error) {
                 console.error("Error fetching job:", error);
@@ -69,14 +69,16 @@ const JobDetails = () => {
                 setIsModalOpen(false);
                 reset();
             }
-        }  finally {
+        } finally {
             setIsSubmitting(false);
         }
     };
 
     const getFilteredSubjects = () => {
-        if (!job?.Subject) return [];
-        const subjects = Array.isArray(job.Subject) ? job.Subject : job.Subject.split(",").map(s => s.trim());
+        if (!job?.Subject && !job?.preferredClass) return [];
+        // Support both field names from your data
+        const rawSubjects = job.Subject || job.preferredClass;
+        const subjects = Array.isArray(rawSubjects) ? rawSubjects : rawSubjects.split(",").map(s => s.trim());
         return subjects.filter(s => s.toLowerCase().includes(subjectSearch.toLowerCase()));
     };
 
@@ -86,45 +88,36 @@ const JobDetails = () => {
     return (
         <div className="bg-slate-50 min-h-screen pb-20 pt-6 px-4">
             <div className="max-w-6xl mx-auto">
-                {/* Back Button */}
                 <button onClick={() => navigate(-1)} className="mb-6 flex items-center gap-2 text-gray-500 hover:text-blue-600 transition-colors font-medium">
                     <FaArrowLeft /> Back to Listings
                 </button>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     {/* Main Content */}
-                    <motion.div
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        className="lg:col-span-2 space-y-6"
-                    >
+                    <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} className="lg:col-span-2 space-y-6">
                         <div className="bg-white rounded-3xl p-6 md:p-10 shadow-sm border border-gray-100">
-                            <div className="flex flex-wrap gap-2 mb-4">
-                                <span className="bg-blue-50 text-blue-600 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-tighter">
-                                    {job.Medium} Medium
-                                </span>
-                                <span className="bg-green-50 text-green-600 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-tighter">
-                                    {job._id.slice(-6).toUpperCase()}
-                                </span>
+                            {/* Header Info */}
+                            <div className="flex items-center gap-4 mb-6">
+                                <img src={job.photoURL} alt={job.displayName} className="w-16 h-16 rounded-2xl object-cover shadow-md" />
+                                <div>
+                                    <h1 className="text-2xl font-black text-slate-900">{job.displayName || job.name}</h1>
+                                    <p className="text-blue-600 font-medium flex items-center gap-1"><FaGraduationCap /> {job.role?.toUpperCase()}</p>
+                                </div>
                             </div>
 
-                            <h1 className="text-3xl md:text-4xl font-black text-slate-900 mb-6 leading-tight">
-                                Tutor Needed for <span className="text-blue-600 font-black">{job.Class}</span> Students
-                            </h1>
-
                             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10">
-                                <DetailItem icon={FaUserGraduate} label="Class" value={job.Class} />
-                                <DetailItem icon={FaChalkboardTeacher} label="Tutor Gender" value={job.Gender} />
-                                <DetailItem icon={FaCalendarAlt} label="Days/Week" value={`${job.Day} Days`} />
-                                <DetailItem icon={FaUsers} label="Students" value={job.numberstudent || "1"} />
+                                <DetailItem icon={FaUserGraduate} label="Target Class" value={job.Class} />
+                                <DetailItem icon={FaClock} label="Preferred Time" value={job.preferredTime} />
+                                <DetailItem icon={FaCalendarAlt} label="Days/Week" value={`${job.daysPerWeek || job.Day} Days`} />
+                                <DetailItem icon={FaChalkboardTeacher} label="Medium/Method" value={job.placeOfLearning || job.Medium} />
                             </div>
 
                             <div className="space-y-8">
-                                {/* Subjects with Search */}
+                                {/* Subjects Section */}
                                 <div>
                                     <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-4">
                                         <h3 className="text-lg font-bold text-slate-800 flex items-center gap-2">
-                                            <FaBookOpen className="text-blue-500" /> Required Subjects
+                                            <FaBookOpen className="text-blue-500" /> Teaching Subjects
                                         </h3>
                                         <div className="relative">
                                             <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm" />
@@ -138,75 +131,73 @@ const JobDetails = () => {
                                     </div>
                                     <div className="flex flex-wrap gap-2">
                                         {getFilteredSubjects().map((sub, i) => (
-                                            <motion.span
-                                                initial={{ scale: 0.9 }}
-                                                animate={{ scale: 1 }}
-                                                key={i}
-                                                className="bg-slate-100 text-slate-700 px-4 py-2 rounded-xl text-sm font-semibold border border-slate-200"
-                                            >
+                                            <span key={i} className="bg-slate-100 text-slate-700 px-4 py-2 rounded-xl text-sm font-semibold border border-slate-200">
                                                 {sub}
-                                            </motion.span>
+                                            </span>
                                         ))}
                                     </div>
                                 </div>
 
-                                <div className="p-6 bg-blue-50 rounded-2xl border-l-4 border-blue-500">
-                                    <h4 className="font-bold text-blue-900 mb-2">Requirement Details</h4>
-                                    <p className="text-blue-800/80 leading-relaxed text-sm md:text-base">
-                                        Highly experienced tutors are requested to apply. Preferred location: <span className="font-bold">{job.selectDistrict}</span>.
-                                        {job.Requirements || "Please be punctual and professional."}
-                                    </p>
+                                {/* Preferences & Education */}
+                                <div className="grid md:grid-cols-2 gap-6">
+                                    <div className="p-6 bg-blue-50 rounded-2xl border-l-4 border-blue-500">
+                                        <h4 className="font-bold text-blue-900 mb-2">Teaching Preferences</h4>
+                                        <ul className="text-blue-800/80 space-y-2 text-sm">
+                                            <li><strong>Preferred Area:</strong> {job.PreferredArea || job.preferredAreaToTeach}</li>
+                                            <li><strong>Tuition Region:</strong> {job.TuitionRegion}</li>
+                                            <li><strong>Current Status:</strong> {job.status}</li>
+                                        </ul>
+                                    </div>
+                                    <div className="p-6 bg-purple-50 rounded-2xl border-l-4 border-purple-500">
+                                        <h4 className="font-bold text-purple-900 mb-2">Contact Information</h4>
+                                        <p className="text-purple-800/80 text-sm flex items-center gap-2"><FaPhoneAlt /> {job.Phone}</p>
+                                        <p className="text-purple-800/80 text-sm mt-1">{job.Email}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </motion.div>
 
-                    {/* Sticky Sidebar */}
-                    <motion.div
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        className="lg:col-span-1"
-                    >
+                    {/* Sidebar */}
+                    <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="lg:col-span-1">
                         <div className="sticky top-6 space-y-4">
                             <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 text-center">
-                                <span className="text-gray-400 text-xs font-bold uppercase tracking-widest">Monthly Salary</span>
-                                <div className="flex items-center justify-center text-5xl font-black text-pink-600 my-2">
-                                    <TbCurrencyTaka />{job.Salary}
+                                <span className="text-gray-400 text-xs font-bold uppercase tracking-widest">Expected Salary</span>
+                                <div className="flex items-center justify-center text-4xl font-black text-pink-600 my-2">
+                                    <TbCurrencyTaka />{job.expectedMinimumSalary || job.Salary}
                                 </div>
-                                <p className="text-gray-500 text-sm">Negotiable based on experience</p>
+                                <p className="text-gray-500 text-xs italic mb-6">Posted: {job.createdAt}</p>
 
-                                <div className="mt-8 space-y-3">
-                                    {user ? (
-                                        role === "tutor" ? (
-                                            <button onClick={() => setIsModalOpen(true)} className="w-full py-4 bg-pink-600 text-white rounded-2xl font-bold text-lg hover:bg-pink-700 transition-all shadow-lg shadow-pink-200 active:scale-95">
-                                                Apply Now
-                                            </button>
-                                        ) : (
-                                            <div className="p-3 bg-amber-50 text-amber-700 text-xs font-bold rounded-xl border border-amber-100">
-                                                Only Tutor accounts can apply
-                                            </div>
-                                        )
+                                {user ? (
+                                    role === "tutor" ? (
+                                        <button onClick={() => setIsModalOpen(true)} className="w-full py-4 bg-pink-600 text-white rounded-2xl font-bold hover:bg-pink-700 transition-all shadow-lg shadow-pink-200">
+                                            Contact Tutor
+                                        </button>
                                     ) : (
-                                        <Link to="/login" className="block w-full py-4 bg-blue-600 text-white rounded-2xl font-bold text-lg text-center">
-                                            Login to Apply
-                                        </Link>
-                                    )}
-                                </div>
+                                        <div className="p-3 bg-amber-50 text-amber-700 text-xs font-bold rounded-xl border border-amber-100">
+                                            Only Students/Guardians can contact
+                                        </div>
+                                    )
+                                ) : (
+                                    <Link to="/login" className="block w-full py-4 bg-blue-600 text-white rounded-2xl font-bold text-center">
+                                        Login to Contact
+                                    </Link>
+                                )}
                             </div>
 
                             <div className="bg-slate-900 p-6 rounded-3xl text-white">
                                 <h4 className="font-bold mb-4 flex items-center gap-2">
-                                    <FaMapMarkerAlt className="text-red-500" /> Location Info
+                                    <FaMapMarkerAlt className="text-red-500" /> Current District
                                 </h4>
-                                <p className="text-slate-400 text-sm leading-relaxed">
-                                    Located in {job.selectDistrict}. More specific details like road/house number will be shared once your application is shortlisted.
-                                </p>
+                                <p className="text-3xl font-bold text-white mb-2">{job.selectDistrict}</p>
+                                <p className="text-slate-400 text-sm">Available for sessions in {job.PreferredArea}.</p>
                             </div>
                         </div>
                     </motion.div>
                 </div>
             </div>
 
+            {/* Application Modal remains the same */}
             <AnimatePresence>
                 {isModalOpen && (
                     <motion.div
@@ -220,7 +211,7 @@ const JobDetails = () => {
                             onClick={e => e.stopPropagation()}
                         >
                             <div className="bg-slate-50 px-8 py-6 flex justify-between items-center border-b border-gray-100">
-                                <h2 className="text-xl font-black text-slate-800">Quick Application</h2>
+                                <h2 className="text-xl font-black text-slate-800">Contact Request</h2>
                                 <button onClick={() => setIsModalOpen(false)} className="p-2 hover:bg-white rounded-full transition-colors">
                                     <FaTimes className="text-gray-400" />
                                 </button>
@@ -228,25 +219,15 @@ const JobDetails = () => {
 
                             <form onSubmit={handleSubmit(onSubmitApplication)} className="p-8 space-y-5">
                                 <div>
-                                    <label className="block text-xs font-bold text-gray-500 uppercase mb-2">Qualifications</label>
+                                    <label className="block text-xs font-bold text-gray-500 uppercase mb-2">Short Message</label>
                                     <textarea
                                         {...register("qualifications", { required: true })}
                                         className="w-full p-4 bg-gray-50 border-none rounded-2xl focus:ring-2 focus:ring-pink-500 h-24"
-                                        placeholder="Major, University, Current Status..."
+                                        placeholder="Briefly describe your requirements..."
                                     />
                                 </div>
-                                <div className="grid grid-cols-2 gap-4">
-                                    <div>
-                                        <label className="block text-xs font-bold text-gray-500 uppercase mb-2">Exp. (Years)</label>
-                                        <input type="number" {...register("experience", { required: true })} className="w-full p-4 bg-gray-50 border-none rounded-2xl focus:ring-2 focus:ring-pink-500" />
-                                    </div>
-                                    <div>
-                                        <label className="block text-xs font-bold text-gray-500 uppercase mb-2">Exp. Salary</label>
-                                        <input type="number" {...register("expectedSalary", { required: true })} className="w-full p-4 bg-gray-50 border-none rounded-2xl focus:ring-2 focus:ring-pink-500" />
-                                    </div>
-                                </div>
                                 <button disabled={isSubmitting} className="w-full py-4 bg-slate-900 text-white rounded-2xl font-bold hover:bg-black transition-all disabled:opacity-50">
-                                    {isSubmitting ? "Sending..." : "Confirm Application"}
+                                    {isSubmitting ? "Sending..." : "Confirm Request"}
                                 </button>
                             </form>
                         </motion.div>

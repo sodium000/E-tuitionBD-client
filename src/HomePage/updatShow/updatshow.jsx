@@ -76,12 +76,12 @@ const updatshow = () => {
                                     {tutordata.displayName}
                                 </h2>
                                 <p className="text-sm font-medium text-secondary text-center mb-1 uppercase">
-                                    {tutordata.education?.institution || "N/A"}
+                                    {tutordata.education?.institution || "Updating Tutor..."}
                                 </p>
 
                                 <div className="flex items-center justify-center pt-2 pb-4">
                                     <span className="text-lg font-bold dark:text-slate-200 text-center px-4 py-1 rounded-full bg-primary/60 dark:bg-primary-light/20 text-primary dark:text-primary-light shadow-inner uppercase">
-                                        {tutordata.preferredClass}
+                                        {tutordata?.preferredClass || "updatig tutor..."}
                                     </span>
                                 </div>
 

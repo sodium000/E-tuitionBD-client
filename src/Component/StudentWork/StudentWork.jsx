@@ -39,7 +39,7 @@ const StudentWork = () => {
     ];
 
     return (
-        <div className="bg-gray-50 min-h-screen text-gray-700 font-sans antialiased pb-24">
+        <div className="bg-gray-50  text-gray-700 font-sans antialiased ">
             <div className="max-w-md mx-auto px-6">
                 <header className="pt-12 pb-8 text-center">
                     <h1 className="text-2xl font-bold text-gray-900 mb-2">

@@ -1,5 +1,6 @@
 import React from 'react';
 import Marquee from 'react-fast-marquee';
+import { Link } from 'react-router';
 
 const Banner = () => {
     return (
@@ -13,7 +14,7 @@ const Banner = () => {
                         Find the Right Tutor in Your Area.
                     </p>
                     <div className="mt-6 md:mt-6">
-                        <a
+                        <Link to='/Tutors'
                             className="inline-flex items-center  gap-x-3 rounded-full bg-purple-300 px-8 py-4 text-base font-semibold  shadow-lg hover:bg-purple-500 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-purple-600 transition-all duration-200 transform hover:scale-105"
                             href="#"
                         >
@@ -32,7 +33,7 @@ const Banner = () => {
                                     d="M2 10a.75.75 0 01.75-.75h12.59l-2.1-1.95a.75.75 0 111.02-1.1l3.5 3.25a.75.75 0 010 1.1l-3.5 3.25a.75.75 0 11-1.02-1.1l2.1-1.95H2.75A.75.75 0 012 10z"
                                 />
                             </svg>
-                        </a>
+                        </Link>
                     </div>
                     <div className="mt-10 text-left md:mt-6">
                         <h2 className="text-lg font-medium text-gray-700">Divisional Tutors:</h2>

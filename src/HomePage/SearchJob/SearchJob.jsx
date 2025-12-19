@@ -1,6 +1,7 @@
 import React from 'react';
 import { GoSearch } from "react-icons/go";
 import { FaArrowRight } from "react-icons/fa6";
+import { Link } from 'react-router';
 
 
 const SearchJob = () => {
@@ -35,12 +36,13 @@ const SearchJob = () => {
                                 <p className="text-text-light-secondary dark:text-text-dark-secondary text-base leading-relaxed mb-8">
                                     If teaching jobs interests you, then you are on the right place. We often have <span className="font-bold text-text-light dark:text-text-dark">500+</span> open home tuition jobs that are genuine and <span className="font-bold text-text-light dark:text-text-dark">100%</span> verified. Whether you are starting your career as a tuition teacher or an expert in your field, we can help you find your next big tuition job. You can search and apply to the tuition jobs that best fit your skills, favorable location, class and subjects.
                                 </p>
-
-                                <button className="group flex items-center justify-center px-8 py-4 bg-linear-to-r from-purple-600 via-pink-600 to-red-500 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 ease-in-out">
-                                    <span className="material-icons mr-2"><GoSearch size={25} /></span>
-                                    <span>SEARCH TUITION</span>
-                                    <span className="material-icons ml-2 transform transition-transform duration-300 group-hover:translate-x-1"><FaArrowRight size={25} /></span>
-                                </button>
+                                <Link to='/TutionPost'>
+                                    <button className="group flex items-center justify-center px-8 py-4 bg-linear-to-r from-purple-600 via-pink-600 to-red-500 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 ease-in-out">
+                                        <span className="material-icons mr-2"><GoSearch size={25} /></span>
+                                        <span>SEARCH TUITION</span>
+                                        <span className="material-icons ml-2 transform transition-transform duration-300 group-hover:translate-x-1"><FaArrowRight size={25} /></span>
+                                    </button>
+                                </Link>
                             </div>
                         </div>
                     </div>

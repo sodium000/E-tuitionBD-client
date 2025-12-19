@@ -27,6 +27,8 @@ const Navbar = () => {
         <li><NavLink>About</NavLink></li>
         <li><NavLink>Contact</NavLink></li>
         <li><NavLink>Office Location</NavLink></li>
+        <li><NavLink to='/Tutors'>Tutors</NavLink></li>
+        <li><NavLink to='/TutionPost'>Tuitions</NavLink></li>
 
         {
             loding ? <Loading></Loading>
@@ -34,7 +36,7 @@ const Navbar = () => {
                 <>
                     {!roleLoading && user && role === 'tutor' && (
                         <>
-                            <li><NavLink to='/TutionPost'>Tuitions</NavLink></li>
+                            
                             <li><NavLink to='/Tutorapply'>Update Profile</NavLink></li>
                             <li><NavLink to="/dashboard/myapplications">Dashboard(Tutor)</NavLink></li>
                         </>
@@ -45,7 +47,7 @@ const Navbar = () => {
                     {!roleLoading && user && role === 'student' && (
                         <>
                             <li><NavLink to="/dashboard/PostTable">Dashboard(Student)</NavLink></li>
-                            <li><NavLink to='/Tutors'>Tutors</NavLink></li>
+                            
                         </>
                     )}
                 </>

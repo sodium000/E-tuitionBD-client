@@ -21,7 +21,7 @@ const Tutors = () => {
     }
 
     return (
-        <div className="max-w-7xl mx-auto px-4 py-16">
+        <div className="max-w-8xl mx-auto  py-16">
             {/* Header Section */}
             <div className="text-center mb-16">
                 <h1 className="text-4xl md:text-5xl font-black text-slate-800 dark:text-white mb-4">
@@ -32,17 +32,15 @@ const Tutors = () => {
                 </p>
             </div>
 
-            {/* Grid Layout */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-10 justify-items-center">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-10 justify-items-center">
                 {tutor?.map((tutordata, index) => (
-                    <div 
-                        key={index} 
-                        className="group w-full max-w-sm bg-white  rounded-[2.5rem] shadow-xl hover:shadow-2xl border  overflow-hidden transition-all duration-500 hover:-translate-y-2 relative"
+                    <div
+                        key={index}
+                        className="group w-full bg-white rounded-[2.5rem] shadow-xl hover:shadow-2xl border  overflow-hidden transition-all duration-500 hover:-translate-y-2 relative"
                     >
-                        {/* Decorative background element */}
                         <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700"></div>
 
-                        <div className="flex flex-col items-center pt-10 px-8 pb-28">
+                        <div className="flex flex-col items-center pt-10 px-8 pb-25">
                             <div className="relative mb-6">
                                 <div className="absolute inset-0 bg-primary/20 rounded-full blur-xl group-hover:blur-2xl transition-all"></div>
                                 <div className="relative w-36 h-36 rounded-full overflow-hidden border-[6px] border-purple-400/40 shadow-2xl">
@@ -54,14 +52,14 @@ const Tutors = () => {
                                 </div>
                             </div>
 
-                            <h2 className="text-2xl font-black  tracking-tight mb-2 text-center">
+                            <h2 className="text-lg font-black  tracking-tight mb-2 text-center">
                                 {tutordata.displayName}
                             </h2>
-                            
+
                             <div className="flex items-center gap-2 text-white text-sm mb-6 bg-pink-400 px-4 py-1.5 rounded-full">
                                 <MdSchool className="text-primary text-lg" />
                                 <span className="font-medium truncate max-w-[200px]">
-                                    {tutordata.education.institution}
+                                    {tutordata.education?.institution || 'updating tutor...'}
                                 </span>
                             </div>
 
@@ -70,7 +68,7 @@ const Tutors = () => {
                                 <div className="flex items-center justify-between bg-primary/30 p-3 rounded-2xl border border-primary/10">
                                     <span className="text-xs font-bold uppercase tracking-wider text-slate-900">Class</span>
                                     <span className="text-sm font-extrabold text-primary uppercase">
-                                        {tutordata.preferredClass}
+                                        {tutordata?.preferredClass || "updating tutor..."}
                                     </span>
                                 </div>
 
