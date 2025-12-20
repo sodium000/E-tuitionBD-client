@@ -16,15 +16,10 @@ const OngoingTuitions = () => {
     const { user, } = useAuth();
 
     const { data: tuitions = [], isLoading } = useQuery({
-        // It's better to use a string key + the dynamic variable
         queryKey: ['ongoing-tuitions', user?.email],
-
-        // Ensure we don't call the API until user is loaded and email exists
         enabled: !!user?.email,
-
         queryFn: async () => {
             const response = await axiosSecure.get(`/tuitions/${user.email}/ongoing`);
-            // We use response.data because the backend sends the array directly
             return response.data;
         },
     });
