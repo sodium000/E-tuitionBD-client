@@ -13,14 +13,12 @@ const TutorDetailsModal = ({ tutorId, onClose }) => {
         queryKey: ['tutorDetails', tutorId],
         queryFn: async () => {
             const res = await axiosSecure.get(`/tutor/${tutorId}/tutorDetails`);
-            console.log(res.data)
             return res.data;
 
         },
         enabled: !!tutorId,
     });
 
-    console.log(tutor);
 
     if (!tutorId) return null;
 
@@ -160,7 +158,7 @@ const PaymentTable = () => {
         },
         enabled: !!user?.email,
     });
-    console.log(payments)
+
 
     const handleViewDetails = (tutorId) => {
         setSelectedTutorId(tutorId);

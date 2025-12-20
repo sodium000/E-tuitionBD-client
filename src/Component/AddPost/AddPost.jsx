@@ -8,10 +8,11 @@ import { IoManSharp } from 'react-icons/io5';
 import { TbHomeDot } from 'react-icons/tb';
 import { useLoaderData } from 'react-router';
 import useAxiosSecure from '../../hook/useAxiosSecure';
+import Swal from 'sweetalert2';
 
 
 const AddPost = () => {
-    const { register, handleSubmit, control, formState: { errors } } = useForm();
+    const { register, handleSubmit, control, formState: { errors },reset } = useForm();
     const TuitionRegion = useWatch({ control, name: 'TuitionRegion' });
     const axiosSecure = useAxiosSecure();
 
@@ -30,7 +31,12 @@ const AddPost = () => {
         axiosSecure.post('/post', data)
             .then(res => {
                 if (res.data.insertedId) {
-                    console.log('user created in the database');
+                    Swal.fire({
+                        title: "Post Added",
+                        text: "Wait for admin approval ",
+                        icon: "question"
+                    });
+                    reset();
                 }
             })
 

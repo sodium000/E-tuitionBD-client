@@ -18,7 +18,7 @@ const ApplicationTable = () => {
     },
   });
 
-  const { data: applications = [],refetch } = useQuery({
+  const { data: applications = [], refetch } = useQuery({
     queryKey: ['applications', posts.map(p => p._id)],
     enabled: posts.length > 0,
     queryFn: async () => {
@@ -29,9 +29,29 @@ const ApplicationTable = () => {
       return all;
     },
   });
-  console.log(applications, posts)
+
 
   const updateStatus = async (id, status) => {
+    // const response = await axiosSecure.patch(`/post/${id}/update`, { status });
+    const newArray = applications.filter(item => item._id === id);
+    const pay = newArray.map( async (data) => {
+      const paymentInfo = {
+        TutorName: data.TutorName,
+        TutorEmail: data.TutorEmail,
+        TutorFee: data.expectedSalary,
+        PostORTutorId: data.postId,
+        StudentEmail: user.email,
+        StudentName: user.displayName
+      }
+      const res = await axiosSecure.post('/payment-checkout-session', paymentInfo);
+      
+      window.location.assign(res.data.url);
+    })
+    refetch();
+
+  };
+
+  const updateReject = async (id, status) => {
     const res = await axiosSecure.patch(`/post/${id}/update`, { status });
     refetch();
 
@@ -61,7 +81,7 @@ const ApplicationTable = () => {
               <tr key={app._id} className="hover:bg-gray-50">
                 {/* Tutor Info */}
                 <td className="px-6 py-4 flex items-center gap-3">
-                  <span className="font-medium">{app.tutorName}</span>
+                  <span className="font-medium">{app.TutorName}</span>
                 </td>
 
                 <td className="px-6 py-4">{app.qualifications}</td>
@@ -80,7 +100,7 @@ const ApplicationTable = () => {
                       </button>
 
                       <button
-                        onClick={() => updateStatus(app._id, 'Rejected')}
+                        onClick={() => updateReject(app._id, 'Rejected')}
                         className="inline-flex items-center px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700"
                       >
                         <FaTimesCircle className="mr-1" /> Reject

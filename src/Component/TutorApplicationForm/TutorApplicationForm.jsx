@@ -1,4 +1,4 @@
-/* eslint-disable no-undef */
+
 /* eslint-disable react-hooks/incompatible-library */
 /* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
@@ -17,8 +17,11 @@ import { SiGoogleclassroom } from "react-icons/si";
 import useAuth from '../../hook/useAuth';
 import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../../hook/useAxiosSecure';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router';
 
 const TutorApplicationForm = () => {
+    const navigate = useNavigate();
     const {
         register,
         handleSubmit,
@@ -45,6 +48,7 @@ const TutorApplicationForm = () => {
     });
 
 
+
     useEffect(() => {
         if (tutorData) {
             reset({
@@ -56,10 +60,17 @@ const TutorApplicationForm = () => {
 
 
     const onSubmit = (data) => {
+        console.log('tonmoy')
         axiosSecure.patch(`/tutor/${user.email}/dataupdate`, data)
             .then(res => {
-                if (res.data.insertedId) {
-                    resetForm();
+                if (res.data) {
+                    Swal.fire({
+                        title: "Tutor Update",
+                        icon: "success",
+                        draggable: true
+                    });
+                    reset();
+                    navigate('/')
                 }
             })
     };

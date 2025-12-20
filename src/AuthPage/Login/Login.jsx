@@ -16,13 +16,14 @@ const Login = () => {
     const login = async (data) => {
         try {
             const result = await signInUser(data.Email, data.Password);
+            if (result) {
+                const loginData = { Email: data.Email };
+                const res = await axiosSecure.post('/login', loginData);
+                if (res) {
+                    navigate(location?.state || '/');
+                }
 
-            const loginData = { Email: data.Email };
-
-            const res = await axiosSecure.post('/login', loginData);
-
-            console.log(res.data);
-            navigate(location?.state || '/');
+            }
 
         } catch (error) {
 

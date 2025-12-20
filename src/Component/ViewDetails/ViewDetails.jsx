@@ -9,6 +9,7 @@ import useAuth from "../../hook/useAuth";
 import { TbCurrencyTaka } from "react-icons/tb";
 import useRole from "../../hook/useRole";
 import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
 
 const DetailItem = ({ icon: Icon, label, value }) => (
     <div className="flex flex-col items-start p-3 bg-gray-50 rounded-xl border border-gray-100 shadow-sm">
@@ -83,7 +84,6 @@ const JobDetails = () => {
         fetedata();
     }, []);
 
-    console.log(jobs)
 
     const handleApplyClick = () => {
         if (user && role === "tutor") {
@@ -100,8 +100,9 @@ const JobDetails = () => {
         try {
             setIsSubmitting(true);
             const applicationData = {
-                tutorName: user.displayName,
-                tutorEmail: user.email,
+                TutorName: user.displayName,
+                TutorEmail: user.email,
+                StudentEmail: user.email,
                 qualifications: data.qualifications,
                 experience: data.experience,
                 expectedSalary: data.expectedSalary,
@@ -110,16 +111,22 @@ const JobDetails = () => {
                 createdAt: new Date().toISOString()
             };
 
+
+
             const response = await axiosSecure.post('/applications', applicationData);
 
             if (response.data.insertedId || response.data.success) {
                 alert("Application submitted successfully!");
                 handleCloseModal();
             } else {
-                alert("Failed to submit application. Please try again.");
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "You already apply",
+                    footer: '<p>Wait for Student Responce</p>'
+                });
             }
         } catch (error) {
-            console.error("Error submitting application:", error);
             alert("An error occurred while submitting your application. Please try again.");
         } finally {
             setIsSubmitting(false);

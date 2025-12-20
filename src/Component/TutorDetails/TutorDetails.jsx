@@ -10,6 +10,7 @@ import useAxiosSecure from "../../hook/useAxiosSecure";
 import useAuth from "../../hook/useAuth";
 import useRole from "../../hook/useRole";
 import Loading from "../Loading/Loading";
+import Swal from "sweetalert2";
 
 const DetailItem = ({ icon: Icon, label, value }) => (
     <motion.div
@@ -51,24 +52,42 @@ const JobDetails = () => {
         };
         fetchJob();
     }, [id]);
+        
 
     const onSubmitApplication = async (data) => {
         try {
             setIsSubmitting(true);
             const applicationData = {
                 ...data,
-                tutorName: user.displayName,
-                tutorEmail: user.email,
-                postId: id,
-                status: "Pending",
+                TutorName: job.displayName,
+                TutorEmail: job.Email,
+                TutorId: id,
+                status: "Paid",
+                StudentEmail: user.email,
+                StudentName: user.displayName,
                 createdAt: new Date().toISOString()
             };
-            const response = await axiosSecure.post('/applications', applicationData);
-            if (response.data.insertedId) {
-                alert("Application Sent!");
-                setIsModalOpen(false);
-                reset();
+            const response = await axiosSecure.post('/applications/tutor', applicationData);
+            if (response.data.message !== 'Already apply') {
+                const paymentInfo = {
+                    TutorName: job.displayName,
+                    TutorEmail: job.Email,
+                    TutorFee: job.expectedMinimumSalary,
+                    PostORTutorId: id,
+                    StudentEmail: user.email,
+                    StudentName: user.displayName
+                }
+                const res = await axiosSecure.post('/payment-checkout-session', paymentInfo);
+                window.location.assign(res.data.url);
+
             }
+            setIsModalOpen(false);
+            reset();
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Allready apply!",
+            });
         } finally {
             setIsSubmitting(false);
         }
@@ -83,7 +102,6 @@ const JobDetails = () => {
 
     if (loading) return <Loading />;
     if (!job) return <div className="text-center py-20 font-bold">Job Not Found</div>;
-
     return (
         <div className="bg-slate-50 min-h-screen pb-20 pt-6 px-4">
             <div className="max-w-6xl mx-auto">
