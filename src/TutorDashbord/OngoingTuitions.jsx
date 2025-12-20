@@ -1,47 +1,43 @@
-/* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
-
+import React from 'react';
+import { useQuery } from '@tanstack/react-query';
 import {
-    MdCalendarToday,
     MdBook,
     MdPerson,
-    MdDateRange
+    MdDateRange,
+    MdAttachMoney,
+    MdConfirmationNumber
 } from 'react-icons/md';
-
-// --- 1. Mock Data ---
-const initialTuitions = [
-    {
-        id: 101,
-        course: 'Advanced Calculus I',
-        student: 'Alice Johnson',
-        startDate: '2025-11-01',
-        scheduleID: 'CAL-A-2025',
-        status: 'Active',
-    },
-    {
-        id: 102,
-        course: 'Intro to Python',
-        student: 'Charlie Brown',
-        startDate: '2025-10-01',
-        scheduleID: 'PYT-C-2025',
-        status: 'Active',
-    },
-    {
-        id: 103,
-        course: 'Linear Algebra',
-        student: 'Eva Green',
-        startDate: '2025-12-05',
-        scheduleID: 'LIN-E-2025',
-        status: 'Active',
-    },
-];
+import useAxiosSecure from '../hook/useAxiosSecure';
+import Loading from '../Component/Loading/Loading';
+import useAuth from '../hook/useAuth';
 
 const OngoingTuitions = () => {
-    const [tuitions, setTuitions] = useState(initialTuitions);
+    const axiosSecure = useAxiosSecure();
+    const { user, } = useAuth();
 
-    const handleViewSchedule = (scheduleID) => {
-        alert(`Navigating to schedule details for: ${scheduleID}`);
-    };
+    const { data: tuitions = [], isLoading } = useQuery({
+        // It's better to use a string key + the dynamic variable
+        queryKey: ['ongoing-tuitions', user?.email],
+
+        // Ensure we don't call the API until user is loaded and email exists
+        enabled: !!user?.email,
+
+        queryFn: async () => {
+            const response = await axiosSecure.get(`/tuitions/${user.email}/ongoing`);
+            // We use response.data because the backend sends the array directly
+            return response.data;
+        },
+    });
+
+    console.log(tuitions)
+
+    if (isLoading) {
+        return (
+            <div className="flex justify-center items-center min-h-screen">
+                <Loading />
+            </div>
+        );
+    }
 
     return (
         <div className="p-6 bg-white min-h-screen">
@@ -49,7 +45,7 @@ const OngoingTuitions = () => {
                 <MdBook className="text-indigo-600" /> Tutor Ongoing Tuitions
             </h2>
             <p className="text-gray-600 mb-8">
-                All tuitions that have been **approved** by the student and are currently active.
+                All tuitions that have been **approved** and paid.
             </p>
 
             <div className="overflow-x-auto shadow-2xl rounded-xl border border-gray-100">
@@ -57,50 +53,42 @@ const OngoingTuitions = () => {
                     <thead className="bg-indigo-50 border-b border-indigo-200">
                         <tr>
                             <th className="px-6 py-3 text-left text-xs font-semibold text-indigo-700 uppercase tracking-wider">
-                                <MdBook className="inline mr-1" /> Course Title
+                                <MdPerson className="inline mr-1" /> Student / Tracking ID
                             </th>
                             <th className="px-6 py-3 text-left text-xs font-semibold text-indigo-700 uppercase tracking-wider">
-                                <MdPerson className="inline mr-1" /> Student Name
+                                <MdAttachMoney className="inline mr-1" /> Amount
                             </th>
                             <th className="px-6 py-3 text-left text-xs font-semibold text-indigo-700 uppercase tracking-wider">
-                                <MdDateRange className="inline mr-1" /> Start Date
+                                <MdDateRange className="inline mr-1" /> Paid At
                             </th>
                             <th className="px-6 py-3 text-center text-xs font-semibold text-indigo-700 uppercase tracking-wider">
-                                Payment ID
+                                <MdConfirmationNumber className="inline mr-1" /> Transaction ID
                             </th>
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-100">
                         {tuitions.map((tuition) => (
-                            <tr key={tuition.id} className="hover:bg-gray-50 transition duration-150">
-
-                                {/* Course Title */}
-                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                    {tuition.course}
+                            <tr key={tuition.transactionId} className="hover:bg-gray-50 transition duration-150">
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                    <div className="text-sm font-medium text-gray-900">{tuition.StudentName}</div>
+                                    <div className="text-xs text-indigo-500 font-mono">{tuition.trackingId}</div>
                                 </td>
-
-                                {/* Student Name */}
                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                                    {tuition.student}
+                                    <span className="font-bold uppercase">{tuition.currency}</span> {tuition.amount}
                                 </td>
-
-                                {/* Start Date */}
                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                                    {tuition.startDate}
+                                    {new Date(tuition.paidAt).toLocaleDateString()}
                                 </td>
-
-                                {/* Actions */}
-                                <td className="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
-                                    <p
-                                        className="inline-flex items-center gap-1 px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm"
-                                    >
-                                        Payment id
-                                    </p>
+                                <td className="px-6 py-4 whitespace-nowrap text-center">
+                                    <span className="px-3 py-1 bg-green-100 text-green-800 text-xs font-medium rounded-full">
+                                        {tuition.transactionId}
+                                    </span>
                                 </td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
+
                 {tuitions.length === 0 && (
                     <div className="text-center py-10 text-gray-500 bg-white">
                         You do not have any ongoing tuitions yet.
