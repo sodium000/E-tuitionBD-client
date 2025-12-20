@@ -1,95 +1,140 @@
-import React from 'react';
-import { MdLocationPin, MdSchool, MdArrowForward } from 'react-icons/md';
+import React, { useState, useMemo } from 'react';
+import { MdLocationPin, MdSchool, MdArrowForward, MdClass, MdVerified, MdSearch, MdClear } from 'react-icons/md';
 import { Link } from 'react-router';
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
 import Loading from '../Loading/Loading';
 
 const Tutors = () => {
-    const { data: tutor, isLoading } = useQuery({
+    const [searchTerm, setSearchTerm] = useState("");
+
+    const { data: tutors, isLoading } = useQuery({
         queryKey: ['tutor'],
         queryFn: async () => {
-            const res = await axios.get(`http://localhost:3000/tutor/data`, {
-                withCredentials: false,
-            });
+            const res = await axios.get(`http://localhost:3000/tutor/data`);
             return res.data;
         }
     });
 
-    if (isLoading) {
-        return <Loading />;
-    }
+    // Filtering logic based on search input
+    const filteredTutors = useMemo(() => {
+        if (!tutors) return [];
+        return tutors.filter(t => 
+            t.displayName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            t.education?.institution?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            t.PreferredArea?.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+    }, [searchTerm, tutors]);
+
+    if (isLoading) return <Loading />;
 
     return (
-        <div className="max-w-8xl mx-auto  py-16">
-            {/* Header Section */}
-            <div className="text-center mb-16">
-                <h1 className="text-4xl md:text-5xl font-black text-slate-800 dark:text-white mb-4">
-                    Expert <span className="text-primary">Tutors</span> Available
-                </h1>
-                <p className="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">
-                    Connect with highly qualified educators tailored to your academic needs and location.
-                </p>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-10 justify-items-center">
-                {tutor?.map((tutordata, index) => (
-                    <div
-                        key={index}
-                        className="group w-full bg-white rounded-3xl shadow-xl hover:shadow-2xl border border-purple-700  overflow-hidden transition-all duration-500 hover:-translate-y-2 relative"
-                    >
-                        <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700"></div>
-                        <div className="flex flex-col items-center pt-10 px-8 pb-25">
-                            <div className="relative mb-6">
-                                <div className="absolute inset-0 bg-primary/20 rounded-full blur-xl group-hover:blur-2xl transition-all"></div>
-                                <div className="relative w-36 h-36 rounded-full overflow-hidden border-[6px] border-purple-400/40 shadow-2xl">
-                                    <img
-                                        alt={`Profile of ${tutordata.displayName}`}
-                                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                        src={tutordata.photoURL || "https://via.placeholder.com/128/8B006D/FFFFFF?text=RH"}
-                                    />
-                                </div>
-                            </div>
-
-                            <h2 className="text-lg font-black  tracking-tight mb-2 text-center">
-                                {tutordata.displayName}
-                            </h2>
-
-                            <div className="flex items-center gap-2 text-white text-sm mb-6 bg-pink-400 px-4 py-1.5 rounded-full">
-                                <MdSchool className="text-primary text-lg" />
-                                <span className="font-medium truncate max-w-[200px]">
-                                    {tutordata.education?.institution || 'updating tutor...'}
-                                </span>
-                            </div>
-
-                            {/* Info Badges */}
-                            <div className="w-full space-y-3">
-                                <div className="flex items-center justify-between bg-primary/30 p-3 rounded-2xl border border-primary/10">
-                                    <span className="text-xs font-bold uppercase tracking-wider text-slate-900">Class</span>
-                                    <span className="text-sm font-extrabold text-primary uppercase">
-                                        {tutordata?.preferredClass || "updating tutor..."}
-                                    </span>
-                                </div>
-
-                                <div className="flex items-center justify-between bg-slate-400 p-3 rounded-2xl border border-slate-100">
-                                    <span className="text-xs font-bold uppercase tracking-wider text-slate-900">Location</span>
-                                    <div className="flex items-center text-slate-900 dark:text-slate-200">
-                                        <MdLocationPin className="text-primary mr-1" />
-                                        <span className="text-sm font-bold uppercase">{tutordata.PreferredArea}</span>
-                                    </div>
-                                </div>
-                            </div>
+        <div className="min-h-screen bg-[#F9FAFB] pb-20 font-sans text-slate-900">
+            {/* --- Header & Search Section --- */}
+            <div className="bg-white border-b border-slate-200 sticky top-0 z-40">
+                <div className="max-w-7xl mx-auto px-4 py-8">
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                        <div>
+                            <h1 className="text-3xl font-black tracking-tight text-slate-900">
+                                Expert <span className="text-blue-600">Tutors</span>
+                            </h1>
+                            <p className="text-slate-500 text-sm mt-1">Found {filteredTutors.length} verified educators</p>
                         </div>
-                        <div className="absolute bottom-0 left-0 w-full p-6 bg-linear-to-t from-purple-700 via-pink-300/90  to-transparent">
-                            <Link to={`/TutorDetails/${tutordata._id}/tutor`}>
-                                <button className="w-full h-12 dark:bg-primary text-white font-bold text-lg rounded-2xl flex items-center justify-center gap-3 transition-all duration-300 hover:gap-5 hover:bg-primary dark:hover:bg-white dark:hover:text-primary shadow-lg active:scale-95">
-                                    View Profile
-                                    <MdArrowForward className="text-2xl" />
+
+                        {/* Search Input */}
+                        <div className="relative w-full md:w-96">
+                            <MdSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-xl" />
+                            <input
+                                type="text"
+                                placeholder="Search name, area, or university..."
+                                className="w-full pl-11 pr-10 py-3 bg-slate-100 border-none rounded-2xl focus:ring-2 focus:ring-blue-500/20 outline-none transition-all text-sm"
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                            />
+                            {searchTerm && (
+                                <button 
+                                    onClick={() => setSearchTerm("")}
+                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                                >
+                                    <MdClear />
                                 </button>
-                            </Link>
+                            )}
                         </div>
                     </div>
-                ))}
+                </div>
+            </div>
+
+            {/* --- Tutors Grid --- */}
+            <div className="max-w-7xl mx-auto px-4 mt-10">
+                {filteredTutors.length > 0 ? (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                        {filteredTutors.map((tutordata) => (
+                            <div
+                                key={tutordata._id}
+                                className="group bg-white rounded-3xl border border-slate-200 hover:border-blue-500/30 transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/5 flex flex-col h-full"
+                            >
+                                <div className="p-5 flex flex-col items-center text-center">
+                                    {/* Compact Profile Section */}
+                                    <div className="relative mb-4">
+                                        <div className="w-20 h-20 rounded-2xl overflow-hidden ring-4 ring-slate-50 group-hover:ring-blue-50 transition-all">
+                                            <img
+                                                alt={tutordata.displayName}
+                                                className="w-full h-full object-cover"
+                                                src={tutordata.photoURL || `https://api.dicebear.com/7.x/initials/svg?seed=${tutordata.displayName}`}
+                                            />
+                                        </div>
+                                        <div className="absolute -bottom-1 -right-1 bg-blue-600 p-1 rounded-lg shadow-lg">
+                                            <MdVerified className="text-white text-xs" />
+                                        </div>
+                                    </div>
+
+                                    {/* Name & Institution */}
+                                    <h2 className="text-base font-bold text-slate-900 line-clamp-1">
+                                        {tutordata.displayName}
+                                    </h2>
+                                    <p className="text-[11px] font-semibold text-blue-600 uppercase tracking-tight mt-1 line-clamp-1">
+                                        {tutordata.education?.institution || 'Update processing...'}
+                                    </p>
+
+                                    {/* Info Chips (Reduced Height) */}
+                                    <div className="w-full mt-4 grid grid-cols-2 gap-2">
+                                        <div className="flex items-center gap-1.5 bg-slate-50 p-2 rounded-xl">
+                                            <MdClass className="text-slate-400 text-sm shrink-0" />
+                                            <span className="text-[10px] font-bold text-slate-600 truncate">
+                                                {tutordata?.preferredClass || "Update processing..."}
+                                            </span>
+                                        </div>
+                                        <div className="flex items-center gap-1.5 bg-slate-50 p-2 rounded-xl">
+                                            <MdLocationPin className="text-rose-400 text-sm shrink-0" />
+                                            <span className="text-[10px] font-bold text-slate-600 truncate">
+                                                {tutordata.PreferredArea || "Update processing..."}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="px-5 pb-5 mt-auto">
+                                    <Link to={`/TutorDetails/${tutordata._id}/tutor`}>
+                                        <button className="w-full py-2.5 bg-slate-900 hover:bg-blue-600 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 transition-all active:scale-[0.97]">
+                                            Profile
+                                            <MdArrowForward className="text-lg" />
+                                        </button>
+                                    </Link>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                ) : (
+                    <div className="text-center py-20 bg-white rounded-3xl border border-dashed border-slate-300">
+                        <p className="text-slate-400 font-medium">No tutors match your search.</p>
+                        <button 
+                            onClick={() => setSearchTerm("")}
+                            className="mt-2 text-blue-600 font-bold text-sm"
+                        >
+                            Clear search
+                        </button>
+                    </div>
+                )}
             </div>
         </div>
     );

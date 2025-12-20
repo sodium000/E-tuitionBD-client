@@ -111,12 +111,14 @@ const JobDetails = () => {
                 createdAt: new Date().toISOString()
             };
 
-
-
             const response = await axiosSecure.post('/applications', applicationData);
 
             if (response.data.insertedId || response.data.success) {
-                alert("Application submitted successfully!");
+                Swal.fire({
+                    title: "Application submitted successfully!",
+                    icon: "success",
+                    draggable: true
+                });
                 handleCloseModal();
             } else {
                 Swal.fire({

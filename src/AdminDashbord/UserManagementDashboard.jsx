@@ -8,6 +8,7 @@ import {
     MdClose
 } from 'react-icons/md';
 import useAxiosSecure from '../hook/useAxiosSecure';
+import Swal from 'sweetalert2';
 
 const ROLES = ['admin', 'tutor', 'student'];
 
@@ -62,8 +63,8 @@ const UserDetailsModal = ({ user, onClose, onSave, isSaving }) => {
                 <div className="mb-6 p-4 bg-gray-50 rounded-lg">
                     <div className="flex items-center gap-4 mb-4">
                         {user.photoURL && (
-                            <img 
-                                src={user.photoURL} 
+                            <img
+                                src={user.photoURL}
                                 alt={user.displayName}
                                 className="w-20 h-20 rounded-full object-cover"
                             />
@@ -90,18 +91,18 @@ const UserDetailsModal = ({ user, onClose, onSave, isSaving }) => {
                     <div className="grid grid-cols-2 gap-4">
                         <div>
                             <label className="block text-sm font-medium text-gray-700">Display Name</label>
-                            <input 
-                                {...register("displayName", { required: true })} 
-                                className="mt-1 block w-full border border-gray-300 rounded-md p-2" 
+                            <input
+                                {...register("displayName", { required: true })}
+                                className="mt-1 block w-full border border-gray-300 rounded-md p-2"
                             />
                             {errors.displayName && <p className="text-red-500 text-xs mt-1">Name is required.</p>}
                         </div>
 
                         <div>
                             <label className="block text-sm font-medium text-gray-700">Email</label>
-                            <input 
-                                {...register("Email", { required: true })} 
-                                className="mt-1 block w-full border border-gray-300 rounded-md p-2 bg-gray-100" 
+                            <input
+                                {...register("Email", { required: true })}
+                                className="mt-1 block w-full border border-gray-300 rounded-md p-2 bg-gray-100"
                                 disabled
                             />
                             <p className="text-xs text-gray-500 mt-1">Email cannot be changed</p>
@@ -111,16 +112,16 @@ const UserDetailsModal = ({ user, onClose, onSave, isSaving }) => {
                     <div className="grid grid-cols-2 gap-4">
                         <div>
                             <label className="block text-sm font-medium text-gray-700">Phone</label>
-                            <input 
-                                {...register("Phone")} 
-                                className="mt-1 block w-full border border-gray-300 rounded-md p-2" 
+                            <input
+                                {...register("Phone")}
+                                className="mt-1 block w-full border border-gray-300 rounded-md p-2"
                             />
                         </div>
 
                         <div>
                             <label className="block text-sm font-medium text-gray-700">Role</label>
-                            <select 
-                                {...register("role", { required: true })} 
+                            <select
+                                {...register("role", { required: true })}
                                 className="mt-1 block w-full border border-gray-300 rounded-md p-2"
                             >
                                 {ROLES.map(role => (
@@ -135,25 +136,25 @@ const UserDetailsModal = ({ user, onClose, onSave, isSaving }) => {
                     <div className="grid grid-cols-3 gap-4">
                         <div>
                             <label className="block text-sm font-medium text-gray-700">Preferred Area</label>
-                            <input 
-                                {...register("PreferredArea")} 
-                                className="mt-1 block w-full border border-gray-300 rounded-md p-2" 
+                            <input
+                                {...register("PreferredArea")}
+                                className="mt-1 block w-full border border-gray-300 rounded-md p-2"
                             />
                         </div>
 
                         <div>
                             <label className="block text-sm font-medium text-gray-700">Tuition Region</label>
-                            <input 
-                                {...register("TuitionRegion")} 
-                                className="mt-1 block w-full border border-gray-300 rounded-md p-2" 
+                            <input
+                                {...register("TuitionRegion")}
+                                className="mt-1 block w-full border border-gray-300 rounded-md p-2"
                             />
                         </div>
 
                         <div>
                             <label className="block text-sm font-medium text-gray-700">District</label>
-                            <input 
-                                {...register("selectDistrict")} 
-                                className="mt-1 block w-full border border-gray-300 rounded-md p-2" 
+                            <input
+                                {...register("selectDistrict")}
+                                className="mt-1 block w-full border border-gray-300 rounded-md p-2"
                             />
                         </div>
                     </div>
@@ -209,12 +210,16 @@ const UserManagementDashboard = () => {
         }
 
         try {
-            console.log(userId)
             await axiosSecure.patch(`/users/${userId}/role`, { role: newRole });
             queryClient.invalidateQueries(['allusers']);
         } catch (error) {
             console.error('Error updating role:', error);
-            alert('Failed to update role');
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Something went wrong!",
+                footer: '<a href="#">Why do I have this issue?</a>'
+            });
         }
     };
 
@@ -279,8 +284,8 @@ const UserManagementDashboard = () => {
                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                     <div className="flex items-center gap-2">
                                         {user.photoURL ? (
-                                            <img 
-                                                src={user.photoURL} 
+                                            <img
+                                                src={user.photoURL}
                                                 alt={user.displayName}
                                                 className="w-8 h-8 rounded-full object-cover"
                                             />

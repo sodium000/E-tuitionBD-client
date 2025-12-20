@@ -12,6 +12,7 @@ import { CiSquareCheck } from "react-icons/ci";
 import useRole from '../hook/useRole';
 import Navbar from '../ShearePage/NavBar/Navbar';
 import Footer from '../ShearePage/Footer/Footer';
+import useAuth from '../hook/useAuth';
 
 
 const DashboardLayout = () => {
@@ -41,8 +42,11 @@ const DashboardLayout = () => {
         </li>
     );
 
+
+
     return (
         <>
+        
             <Navbar></Navbar>
             <div className="drawer lg:drawer-open min-h-screen bg-gray-50 dark:bg-gray-900">
                 <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
@@ -73,7 +77,7 @@ const DashboardLayout = () => {
                 <div className="drawer-side z-20">
                     <label htmlFor="my-drawer-4" aria-label="close sidebar" className="drawer-overlay"></label>
 
-                    <div className="flex min-h-full flex-col w-64 bg-white dark:bg-gray-800 shadow-xl border-r border-gray-200 dark:border-gray-700">
+                    <div className="flex min-h-full flex-col w-64  shadow-xl border-r border-gray-200 dark:border-gray-700">
 
                         <div className="p-6 border-b border-gray-200 dark:border-gray-700">
                             <h2 className="text-2xl font-extrabold text-blue-600 dark:text-blue-400">

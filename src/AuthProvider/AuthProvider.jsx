@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { AuthContext } from '../AuthContext/AuthContext';
 import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
@@ -15,23 +16,22 @@ const AuthProvider = ({ children }) => {
     }
     const GoogleSignOut = () => signOut(auth)
 
-       const registerUser = (email, password) => {
+    const registerUser = (email, password) => {
         setLoading(true)
         return createUserWithEmailAndPassword(auth, email, password)
     }
 
-      const signInUser = (email, password) => {
+    const signInUser = (email, password) => {
         setLoading(true)
         return signInWithEmailAndPassword(auth, email, password)
     }
 
-      const Updateprofile = (Profile)=> {
+    const Updateprofile = (Profile) => {
         return updateProfile(auth.currentUser, Profile)
-        .then(()=>{
-        })
-        .catch((error)=>{
-            console.log(error);
-        })
+            .then(() => {
+            })
+            .catch((error) => {
+            })
     }
 
 
@@ -45,7 +45,7 @@ const AuthProvider = ({ children }) => {
         }
     }, [])
 
-    
+
     const authInfo = {
         user,
         GoogleSignIN,

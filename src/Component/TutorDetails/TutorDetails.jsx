@@ -103,7 +103,7 @@ const JobDetails = () => {
     if (loading) return <Loading />;
     if (!job) return <div className="text-center py-20 font-bold">Job Not Found</div>;
     return (
-        <div className="bg-slate-50 min-h-screen pb-20 pt-6 px-4">
+        <div className="bg-slate-50  pb-20 pt-6 px-4">
             <div className="max-w-6xl mx-auto">
                 <button onClick={() => navigate(-1)} className="mb-6 flex items-center gap-2 text-gray-500 hover:text-blue-600 transition-colors font-medium">
                     <FaArrowLeft /> Back to Listings
@@ -123,10 +123,10 @@ const JobDetails = () => {
                             </div>
 
                             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10">
-                                <DetailItem icon={FaUserGraduate} label="Target Class" value={job.Class} />
-                                <DetailItem icon={FaClock} label="Preferred Time" value={job.preferredTime} />
-                                <DetailItem icon={FaCalendarAlt} label="Days/Week" value={`${job.daysPerWeek || job.Day} Days`} />
-                                <DetailItem icon={FaChalkboardTeacher} label="Medium/Method" value={job.placeOfLearning || job.Medium} />
+                                <DetailItem icon={FaUserGraduate} label="Target Class" value={job.Class || "Update processing..."} />
+                                <DetailItem icon={FaClock} label="Preferred Time" value={job.preferredTime || 'Update processing...'} />
+                                <DetailItem icon={FaCalendarAlt} label="Days/Week" value={`${job.daysPerWeek || "Update processing..."} Days`} />
+                                <DetailItem icon={FaChalkboardTeacher} label="Medium/Method" value={job.placeOfLearning || "Update processing..."} />
                             </div>
 
                             <div className="space-y-8">
@@ -176,7 +176,7 @@ const JobDetails = () => {
                             <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 text-center">
                                 <span className="text-gray-400 text-xs font-bold uppercase tracking-widest">Expected Salary</span>
                                 <div className="flex items-center justify-center text-4xl font-black text-pink-600 my-2">
-                                    <TbCurrencyTaka />{job.expectedMinimumSalary || job.Salary}
+                                    <TbCurrencyTaka />{job.expectedMinimumSalary || 'Update processing...'}
                                 </div>
                                 <p className="text-gray-500 text-xs italic mb-6">Posted: {job.createdAt}</p>
 

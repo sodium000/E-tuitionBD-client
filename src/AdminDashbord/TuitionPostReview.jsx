@@ -183,7 +183,6 @@ const TuitionPostReview = () => {
         },
     });
 
-    console.log(alldata);
 
   return (
     <div className="p-6 bg-white min-h-screen">

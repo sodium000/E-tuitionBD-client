@@ -60,7 +60,6 @@ const TutorApplicationForm = () => {
 
 
     const onSubmit = (data) => {
-        console.log('tonmoy')
         axiosSecure.patch(`/tutor/${user.email}/dataupdate`, data)
             .then(res => {
                 if (res.data) {

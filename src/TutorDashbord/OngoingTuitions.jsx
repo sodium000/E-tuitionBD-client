@@ -24,7 +24,6 @@ const OngoingTuitions = () => {
         },
     });
 
-    console.log(tuitions)
 
     if (isLoading) {
         return (

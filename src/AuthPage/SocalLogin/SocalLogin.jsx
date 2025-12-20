@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import { useNavigate } from 'react-router';
 import useAuth from '../../hook/useAuth';
@@ -8,7 +9,6 @@ const SocalLogin = () => {
     const navigate = useNavigate();
     const { GoogleSignIN } = useAuth();
     const RegWithGoogle = () => {
-        console.log("user hit")
         GoogleSignIN()
             .then((result) => {
                 const userInfo = {
@@ -19,7 +19,7 @@ const SocalLogin = () => {
                 }
                 axiosSecure.post('/Googleusers', userInfo)
                     .then(res => {
-                        console.log('user data ', res.data)
+
                         navigate('/');
                     })
             }).catch((error) => {

@@ -11,7 +11,6 @@ const ContactPage = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('Form Submitted:', formData);
         alert('Message sent! (This is a demo)');
     };
 

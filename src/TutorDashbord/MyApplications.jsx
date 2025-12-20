@@ -262,7 +262,6 @@ import React, { useState, useEffect } from 'react';
 
                     axiosSecure.delete(`/applications/${id}/deleted`)
                         .then(res => {
-                            console.log(res.data);
 
                             if (res.data.deletedCount) {
                                 refetch();
