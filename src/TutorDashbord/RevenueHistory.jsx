@@ -4,7 +4,6 @@ import {
     MdAttachMoney,
     MdTrendingUp,
     MdReceipt,
-    MdCalendarMonth
 } from 'react-icons/md';
 import useAxiosSecure from '../hook/useAxiosSecure';
 import Loading from '../Component/Loading/Loading';
@@ -34,12 +33,10 @@ const RevenueHistory = () => {
         enabled: !!user?.email,
         queryFn: async () => {
             const response = await axiosSecure.get(`/tuitions/${user.email}/ongoing`);
-            // Based on your previous backend, return response.data or response.data.data
             return response.data;
         },
     });
 
-    // --- Calculations ---
     const totalEarnings = transactions.reduce((acc, curr) => acc + (curr.amount || 0), 0);
     const totalCount = transactions.length;
 
@@ -51,7 +48,6 @@ const RevenueHistory = () => {
                 <MdTrendingUp className="text-indigo-600" /> Revenue History
             </h2>
 
-            {/* --- Summary Cards --- */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
                 <StatCard
                     title="Total Lifetime Earnings"
@@ -68,7 +64,6 @@ const RevenueHistory = () => {
                 />
             </div>
 
-            {/* --- Transaction Log --- */}
             <h3 className="text-2xl font-semibold text-gray-800 mb-5">Detailed Transaction Log</h3>
             <div className="overflow-x-auto shadow-xl rounded-lg border border-gray-200">
                 <table className="min-w-full divide-y divide-gray-200 bg-white">

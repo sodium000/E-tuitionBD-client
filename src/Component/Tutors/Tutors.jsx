@@ -32,14 +32,13 @@ const Tutors = () => {
                 </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-10 justify-items-center">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-10 justify-items-center">
                 {tutor?.map((tutordata, index) => (
                     <div
                         key={index}
-                        className="group w-full bg-white rounded-[2.5rem] shadow-xl hover:shadow-2xl border  overflow-hidden transition-all duration-500 hover:-translate-y-2 relative"
+                        className="group w-full bg-white rounded-3xl shadow-xl hover:shadow-2xl border border-purple-700  overflow-hidden transition-all duration-500 hover:-translate-y-2 relative"
                     >
                         <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700"></div>
-
                         <div className="flex flex-col items-center pt-10 px-8 pb-25">
                             <div className="relative mb-6">
                                 <div className="absolute inset-0 bg-primary/20 rounded-full blur-xl group-hover:blur-2xl transition-all"></div>
@@ -81,11 +80,9 @@ const Tutors = () => {
                                 </div>
                             </div>
                         </div>
-
-                        {/* View Details Button Section */}
-                        <div className="absolute bottom-0 left-0 w-full p-6 bg-linear-to-t from-white dark:from-slate-900 via-white/90 dark:via-slate-900/90 to-transparent">
+                        <div className="absolute bottom-0 left-0 w-full p-6 bg-linear-to-t from-purple-700 via-pink-300/90  to-transparent">
                             <Link to={`/TutorDetails/${tutordata._id}/tutor`}>
-                                <button className="w-full h-14 bg-slate-900 dark:bg-primary text-white font-bold text-lg rounded-2xl flex items-center justify-center gap-3 transition-all duration-300 hover:gap-5 hover:bg-primary dark:hover:bg-white dark:hover:text-primary shadow-lg active:scale-95">
+                                <button className="w-full h-12 dark:bg-primary text-white font-bold text-lg rounded-2xl flex items-center justify-center gap-3 transition-all duration-300 hover:gap-5 hover:bg-primary dark:hover:bg-white dark:hover:text-primary shadow-lg active:scale-95">
                                     View Profile
                                     <MdArrowForward className="text-2xl" />
                                 </button>

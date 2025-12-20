@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/rules-of-hooks */
 import React from 'react';
-import { MdLocationPin } from 'react-icons/md';
+import { MdArrowForward, MdLocationPin, MdSchool } from 'react-icons/md';
 import { Link } from 'react-router';
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
@@ -44,77 +44,83 @@ const updatshow = () => {
     };
     return (
         <div className='my-30'>
-            <div className=' text-center font-extrabold text-5xl '>
-                Our Popular Tutors
+            <div className=' text-center font-bold text-5xl '>
+                Our Pop<span className='text-purple-800'>ular Tutors</span>
+                <p className='text-xl font-bold mt-6'>Find Our Best Tutor</p>
             </div>
             <motion.div
                 variants={containerVariants}
                 initial="hidden"
                 animate="visible"
-                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center "
+                className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-items-center "
             >
-                {/* Limit data to only 6 items using slice */}
                 {tutor?.slice(0, 6).map((tutordata, index) => {
                     return (
                         <motion.div
                             variants={cardVariants}
                             key={tutordata._id || index}
-                            className="w-full mt-10 max-w-xs sm:max-w-sm bg-card-light dark:bg-card-dark rounded-2xl shadow-2xl dark:shadow-slate-900/50 border border-slate-200 dark:border-slate-800 overflow-hidden relative group transform transition-all duration-500 hover:scale-[1.02] hover:shadow-3xl dark:hover:shadow-primary/40"
+                            className="w-full mt-10 max-w-xs sm:max-w-sm  rounded-3xl shadow-3xl  border border-purple-700 overflow-hidden relative group transform transition-all duration-500 hover:scale-[1.02] hover:shadow-3xl dark:hover:shadow-primary/40"
                         >
-                            <div className="flex flex-col items-center pt-8 px-6 pb-24">
-                                <div className="relative mb-4">
-                                    <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-primary-light shadow-xl ring-4 ring-primary/40 dark:ring-primary-light/50 group-hover:ring-8 transition-all duration-300">
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700"></div>
+                            <div className="flex flex-col items-center pt-10 px-8 pb-25">
+                                <div className="relative mb-6">
+                                    <div className="absolute inset-0 bg-primary/20 rounded-full blur-xl group-hover:blur-2xl transition-all"></div>
+                                    <div className="relative w-36 h-36 rounded-full overflow-hidden border-[6px] border-purple-400/40 shadow-2xl">
                                         <img
                                             alt={`Profile of ${tutordata.displayName}`}
-                                            className="w-full h-full object-cover"
+                                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                             src={tutordata.photoURL || "https://via.placeholder.com/128/8B006D/FFFFFF?text=RH"}
                                         />
                                     </div>
                                 </div>
 
-                                <h2 className="text-2xl font-extrabold text-primary tracking-tighter mb-1 text-center uppercase">
+                                <h2 className="text-2xl font-black  tracking-tight mb-2 text-center">
                                     {tutordata.displayName}
                                 </h2>
-                                <p className="text-sm font-medium text-secondary text-center mb-1 uppercase">
-                                    {tutordata.education?.institution || "Updating Tutor..."}
-                                </p>
 
-                                <div className="flex items-center justify-center pt-2 pb-4">
-                                    <span className="text-lg font-bold dark:text-slate-200 text-center px-4 py-1 rounded-full bg-primary/60 dark:bg-primary-light/20 text-primary dark:text-primary-light shadow-inner uppercase">
-                                        {tutordata?.preferredClass || "updatig tutor..."}
+                                <div className="flex items-center gap-2 text-white text-sm mb-3 bg-pink-400 px-4 py-1 rounded-full">
+                                    <MdSchool className="text-primary text-lg" />
+                                    <span className="font-medium truncate max-w-[200px]">
+                                        {tutordata.education?.institution || 'updating tutor...'}
                                     </span>
                                 </div>
 
-                                <div className="inline-flex items-center justify-center px-4 py-1.5 rounded-full bg-cyan-100 border border-primary/60 dark:border-primary-light/50 shadow-inner">
-                                    <span className="text-primary text-base mr-1.5"><MdLocationPin /></span>
-                                    <span className="text-sm font-semibold text-primary dark:text-primary-light uppercase">
-                                        {tutordata.PreferredArea}
-                                    </span>
+                                <div className="w-full space-y-3">
+                                    <div className="flex items-center justify-between bg-primary/30 py-2 px-5 mx-4 rounded-2xl border border-primary/10">
+                                        <span className="text-xs font-bold uppercase tracking-wider text-slate-900">Class</span>
+                                        <span className="text-sm font-extrabold text-primary uppercase">
+                                            {tutordata?.preferredClass || "updating tutor..."}
+                                        </span>
+                                    </div>
+
+                                    <div className="flex items-center justify-between bg-slate-400 p-2 px-5 rounded-2xl border border-slate-100">
+                                        <span className="text-xs font-bold uppercase tracking-wider text-slate-900">Location</span>
+                                        <div className="flex items-center text-slate-900 dark:text-slate-200">
+                                            <MdLocationPin className="text-primary mr-1" />
+                                            <span className="text-sm font-bold uppercase">{tutordata.PreferredArea}</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-
-                            {/* View Details Button Section */}
-                            <div className="absolute bottom-0 left-0 w-full">
-                                <div className="relative w-full h-16 overflow-hidden">
-                                    <Link to={`/TutorDetails/${tutordata._id}/tutor`}>
-                                        <button
-                                            className="w-full h-full bg-purple-300 font-bold text-xl flex items-center justify-center transition-all duration-300 hover:tracking-wide active:opacity-100 relative z-10"
-                                        >
-                                            View Details
-                                        </button>
-                                    </Link>
-                                    <div className="absolute top-0 left-0 h-full w-1/3 bg-linear-to-r from-black/20 to-transparent pointer-events-none z-10"></div>
-                                </div>
+                            <div className="absolute bottom-0 left-0 w-full p-6 bg-linear-to-t from-purple-700 via-pink-300/90  to-transparent">
+                                <Link to={`/TutorDetails/${tutordata._id}/tutor`}>
+                                    <button className="w-full h-12 dark:bg-primary text-white font-bold text-lg rounded-2xl flex items-center justify-center gap-3 transition-all duration-300 hover:gap-5 hover:bg-primary dark:hover:bg-white dark:hover:text-primary shadow-lg active:scale-95">
+                                        View Profile
+                                        <MdArrowForward className="text-2xl" />
+                                    </button>
+                                </Link>
                             </div>
                         </motion.div>
                     );
                 })}
             </motion.div>
-            <div className="mt-12 text-center">
-                <button className="bg-[#8E44AD] hover:bg-opacity-90 text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-[0_0_15px_rgba(142,68,173,0.4)] transition-all duration-300 transform hover:-translate-y-1">
-                    View all Tutor 
-                </button>
-            </div>
+            <Link to='/Tutors'>
+                <div className="mt-10 text-center">
+                    <button className="bg-[#8E44AD] hover:bg-opacity-90 text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-[0_0_15px_rgba(142,68,173,0.4)] transition-all duration-300 transform hover:-translate-y-1">
+                        View all Tutor
+                    </button>
+                </div>
+            </Link>
         </div>
     );
 };

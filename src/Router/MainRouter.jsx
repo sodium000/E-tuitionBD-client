@@ -25,6 +25,9 @@ import AdminFinancialDashboard from "../AdminDashbord/AdminFinancialDashboard";
 import AdminRoute from './AdminRoute'
 import PaymentSuccess from "../Component/Payment/PaymentSuccess";
 import PaymentCancelled from "../Component/Payment/PaymentCancelled";
+import AboutPage from "../HomePage/AboutPage/AboutPage";
+import ContactPage from "../HomePage/ContactPage/ContactPage";
+import Location from "../HomePage/Location/Location";
 // import Payment from "../Component/Payment/Payment";
 
 const router = createBrowserRouter([
@@ -68,6 +71,18 @@ const router = createBrowserRouter([
             {
                 path: 'payment-cancelled',
                 Component: PaymentCancelled
+            },
+            {
+                path: 'about',
+                Component: AboutPage
+            },
+            {
+                path: 'contactpage',
+                Component: ContactPage
+            },
+            {
+                path: 'location',
+                Component: Location
             }
         ]
     },
@@ -130,11 +145,11 @@ const router = createBrowserRouter([
             },
             {
                 path: "TuitionPostReview",
-                element: <PrivateRoute><TuitionPostReview></TuitionPostReview></PrivateRoute>,
+                element: <AdminRoute><TuitionPostReview></TuitionPostReview></AdminRoute>,
             },
             {
                 path: "AdminFinancialDashboard",
-                element: <PrivateRoute><AdminFinancialDashboard></AdminFinancialDashboard></PrivateRoute>,
+                element: <AdminRoute><AdminFinancialDashboard></AdminFinancialDashboard></AdminRoute>,
             },
 
         ]
