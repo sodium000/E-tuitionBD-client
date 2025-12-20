@@ -11,7 +11,7 @@ const Tutors = () => {
     const { data: tutors, isLoading } = useQuery({
         queryKey: ['tutor'],
         queryFn: async () => {
-            const res = await axios.get(`http://localhost:3000/tutor/data`);
+            const res = await axios.get(`https://e-tuition-bd-server-eosin.vercel.app/tutor/data`);
             return res.data;
         }
     });

@@ -28,6 +28,7 @@ import PaymentCancelled from "../Component/Payment/PaymentCancelled";
 import AboutPage from "../HomePage/AboutPage/AboutPage";
 import ContactPage from "../HomePage/ContactPage/ContactPage";
 import Location from "../HomePage/Location/Location";
+import ErrorPage from "../Component/ErrorPage/ErrorPage";
 // import Payment from "../Component/Payment/Payment";
 
 const router = createBrowserRouter([
@@ -153,7 +154,12 @@ const router = createBrowserRouter([
             },
 
         ]
-    }
+
+    },
+    {
+    path: '/*',
+    element: <ErrorPage></ErrorPage> ,
+  },
 ]);
 
 export default router;

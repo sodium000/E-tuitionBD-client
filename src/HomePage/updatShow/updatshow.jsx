@@ -12,7 +12,7 @@ const updatshow = () => {
     const { data: tutor, isLoading } = useQuery({
         queryKey: ['tutor'],
         queryFn: async () => {
-            const res = await axios.get(`http://localhost:3000/tutor/data`, {
+            const res = await axios.get(`https://e-tuition-bd-server-eosin.vercel.app/tutor/data`, {
                 withCredentials: false,
             });
             return res.data;

@@ -22,7 +22,7 @@ const TutionPost = () => {
   const fetchJobs = useCallback(async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`http://localhost:3000/post`);
+      const res = await axios.get(`https://e-tuition-bd-server-eosin.vercel.app/post`);
       setJobs(res.data);
       setFilteredJobs(res.data);
     } catch (error) {
