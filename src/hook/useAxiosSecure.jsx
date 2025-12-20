@@ -4,23 +4,23 @@ import { useNavigate } from 'react-router';
 import useAuth from './useAuth'
 
 
-    const axiosSecure = axios.create({
-    baseURL: 'https://e-tuition-bd-server-eosin.vercel.app',
-    withCredentials: true,
+const axiosSecure = axios.create({
+  baseURL: 'https://e-tuition-bd-server-eosin.vercel.app',
+  withCredentials: true,
 });
 
 
 const useAxiosSecure = () => {
-     const { GoogleSignOut } = useAuth();
-    const navigate = useNavigate();
+  const { GoogleSignOut } = useAuth();
+  const navigate = useNavigate();
 
-      useEffect(() => {
+  useEffect(() => {
     const interceptor = axiosSecure.interceptors.response.use(
       res => res,
       async (error) => {
         if (error.response?.status === 401 || error.response?.status === 403) {
-            GoogleSignOut
-          navigate("/login");
+          GoogleSignOut()
+          navigate("/");
         }
         return Promise.reject(error);
       }
@@ -28,7 +28,7 @@ const useAxiosSecure = () => {
 
     return () => axiosSecure.interceptors.response.eject(interceptor);
   }, [GoogleSignOut, navigate]);
-    return axiosSecure;
+  return axiosSecure;
 };
 
 export default useAxiosSecure;
