@@ -3,18 +3,17 @@
 import React from 'react';
 import { MdArrowForward, MdClass, MdLocationPin, MdSchool, MdVerified } from 'react-icons/md';
 import { Link } from 'react-router';
-import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import Loading from '../../Component/Loading/Loading';
+import useAxiosSecure from '../../hook/useAxiosSecure';
 
 const updatshow = () => {
+    const axiosSecure = useAxiosSecure();
     const { data: tutor, isLoading } = useQuery({
         queryKey: ['tutor'],
         queryFn: async () => {
-            const res = await axios.get(`https://e-tuition-bd-server-eosin.vercel.app/tutor/data`, {
-                withCredentials: false,
-            });
+            const res = await axiosSecure.get(`/tutor/data`);
             return res.data;
         }
     });

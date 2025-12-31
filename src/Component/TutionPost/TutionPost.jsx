@@ -1,4 +1,4 @@
-import axios from "axios";
+
 import React, { useState, useEffect, useCallback } from "react";
 import Loading from "../Loading/Loading";
 import {
@@ -7,11 +7,13 @@ import {
   MdArrowForward, MdSearch, MdFilterList, MdClear
 } from "react-icons/md";
 import { Link } from "react-router";
+import useAxiosSecure from "../../hook/useAxiosSecure";
 
 const TutionPost = () => {
   const [jobs, setJobs] = useState([]);
   const [filteredJobs, setFilteredJobs] = useState([]);
   const [loading, setLoading] = useState(false);
+      const axiosSecure = useAxiosSecure();
 
   // Filter States
   const [searchQuery, setSearchQuery] = useState("");
@@ -22,7 +24,7 @@ const TutionPost = () => {
   const fetchJobs = useCallback(async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`https://e-tuition-bd-server-eosin.vercel.app/post`);
+      const res = await axiosSecure.get(`/post`);
       setJobs(res.data);
       setFilteredJobs(res.data);
     } catch (error) {
@@ -30,7 +32,7 @@ const TutionPost = () => {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [axiosSecure]);
 
   useEffect(() => {
     fetchJobs();

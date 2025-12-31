@@ -9,12 +9,14 @@ import { TbHomeDot } from 'react-icons/tb';
 import { useLoaderData } from 'react-router';
 import useAxiosSecure from '../../hook/useAxiosSecure';
 import Swal from 'sweetalert2';
+import useAuth from '../../hook/useAuth';
 
 
 const AddPost = () => {
     const { register, handleSubmit, control, formState: { errors },reset } = useForm();
     const TuitionRegion = useWatch({ control, name: 'TuitionRegion' });
     const axiosSecure = useAxiosSecure();
+    const {user} = useAuth()
 
     const serviceCenters = useLoaderData();
     const regionsDuplicate = serviceCenters.map(c => c.region);
@@ -28,7 +30,7 @@ const AddPost = () => {
 
 
     const handelTution = (data) => {
-        axiosSecure.post('/post', data)
+        axiosSecure.post(`/post/${user.email}/post`, data)
             .then(res => {
                 if (res.data.insertedId) {
                     Swal.fire({

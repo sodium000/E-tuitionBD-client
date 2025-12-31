@@ -1,17 +1,18 @@
 import React, { useState, useMemo } from 'react';
 import { MdLocationPin, MdSchool, MdArrowForward, MdClass, MdVerified, MdSearch, MdClear } from 'react-icons/md';
 import { Link } from 'react-router';
-import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
 import Loading from '../Loading/Loading';
+import useAxiosSecure from '../../hook/useAxiosSecure';
 
 const Tutors = () => {
     const [searchTerm, setSearchTerm] = useState("");
+    const axiosSecure = useAxiosSecure();
 
     const { data: tutors, isLoading } = useQuery({
         queryKey: ['tutor'],
         queryFn: async () => {
-            const res = await axios.get(`https://e-tuition-bd-server-eosin.vercel.app/tutor/data`);
+            const res = await axiosSecure.get(`/tutor/data`);
             return res.data;
         }
     });

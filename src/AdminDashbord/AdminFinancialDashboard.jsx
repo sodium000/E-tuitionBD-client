@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+
 import {
     MdAccountBalance,
     MdAttachMoney,
     MdReceipt,
 } from 'react-icons/md';
 import Loading from '../Component/Loading/Loading';
+import useAxiosSecure from '../hook/useAxiosSecure';
 
 const AdminFinancialDashboard = () => {
     const [payments, setPayments] = useState([]);
     const [loading, setLoading] = useState(true);
+    const axiosSecure = useAxiosSecure();
 
     useEffect(() => {
-        axios.get('https://e-tuition-bd-server-eosin.vercel.app/payments/all')
+        axiosSecure.get('/payments/all')
             .then(res => {
                 setPayments(res.data);
                 setLoading(false);
@@ -21,7 +23,7 @@ const AdminFinancialDashboard = () => {
                 console.error(err);
                 setLoading(false);
             });
-    }, []);
+    }, [axiosSecure]);
 
     const totalAmount = payments.reduce((sum, p) => sum + p.amount, 0);
     const totalTransactions = payments.length;

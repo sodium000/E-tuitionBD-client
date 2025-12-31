@@ -6,7 +6,6 @@ import useAuth from './useAuth'
 
 const axiosSecure = axios.create({
   baseURL: 'https://e-tuition-bd-server-eosin.vercel.app',
-  withCredentials: true,
 });
 
 
