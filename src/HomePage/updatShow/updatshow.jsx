@@ -112,7 +112,7 @@ const updatshow = () => {
                     <button className="bg-[#8E44AD] hover:bg-opacity-90 text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-[0_0_15px_rgba(142,68,173,0.4)] transition-all duration-300 transform hover:-translate-y-1">
                         View all Tutor
                     </button>
-                </div>
+                </div> 
             </Link>
         </div>
     );
