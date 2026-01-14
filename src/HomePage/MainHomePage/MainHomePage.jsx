@@ -7,6 +7,7 @@ import Brand from '../../Component/Brand/Brand';
 import TuitionSelection from '../../Component/TuitionSelection/TuitionSelection';
 import Updatshow from '../updatShow/updatshow'
 import Review from '../../Component/Review/Review';
+import CTA from '../../Component/CTA/CTA';
 
 const reviewsPromise = fetch('/reviews.json').then(res => res.json());
 
@@ -24,6 +25,7 @@ const MainHomePage = () => {
                 <StudentWork></StudentWork>
             </div>
             <Review reviewsPromise={reviewsPromise}></Review>
+            <CTA></CTA>
         </div>
     );
 };

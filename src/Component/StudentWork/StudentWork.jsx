@@ -15,7 +15,7 @@ const StudentWork = () => {
             badge: "add"
         },
         {
-            step: "Step 3",
+            step: "Step 2",
             title: "Hire Tutor",
             subtitle: "Confirm your teacher",
             description: "If you like the demo session, proceed to confirm and hire the teacher.",
@@ -26,7 +26,7 @@ const StudentWork = () => {
             )
         },
         {
-            step: "Step 4",
+            step: "Step 3",
             title: "Get Results",
             subtitle: "Boost performance",
             description: "Gain knowledge, boost confidence and improve overall academic performance.",
@@ -50,7 +50,6 @@ const StudentWork = () => {
                     </p>
                 </header>
 
-                {/* Steps List */}
                 <main className="space-y-8 relative">
                     {steps.map((item, index) => (
                         <div key={index} className="flex items-start gap-4 relative">
@@ -69,7 +68,6 @@ const StudentWork = () => {
                                 )}
                             </div>
 
-                            {/* Content Card */}
                             <div className="flex-1 bg-white p-5 rounded-2xl shadow-sm border border-gray-100 z-10">
                                 <div className="flex items-center justify-between mb-2">
                                     <h3 className="font-bold text-gray-900 text-lg leading-tight">{item.title}</h3>
@@ -86,7 +84,7 @@ const StudentWork = () => {
                     ))}
                 </main>
 
-                {/* Fixed CTA Button */}
+
                 <div className="bg-linear-to-t from-gray-50 via-gray-50/90 to-transparent">
                     <div className="max-w-md mx-auto">
                         <button className="w-full bg-[#8B2F88] hover:bg-[#732670] text-white font-semibold py-4 px-6 rounded-xl shadow-lg transition-all active:scale-[0.98] flex items-center justify-center gap-2">

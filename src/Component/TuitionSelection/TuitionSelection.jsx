@@ -1,28 +1,55 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
+import { motion } from 'framer-motion';
 
-
-const TuitionTypeCard = ({ title, badge, subtitle, description,  imageSrc, colorClass }) => (
-    <div className="bg-white h-120 rounded-2xl shadow-sm border border-gray-100 p-6 flex flex-col items-center text-center transform transition duration-300 hover:shadow-md">
-        <div className="w-full h-60 mb-5 relative flex items-center justify-center">
-            <div className={`absolute w-32 h-32 ${colorClass} rounded-full blur-2xl opacity-40`}></div>
+const TuitionTypeCard = ({ title, badge, subtitle, description,  imageSrc, colorClass, index }) => (
+    <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.5, delay: index * 0.1 }}
+        whileHover={{ y: -10, scale: 1.02 }}
+        className="bg-white dark:bg-gray-800 h-120 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 flex flex-col items-center text-center transform transition duration-300 hover:shadow-xl hover:shadow-purple-200/50 dark:hover:shadow-purple-900/50 cursor-pointer"
+    >
+        <motion.div
+            className="w-full h-60 mb-5 relative flex items-center justify-center"
+            whileHover={{ scale: 1.05 }}
+            transition={{ type: "spring", stiffness: 300 }}
+        >
+            <motion.div
+                className={`absolute w-32 h-32 ${colorClass} rounded-full blur-2xl opacity-40`}
+                animate={{
+                    scale: [1, 1.2, 1],
+                    opacity: [0.4, 0.6, 0.4],
+                }}
+                transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: index * 0.3
+                }}
+            ></motion.div>
             <img
                 alt={title}
                 className="relative z-10 h-full object-contain"
                 src={imageSrc}
             />
-        </div>
+        </motion.div>
 
-        <h2 className="text-xl font-bold text-[#0F2B5B] mb-2">{title}</h2>
-        <span className={`text-xs font-semibold px-3 py-1 rounded-full mb-3 ${colorClass.replace('bg-', 'text-').replace('-100', '-600')} ${colorClass.replace('-100', '-50')}`}>
+        <h2 className="text-xl font-bold text-[#0F2B5B] dark:text-gray-100 mb-2">{title}</h2>
+        <motion.span
+            className={`text-xs font-semibold px-3 py-1 rounded-full mb-3 ${colorClass.replace('bg-', 'text-').replace('-100', '-600')} ${colorClass.replace('-100', '-50')} dark:${colorClass.replace('bg-', 'text-').replace('-100', '-400')}`}
+            whileHover={{ scale: 1.1 }}
+        >
             {badge}
-        </span>
+        </motion.span>
 
-        <p className="text-[10px] text-gray-400 mb-3 font-bold uppercase tracking-wider">{subtitle}</p>
-        <p className="text-sm text-gray-600 leading-relaxed mb-6">
+        <p className="text-[10px] text-gray-400 dark:text-gray-500 mb-3 font-bold uppercase tracking-wider">{subtitle}</p>
+        <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
             {description}
         </p>
 
-    </div>
+    </motion.div>
 );
 
 const TuitionSelection = () => {
@@ -60,18 +87,18 @@ const TuitionSelection = () => {
     ];
 
     return (
-        <div className="bg-[#F0F4F8] font-sans">
+        <div className="bg-[#F0F4F8] dark:bg-gray-900 font-sans">
             <main className="px-5 py-4 pb-15 max-w-full mx-auto">
                 <header className="mb-10 text-center">
-                    <h1 className="text-3xl font-bold text-[#0F2B5B] mb-2">Tuition Types</h1>
-                    <p className="text-gray-500 text-sm px-4">
+                    <h1 className="text-3xl font-bold text-[#0F2B5B] dark:text-gray-100 mb-2">Tuition Types</h1>
+                    <p className="text-gray-500 dark:text-gray-400 text-sm px-4">
                         Find the Best Tuition Type which suits you most
                     </p>
                 </header>
 
                 <div className="space-y-6 grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-6 ">
                     {tuitionTypes.map((type, index) => (
-                        <TuitionTypeCard key={index} {...type} />
+                        <TuitionTypeCard key={index} {...type} index={index} />
                     ))}
                 </div>
             </main>

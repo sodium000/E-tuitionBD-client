@@ -5,6 +5,7 @@ import Loading from '../../Component/Loading/Loading';
 import useAxiosSecure from '../../hook/useAxiosSecure';
 import useRole from '../../hook/useRole';
 import { MdLogout, MdDashboard, MdPerson, MdSettings } from 'react-icons/md';
+import ThemeToggle from '../../Component/ThemeToggle/ThemeToggle';
 
 const Navbar = () => {
     const { user, loding, GoogleSignOut } = useAuth();
@@ -21,7 +22,7 @@ const Navbar = () => {
 
     // Shared NavLink Class
     const navLinkStyles = ({ isActive }) =>
-        `relative px-3 py-2 transition-all duration-300 font-medium hover:text-primary ${isActive ? "text-primary border-b-2 border-primary" : "text-gray-600"
+        `relative px-3 py-2 transition-all duration-300 font-medium hover:text-primary ${isActive ? "text-primary border-b-2 border-primary" : "text-gray-600 dark:text-gray-300"
         }`;
 
     const link = (
@@ -54,8 +55,8 @@ const Navbar = () => {
 
     return (
         <div className='sticky top-0 z-50 transition-all duration-300'>
-            {/* Glassmorphism wrapper */}
-            <div className="navbar bg-white/80 backdrop-blur-md border-b border-gray-100 px-4 md:px-8">
+
+            <div className="navbar bg-white dark:bg-gray-900/90 rounded-xl border-b border-gray-100 dark:border-gray-800 px-4 md:px-8">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -63,13 +64,13 @@ const Navbar = () => {
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
                             </svg>
                         </div>
-                        <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-1 p-4 shadow-xl bg-base-100 rounded-2xl w-64 space-y-2">
+                        <ul tabIndex={0} className="menu menu-sm dark:bg-gray-900/90 dropdown-content mt-3 z-1 p-4 shadow-xl bg-base-100 rounded-2xl w-64 space-y-2">
                             {link}
                         </ul>
                     </div>
                     <Link to={'/'} className="flex items-center gap-2 group">
                         <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white font-black shadow-lg shadow-primary/30 group-hover:rotate-12 transition-transform">eT</div>
-                        <span className="text-xl font-black tracking-tighter text-slate-800">eTuition<span className='text-primary'>Bd</span></span>
+                        <span className="text-xl font-black tracking-tighter text-slate-800 dark:text-gray-100">eTuition<span className='text-purple-600 dark:text-purple-400'>Bd</span></span>
                     </Link>
                 </div>
 
@@ -80,6 +81,7 @@ const Navbar = () => {
                 </div>
 
                 <div className="navbar-end gap-4">
+                    <ThemeToggle />
                     {loding ? (
                         <Loading />
                     ) : user ? (
