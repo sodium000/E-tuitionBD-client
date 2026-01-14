@@ -5,10 +5,12 @@ import Footer from '../ShearePage/Footer/Footer';
 
 const HomePageLayout = () => {
     return (
-        <div className='container mx-auto'>
-            <Navbar></Navbar>
-            <Outlet></Outlet>
-            <Footer></Footer>
+        <div className='min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900'>
+            <Navbar />
+            <main className='flex-1 w-full'>
+                <Outlet />
+            </main>
+            <Footer />
         </div>
     );
 };

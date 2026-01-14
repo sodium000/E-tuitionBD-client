@@ -9,220 +9,112 @@ const Banner = () => {
         hidden: { opacity: 0 },
         visible: {
             opacity: 1,
-            transition: {
-                staggerChildren: 0.2,
-                delayChildren: 0.1
-            }
+            transition: { staggerChildren: 0.1, delayChildren: 0.2 }
         }
     };
 
     const itemVariants = {
-        hidden: { y: 30, opacity: 0 },
+        hidden: { y: 20, opacity: 0 },
         visible: {
             y: 0,
             opacity: 1,
-            transition: {
-                duration: 0.6,
-                ease: "easeOut"
-            }
+            transition: { duration: 0.5, ease: "easeOut" }
         }
     };
 
+    const cities = [
+        { name: "Dhaka", count: 1200 }, { name: "Chittagong", count: 1600 },
+        { name: "Rajshahi", count: 1900 }, { name: "Sylhet", count: 860 },
+        { name: "Khulna", count: 280 }, { name: "Barishal", count: 468 },
+        { name: "Cumilla", count: 1423 }, { name: "Rangpur", count: 136 }
+    ];
+
     return (
-        <div className="relative py-12 md:py-16 lg:py-20 overflow-hidden">
-            {/* Background gradient overlay */}
-            <div className="absolute inset-0 bg-linear-to-br from-purple-50/50 via-white to-blue-50/30 dark:from-gray-900 dark:via-gray-900 dark:to-gray-900 -z-10"></div>
+        <section className="relative h-[60vh] md:h-[65vh] min-h-[500px] flex items-center overflow-hidden bg-white dark:bg-slate-950 transition-colors duration-500">
             
-            <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            {/* --- DARK MODE BLOBS (Hidden in Light Mode) --- */}
+            <div className="absolute inset-0 z-0 hidden dark:block">
+                <div className="absolute top-0 -left-20 w-72 h-72 bg-purple-900/30 rounded-full blur-[80px] opacity-50"></div>
+                <div className="absolute bottom-0 -right-20 w-72 h-72 bg-indigo-900/20 rounded-full blur-[80px] opacity-50"></div>
+            </div>
+
+            <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-6 w-full">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                    
+                    {/* --- TEXT CONTENT --- */}
                     <motion.div
                         variants={containerVariants}
                         initial="hidden"
                         animate="visible"
-                        className="text-center lg:text-left space-y-6"
+                        className="text-center lg:text-left space-y-4"
                     >
-                        {/* Badge */}
-                        <motion.div
-                            variants={itemVariants}
-                            className="inline-flex items-center gap-2 px-4 py-2 bg-purple-100 dark:bg-purple-900/30 rounded-full text-sm font-semibold text-purple-700 dark:text-purple-300"
-                        >
-                            <span className="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></span>
-                            Trusted by 5000+ Students
+                        {/* Status Badge */}
+                        <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                            <span className="flex h-1.5 w-1.5 rounded-full bg-indigo-600 dark:bg-indigo-400 animate-pulse"></span>
+                            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400">
+                                Trusted by 5000+ Students
+                            </span>
                         </motion.div>
 
-                        <motion.h1
-                            variants={itemVariants}
-                            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-gray-900 dark:text-gray-100 leading-tight tracking-tight"
-                        >
-                            Best Tutoring Platform for{' '}
-                            <span className='relative inline-block'>
-                                <span className='relative z-10 text-purple-800 dark:text-purple-400'>Home & Online Tuitions</span>
-                                <span className='absolute bottom-2 left-0 right-0 h-3 bg-purple-200/50 dark:bg-purple-800/50 -z-0 rounded-lg'></span>
+                        <motion.h1 variants={itemVariants} className="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight">
+                            Find The Best <br />
+                            <span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400">
+                                Private Tutors
                             </span>
                         </motion.h1>
-                        <motion.p
-                            variants={itemVariants}
-                            className="text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-xl mx-auto lg:mx-0"
-                        >
-                            Find the perfect tutor in your area. Connect with experienced educators for personalized learning experiences.
+
+                        <motion.p variants={itemVariants} className="text-sm md:text-base text-slate-500 dark:text-slate-400 max-w-lg mx-auto lg:mx-0">
+                            Personalized learning at your doorstep. We connect you with qualified educators for excellence.
                         </motion.p>
-                        <motion.div
-                            variants={itemVariants}
-                            className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-2"
-                        >
-                            <Link to='/Tutors'
-                                className="group relative inline-flex items-center justify-center gap-x-3 rounded-xl bg-gradient-to-r from-purple-600 to-purple-700 dark:from-purple-600 dark:to-purple-800 px-8 py-4 text-base font-bold text-white shadow-xl hover:shadow-2xl hover:shadow-purple-500/50 dark:hover:shadow-purple-600/50 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-purple-600 dark:focus-visible:outline-purple-400 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 overflow-hidden"
-                            >
-                                <span className="absolute inset-0 bg-linear-to-r from-purple-700 to-purple-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                                <span className="relative flex items-center gap-x-2">
-                                    <motion.svg
-                                        className="w-5 h-5"
-                                        fill="currentColor"
-                                        viewBox="0 0 20 20"
-                                        animate={{ rotate: [0, 360] }}
-                                        transition={{ duration: 2, repeat: Infinity, repeatDelay: 3, ease: "linear" }}
-                                    >
-                                        <path
-                                            fillRule="evenodd"
-                                            clipRule="evenodd"
-                                            d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z"
-                                        />
-                                    </motion.svg>
-                                    FIND A TUTOR
-                                    <motion.svg
-                                        className="w-5 h-5"
-                                        fill="currentColor"
-                                        viewBox="0 0 20 20"
-                                        animate={{ x: [0, 5, 0] }}
-                                        transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                                    >
-                                        <path
-                                            fillRule="evenodd"
-                                            clipRule="evenodd"
-                                            d="M2 10a.75.75 0 01.75-.75h12.59l-2.1-1.95a.75.75 0 111.02-1.1l3.5 3.25a.75.75 0 010 1.1l-3.5 3.25a.75.75 0 11-1.02-1.1l2.1-1.95H2.75A.75.75 0 012 10z"
-                                        />
-                                    </motion.svg>
-                                </span>
+
+                        {/* Buttons */}
+                        <motion.div variants={itemVariants} className="flex flex-wrap gap-3 justify-center lg:justify-start">
+                            <Link to='/Tutors' className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-sm font-bold shadow-sm dark:shadow-indigo-900/50 transition-all hover:scale-105">
+                                Find a Tutor
+                            </Link>
+                            <Link to='/login' className="px-6 py-3 bg-white dark:bg-slate-900 text-slate-900 dark:text-white border border-slate-300 dark:border-slate-800 rounded-lg text-sm font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">
+                                Become a Tutor
                             </Link>
                         </motion.div>
-                        
-                        {/* Stats Section */}
-                        <motion.div
-                            variants={itemVariants}
-                            className="pt-6 grid grid-cols-3 gap-6 max-w-md mx-auto lg:mx-0"
-                        >
-                            {[
-                                { label: 'Tutors', value: '500+' },
-                                { label: 'Students', value: '5K+' },
-                                { label: 'Cities', value: '64+' }
-                            ].map((stat, idx) => (
-                                <motion.div
-                                    key={idx}
-                                    className="text-center lg:text-left"
-                                    whileHover={{ scale: 1.05 }}
-                                >
-                                    <div className="text-2xl md:text-3xl font-bold text-purple-600 dark:text-purple-400">{stat.value}</div>
-                                    <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">{stat.label}</div>
-                                </motion.div>
-                            ))}
-                        </motion.div>
-
-                        {/* Divisional Tutors Section */}
-                        <motion.div
-                            variants={itemVariants}
-                            className="pt-8 border-t border-gray-200 dark:border-gray-700"
-                        >
-                            <h2 className="text-base font-semibold text-gray-700 dark:text-gray-300 mb-4">Available in:</h2>
-                            <div className="relative">
-                                <Marquee
-                                    autoFill={true}
-                                    speed={40}
-                                    pauseOnHover={true}
-                                    gradient={true}
-                                    gradientColor="rgba(255,255,255,0)"
-                                    gradientWidth={60}
-                                >
-                                    {[{ name: "Barishal", count: 468 },
-                                    { name: "Khulna", count: 280 },
-                                    { name: "Mymenshing", count: 120 },
-                                    { name: "Dhaka", count: 1200 },
-                                    { name: "Chittogram", count: 1600 },
-                                    { name: "Rongpur", count: 136 },
-                                    { name: "Rajshahi", count: 1900 },
-                                    { name: "Cumilla", count: 1423 },
-                                    { name: "Sylhet", count: 860 }].map((item) => (
-                                        <motion.div
-                                            key={item.name}
-                                            className="bg-white dark:bg-gray-800 mx-2 px-4 py-2.5 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-purple-400 dark:hover:border-purple-500 hover:shadow-md cursor-pointer transition-all duration-300"
-                                            whileHover={{ scale: 1.05, y: -2 }}
-                                            whileTap={{ scale: 0.95 }}
-                                        >
-                                            <p className="text-sm text-gray-700 dark:text-gray-300 whitespace-nowrap">
-                                                <span className="font-semibold">{item.name}</span>: <span className="font-bold text-purple-600 dark:text-purple-400">{item.count}</span>
-                                            </p>
-                                        </motion.div>
-                                    ))}
-                                </Marquee>
-                            </div>
-                        </motion.div>
                     </motion.div>
 
-                    {/* Right Column - Image Section */}
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9, x: 50 }}
-                        animate={{ opacity: 1, scale: 1, x: 0 }}
-                        transition={{ duration: 0.8, ease: "easeOut" }}
-                        className="relative lg:pl-8"
+                    <motion.div 
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.8 }}
+                        className="hidden lg:flex relative h-[350px] items-center justify-center"
                     >
-                        {/* Enhanced background effects */}
-                        <div className="absolute inset-0 z-0">
-                            <motion.div
-                                className="absolute -top-24 -right-24 w-96 h-96 bg-purple-200 dark:bg-purple-900/40 rounded-full opacity-40 dark:opacity-30 blur-3xl"
-                                animate={{
-                                    scale: [1, 1.2, 1],
-                                    opacity: [0.3, 0.5, 0.3],
-                                }}
-                                transition={{
-                                    duration: 6,
-                                    repeat: Infinity,
-                                    ease: "easeInOut"
-                                }}
-                            ></motion.div>
-                            <motion.div
-                                className="absolute top-1/2 -left-12 w-80 h-80 bg-blue-200 dark:bg-blue-900/40 rounded-full opacity-30 dark:opacity-20 blur-3xl"
-                                animate={{
-                                    scale: [1, 1.15, 1],
-                                    opacity: [0.2, 0.4, 0.2],
-                                    x: [0, 20, 0]
-                                }}
-                                transition={{
-                                    duration: 7,
-                                    repeat: Infinity,
-                                    ease: "easeInOut",
-                                    delay: 0.5
-                                }}
-                            ></motion.div>
-                        </div>
+                        <div className="absolute inset-0 border-2 border-slate-100 dark:border-transparent dark:bg-linear-to-tr dark:from-indigo-500/20 dark:to-purple-500/20 rounded-3xl rotate-2 -z-10"></div>
                         
-                        {/* Image container with modern styling */}
-                        <motion.div
-                            className="relative z-10"
-                            whileHover={{ scale: 1.02 }}
-                            transition={{ type: "spring", stiffness: 200 }}
-                        >
-                            <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-purple-50 to-blue-50 dark:from-gray-800 dark:to-gray-900 p-4 shadow-2xl">
-                                <div className="absolute inset-0 bg-linear-to-br from-purple-100/20 to-transparent dark:from-purple-900/20"></div>
-                                <img
-                                    className="w-full h-auto max-h-[500px] object-contain relative z-10"
-                                    alt="Friendly teacher illustration"
-                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuALFfgz1snxFaD82G-KrntJAnqseGfS5coScWqHpTybT0IUoVbOhjZdAYiWirrlGznY2yYS8r3YxmfOd59A08DYN9RI-RHFGEw3IIs_TMAKzdPmzxyEOtgDrD1R_mD82gzKNpck6F7kHIcStph1S61WkGoLS6FloBeertYUowvYjZfsX4NL-FoskOBLLpAUXELmqpDPrsH1QsAVjSj090HnriLIa9sqjqQeB17bQH5ISTXyDWTRd5J1pkw3-K0c_-_veUsIvNQqe4I"
-                                />
-                            </div>
-                        </motion.div>
+                        <div className="relative bg-white dark:bg-slate-900 p-2 rounded-3xl shadow-xl border border-slate-100 dark:border-slate-800 overflow-hidden">
+                            <img 
+                                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=600&auto=format&fit=crop" 
+                                alt="Tutoring session"
+                                className="rounded-2xl object-cover h-[300px] w-[400px] transition-opacity duration-500"
+                            />
+                        </div>
                     </motion.div>
                 </div>
+
+                <motion.div 
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.6 }}
+                    className="mt-10 border-t border-slate-100 dark:border-slate-900 pt-6"
+                >
+                    <Marquee gradient={false} speed={40}>
+                        {cities.map((city) => (
+                            <div key={city.name} className="mx-3 flex items-center gap-2 px-4 py-2 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 transition-colors">
+                                <span className="text-xs font-bold text-slate-700 dark:text-slate-300">{city.name}</span>
+                                <span className="text-[10px] font-black text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/30 px-1.5 py-0.5 rounded">
+                                    {city.count}
+                                </span>
+                            </div>
+                        ))}
+                    </Marquee>
+                </motion.div>
             </div>
-        </div>
+        </section>
     );
 };
 
