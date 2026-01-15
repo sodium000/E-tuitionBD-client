@@ -1,34 +1,43 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import { LuUserPlus, LuBriefcase, LuBellRing, LuCircleDollarSign } from 'react-icons/lu';
+import { motion } from 'framer-motion';
+import { Link } from 'react-router';
 
 const TutorStep = ({ step, icon: Icon, title, description, isReversed }) => {
     return (
-        <div className="relative group">
+        <motion.div 
+            initial={{ opacity: 0, x: isReversed ? 20 : -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="relative group"
+        >
             <div className={`flex items-center ${isReversed ? 'flex-row-reverse' : 'flex-row'}`}>
                 {/* Step Number Circle */}
                 <div className={`${isReversed ? 'ml-4' : 'mr-4'} shrink-0`}>
-                    <div className="w-12 h-12 rounded-full bg-[#F8BBD0] dark:bg-[#C2185B] flex items-center justify-center shadow-lg transform transition-all group-hover:scale-110">
-                        <span className="text-white font-bold text-xl drop-shadow-sm">{step}</span>
+                    <div className="w-10 h-10 rounded-xl bg-indigo-600 dark:bg-indigo-500 flex items-center justify-center shadow-lg shadow-indigo-200 dark:shadow-none transform transition-all group-hover:rotate-12">
+                        <span className="text-white font-black text-lg">{step}</span>
                     </div>
                 </div>
 
                 {/* Content Card */}
-                <div className={`flex-1 bg-white dark:bg-zinc-900 rounded-xl shadow-md dark:border dark:border-zinc-800 overflow-hidden flex ${isReversed ? 'flex-row-reverse' : 'flex-row'} relative z-10 transform transition-transform duration-300 hover:scale-[1.02]`}>
-                    <div className="w-16 bg-[#8E44AD] flex items-center justify-center shrink-0">
-                        <Icon className="text-white text-2xl" />
-                    </div>
-                    <div className={`p-4 flex-1 ${isReversed ? 'text-left' : 'text-right'}`}>
-                        <h3 className="text-[#8E44AD] font-bold text-sm uppercase tracking-wider mb-1">
-                            {title}
-                        </h3>
-                        <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed">
-                            {description}
-                        </p>
+                <div className={`flex-1 bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 p-4 relative z-10 transition-all duration-300 hover:shadow-xl hover:shadow-indigo-500/5`}>
+                    <div className={`flex items-start gap-4 ${isReversed ? 'flex-row-reverse text-right' : 'flex-row text-left'}`}>
+                        <div className="p-2 bg-slate-50 dark:bg-slate-800 rounded-lg shrink-0">
+                            <Icon className="text-indigo-600 dark:text-indigo-400 text-xl" />
+                        </div>
+                        <div className="flex-1">
+                            <h3 className="text-slate-900 dark:text-white font-bold text-sm tracking-tight mb-1">
+                                {title}
+                            </h3>
+                            <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed line-clamp-2">
+                                {description}
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 };
 
@@ -42,33 +51,30 @@ const HowItWorks = () => {
         {
             icon: LuBriefcase,
             title: "Apply For Jobs",
-            description: "Completing your profile start browsing our latest TUITION JOBS page and start applying.",
+            description: "Browse our latest TUITION JOBS page and start applying.",
         },
         {
             icon: LuBellRing,
-            title: "Get Free Tutoring Job Alert",
-            description: "Get updated tutoring jobs alerts via SMS/CALL whenever new jobs are posted.",
+            title: "Get Job Alerts",
+            description: "Get updated tutoring jobs alerts via SMS whenever jobs are posted.",
         },
         {
             icon: LuCircleDollarSign,
-            title: "Start Tutoring And Grow Your Income",
-            description: "If parent like the demo session, you can continue tuition and start earning.",
+            title: "Start Earning",
+            description: "Continue tuition after a successful demo and grow your income.",
         },
     ];
 
     return (
-        <div className=" bg-[#F3F6FD]  font-sans  py-15 px-4 sm:px-6">
+        <div className="font-sans w-full">
             <div className="max-w-md mx-auto">
-                <header className="text-center mb-10">
-                    <h1 className="text-3xl font-bold mb-2 tracking-tight">How it Works?</h1>
-                    <p className="text-lg text-zinc-600 dark:text-zinc-400 font-medium">
-                        Here's how it works for <span className="text-[#8E44AD] font-bold">Tutors</span>
-                    </p>
+                <header className="mb-8">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-indigo-600 dark:text-indigo-400">Step by Step</span>
+                    <h2 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">For Tutors</h2>
                 </header>
 
-                <div className="space-y-6 relative">
-                    {/* Vertical line connector for desktop */}
-                    <div className="absolute left-1/2 top-4 bottom-4 w-0.5 bg-zinc-200 dark:bg-zinc-800 -z-10 hidden sm:block"></div>
+                <div className="space-y-4 relative">
+                    <div className="absolute left-5 sm:left-5 top-4 bottom-4 w-0.5 bg-slate-100 dark:bg-slate-800 -z-10 hidden sm:block"></div>
 
                     {steps.map((item, index) => (
                         <TutorStep
@@ -77,15 +83,17 @@ const HowItWorks = () => {
                             icon={item.icon}
                             title={item.title}
                             description={item.description}
-                            isReversed={index % 2 === 0}
+                            isReversed={false}
                         />
                     ))}
                 </div>
 
-                <div className="mt-12 text-center">
-                    <button className="bg-[#8E44AD] hover:bg-opacity-90 text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-[0_0_15px_rgba(142,68,173,0.4)] transition-all duration-300 transform hover:-translate-y-1">
-                        Get Started Now
+                <div className="mt-8">
+                    <Link to='/Tutorapply'>
+                    <button className="w-full sm:w-auto bg-slate-900 dark:bg-white text-white dark:text-slate-950 font-bold py-3 px-8 rounded-xl shadow-lg hover:bg-indigo-600 dark:hover:bg-indigo-50 transition-all transform active:scale-95 text-sm">
+                        Become a Tutor
                     </button>
+                    </Link>
                 </div>
             </div>
         </div>

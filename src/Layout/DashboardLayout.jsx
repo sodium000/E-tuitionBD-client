@@ -47,7 +47,6 @@ const DashboardLayout = () => {
     return (
         <>
         
-            <Navbar></Navbar>
             <div className="drawer lg:drawer-open min-h-screen bg-gray-50 dark:bg-gray-900">
                 <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
 
@@ -120,7 +119,6 @@ const DashboardLayout = () => {
                     </div>
                 </div>
             </div>
-            <Footer></Footer>
         </>
     );
 };

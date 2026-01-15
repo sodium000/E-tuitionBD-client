@@ -31,24 +31,15 @@ const Banner = () => {
 
     return (
         <section className="relative h-[60vh] md:h-[65vh] min-h-[500px] flex items-center overflow-hidden bg-white dark:bg-slate-950 transition-colors duration-500">
-            
-            {/* --- DARK MODE BLOBS (Hidden in Light Mode) --- */}
-            <div className="absolute inset-0 z-0 hidden dark:block">
-                <div className="absolute top-0 -left-20 w-72 h-72 bg-purple-900/30 rounded-full blur-[80px] opacity-50"></div>
-                <div className="absolute bottom-0 -right-20 w-72 h-72 bg-indigo-900/20 rounded-full blur-[80px] opacity-50"></div>
-            </div>
-
-            <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-6 w-full">
+            <div className="relative  z-10 max-w-7xl mx-auto px-6 lg:px-8 py-4 w-full">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
                     
-                    {/* --- TEXT CONTENT --- */}
                     <motion.div
                         variants={containerVariants}
                         initial="hidden"
                         animate="visible"
                         className="text-center lg:text-left space-y-4"
                     >
-                        {/* Status Badge */}
                         <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
                             <span className="flex h-1.5 w-1.5 rounded-full bg-indigo-600 dark:bg-indigo-400 animate-pulse"></span>
                             <span className="text-[10px] font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400">
@@ -67,7 +58,6 @@ const Banner = () => {
                             Personalized learning at your doorstep. We connect you with qualified educators for excellence.
                         </motion.p>
 
-                        {/* Buttons */}
                         <motion.div variants={itemVariants} className="flex flex-wrap gap-3 justify-center lg:justify-start">
                             <Link to='/Tutors' className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-sm font-bold shadow-sm dark:shadow-indigo-900/50 transition-all hover:scale-105">
                                 Find a Tutor
@@ -84,7 +74,7 @@ const Banner = () => {
                         transition={{ duration: 0.8 }}
                         className="hidden lg:flex relative h-[350px] items-center justify-center"
                     >
-                        <div className="absolute inset-0 border-2 border-slate-100 dark:border-transparent dark:bg-linear-to-tr dark:from-indigo-500/20 dark:to-purple-500/20 rounded-3xl rotate-2 -z-10"></div>
+                        <div className="absolute inset-0 border-2 border-slate-300 bg-linear-to-tr from-indigo-500/20 to-purple-500/20 dark:border-transparent dark:bg-linear-to-tr dark:from-indigo-500/20 dark:to-purple-500/20 rounded-3xl rotate-2 -z-10"></div>
                         
                         <div className="relative bg-white dark:bg-slate-900 p-2 rounded-3xl shadow-xl border border-slate-100 dark:border-slate-800 overflow-hidden">
                             <img 
@@ -100,13 +90,13 @@ const Banner = () => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.6 }}
-                    className="mt-10 border-t border-slate-100 dark:border-slate-900 pt-6"
+                    className="mt-6 border-t border-slate-300 dark:border-slate-900 pt-6"
                 >
                     <Marquee gradient={false} speed={40}>
                         {cities.map((city) => (
-                            <div key={city.name} className="mx-3 flex items-center gap-2 px-4 py-2 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 transition-colors">
+                            <div key={city.name} className="mx-5 flex items-center gap-2  px-4 py-2 rounded-lg bg-white dark:bg-slate-900 border border-slate-800 dark:border-slate-800 transition-colors">
                                 <span className="text-xs font-bold text-slate-700 dark:text-slate-300">{city.name}</span>
-                                <span className="text-[10px] font-black text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/30 px-1.5 py-0.5 rounded">
+                                <span className="text-[10px] font-black items-center text-indigo-700 dark:text-indigo-400 bg-indigo-100 dark:bg-indigo-900/30 px-1.5 py-0.5 rounded">
                                     {city.count}
                                 </span>
                             </div>

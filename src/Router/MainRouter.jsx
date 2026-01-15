@@ -29,6 +29,7 @@ import AboutPage from "../HomePage/AboutPage/AboutPage";
 import ContactPage from "../HomePage/ContactPage/ContactPage";
 import Location from "../HomePage/Location/Location";
 import ErrorPage from "../Component/ErrorPage/ErrorPage";
+import TutorRoute from "./TutorRoute";
 // import Payment from "../Component/Payment/Payment";
 
 const router = createBrowserRouter([
@@ -58,12 +59,9 @@ const router = createBrowserRouter([
             },
             {
                 path: "Tutorapply",
-                Component: TutorApplicationForm,
+                element: <TutorRoute><TutorApplicationForm></TutorApplicationForm></TutorRoute>,
+                
             },
-            // {
-            //     path: 'payment/:postid',
-            //     Component: Payment
-            // },
 
             {
                 path: 'payment-success',

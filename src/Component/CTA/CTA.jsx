@@ -5,172 +5,104 @@ import { Link } from 'react-router';
 import { FaArrowRight, FaGraduationCap, FaChalkboardTeacher } from 'react-icons/fa';
 
 const CTA = () => {
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: {
-                staggerChildren: 0.2,
-                delayChildren: 0.1
-            }
-        }
-    };
-
-    const itemVariants = {
-        hidden: { y: 30, opacity: 0 },
-        visible: {
-            y: 0,
-            opacity: 1,
-            transition: {
-                duration: 0.6,
-                ease: "easeOut"
-            }
-        }
-    };
-
     return (
-        <div className="relative py-20 overflow-hidden bg-linear-to-br from-purple-600 via-purple-700 to-indigo-800 dark:from-purple-900 dark:via-indigo-900 dark:to-gray-900">
-            {/* Animated background elements */}
-            <div className="absolute inset-0 overflow-hidden">
-                <motion.div
-                    className="absolute top-0 left-1/4 w-96 h-96 bg-white/10 rounded-full blur-3xl"
-                    animate={{
-                        scale: [1, 1.5, 1],
-                        x: [0, 100, 0],
-                        y: [0, 50, 0],
-                    }}
-                    transition={{
-                        duration: 8,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                    }}
-                />
-                <motion.div
-                    className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-400/10 rounded-full blur-3xl"
-                    animate={{
-                        scale: [1, 1.3, 1],
-                        x: [0, -80, 0],
-                        y: [0, -50, 0],
-                    }}
-                    transition={{
-                        duration: 10,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                        delay: 1
-                    }}
-                />
+        <section className="relative py-5 bg-white dark:bg-slate-950 transition-colors duration-500 overflow-hidden">
+            <div className="absolute inset-0 z-0 pointer-events-none">
+                <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-indigo-50 dark:bg-indigo-900/10 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2"></div>
+                <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-purple-50 dark:bg-purple-900/10 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2"></div>
             </div>
 
-            <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <motion.div
-                    variants={containerVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, margin: "-100px" }}
-                    className="text-center"
-                >
-                    <motion.div
-                        variants={itemVariants}
-                        className="flex justify-center mb-6"
-                    >
+            <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
+                <div className="relative overflow-hidden rounded-[3rem] bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 p-8 md:p-20">
+                    <div className="absolute top-0 right-0 mt-[-50px] mr-[-50px] w-64 h-64 bg-linear-to-br from-indigo-500/10 to-purple-500/10 rounded-full blur-2xl"></div>
+
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                         <motion.div
-                            className="flex gap-4"
-                            animate={{ rotate: [0, 5, -5, 0] }}
-                            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                            initial={{ opacity: 0, x: -30 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            className="text-left space-y-6"
                         >
-                            <FaGraduationCap className="text-4xl text-white/90" />
-                            <FaChalkboardTeacher className="text-4xl text-white/90" />
-                        </motion.div>
-                    </motion.div>
-
-                    <motion.h2
-                        variants={itemVariants}
-                        className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white mb-6"
-                    >
-                        Ready to Start Your
-                        <span className="block text-transparent bg-clip-text bg-linear-to-r from-yellow-200 to-yellow-400 dark:from-yellow-300 dark:to-yellow-500">
-                            Learning Journey?
-                        </span>
-                    </motion.h2>
-
-                    <motion.p
-                        variants={itemVariants}
-                        className="text-xl text-white/90 mb-10 max-w-3xl mx-auto"
-                    >
-                        Join thousands of students and tutors who trust eTuitionBd for quality education.
-                        Find your perfect match today!
-                    </motion.p>
-
-                    <motion.div
-                        variants={itemVariants}
-                        className="flex flex-col sm:flex-row gap-4 justify-center items-center"
-                    >
-                        <Link to="/Tutors">
-                            <motion.button
-                                className="group relative px-8 py-4 bg-white dark:bg-gray-100 text-purple-700 dark:text-purple-800 font-bold text-lg rounded-full shadow-2xl overflow-hidden"
-                                whileHover={{ scale: 1.05, y: -2 }}
-                                whileTap={{ scale: 0.95 }}
-                                transition={{ type: "spring", stiffness: 300 }}
-                            >
-                                <motion.span
-                                    className="absolute inset-0 bg-linear-to-r from-yellow-400 to-yellow-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                                    initial={false}
-                                />
-                                <span className="relative flex items-center gap-3">
-                                    Find a Tutor
-                                    <motion.span
-                                        animate={{ x: [0, 5, 0] }}
-                                        transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                                    >
-                                        <FaArrowRight />
-                                    </motion.span>
+                            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 shadow-sm">
+                                <span className="relative flex h-2 w-2">
+                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                                    <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
                                 </span>
-                            </motion.button>
-                        </Link>
+                                <span className="text-[10px] font-black uppercase tracking-widest text-slate-600 dark:text-slate-300">
+                                    Join the Community
+                                </span>
+                            </div>
 
-                        <Link to="/TutionPost">
-                            <motion.button
-                                className="group px-8 py-4 bg-transparent border-2 border-white dark:border-gray-300 text-white dark:text-gray-100 font-bold text-lg rounded-full hover:bg-white dark:hover:bg-gray-100 hover:text-purple-700 dark:hover:text-purple-800 transition-all duration-300"
-                                whileHover={{ scale: 1.05, y: -2 }}
-                                whileTap={{ scale: 0.95 }}
-                                transition={{ type: "spring", stiffness: 300 }}
-                            >
-                                Post a Tuition Job
-                            </motion.button>
-                        </Link>
-                    </motion.div>
+                            <h2 className="text-4xl md:text-6xl font-black text-slate-900 dark:text-white tracking-tight leading-[1.1]">
+                                Empowering Your <br />
+                                <span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400">
+                                    Academic Success
+                                </span>
+                            </h2>
 
-                    <motion.div
-                        variants={itemVariants}
-                        className="mt-12 flex flex-wrap justify-center gap-8 text-white/80"
-                    >
-                        <motion.div
-                            className="flex items-center gap-2"
-                            whileHover={{ scale: 1.1 }}
-                        >
-                            <div className="text-3xl font-bold text-yellow-300">500+</div>
-                            <div className="text-sm">Active Tutors</div>
+                            <p className="text-lg text-slate-500 dark:text-slate-400 max-w-lg leading-relaxed font-medium">
+                                Whether you're a student looking for guidance or a tutor ready to share knowledge, eTuitionBd is your gateway to excellence.
+                            </p>
+
+                            <div className="flex flex-wrap gap-4 pt-4">
+                                <Link to="/Tutors">
+                                    <motion.button
+                                        whileHover={{ scale: 1.05 }}
+                                        whileTap={{ scale: 0.95 }}
+                                        className="px-8 py-4 bg-indigo-600 text-white font-black rounded-2xl shadow-lg shadow-indigo-200 dark:shadow-none hover:bg-indigo-700 transition-all flex items-center gap-3"
+                                    >
+                                        Find a Tutor <FaArrowRight />
+                                    </motion.button>
+                                </Link>
+                                <Link to="/TutionPost">
+                                    <motion.button
+                                        whileHover={{ scale: 1.05 }}
+                                        whileTap={{ scale: 0.95 }}
+                                        className="px-8 py-4 bg-white dark:bg-slate-800 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700 font-black rounded-2xl hover:bg-slate-50 dark:hover:bg-slate-700 transition-all"
+                                    >
+                                        Post a Job
+                                    </motion.button>
+                                </Link>
+                            </div>
                         </motion.div>
                         <motion.div
-                            className="flex items-center gap-2"
-                            whileHover={{ scale: 1.1 }}
+                            initial={{ opacity: 0, x: 30 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            className="grid grid-cols-2 gap-4"
                         >
-                            <div className="text-3xl font-bold text-yellow-300">1000+</div>
-                            <div className="text-sm">Happy Students</div>
+                            <div className="space-y-4">
+                                <div className="p-6 bg-white dark:bg-slate-900 rounded-4xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all duration-500 group">
+                                    <div className="w-12 h-12 mb-4 rounded-xl bg-indigo-50 dark:bg-indigo-950 flex items-center justify-center text-indigo-600 dark:text-indigo-400 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+                                        <FaGraduationCap size={24} />
+                                    </div>
+                                    <div className="text-3xl font-black text-slate-900 dark:text-white">10k+</div>
+                                    <div className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Total Students</div>
+                                </div>
+                                <div className="p-6 bg-white dark:bg-slate-900 rounded-4xl border border-slate-100 dark:border-slate-800 shadow-sm translate-x-6">
+                                    <div className="text-3xl font-black text-indigo-600 dark:text-indigo-400">98%</div>
+                                    <div className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Success Rate</div>
+                                </div>
+                            </div>
+                            <div className="space-y-4 pt-8">
+                                <div className="p-6 bg-white dark:bg-slate-900 rounded-4xl border border-slate-100 dark:border-slate-800 shadow-sm">
+                                    <div className="w-12 h-12 mb-4 rounded-xl bg-purple-50 dark:bg-purple-950 flex items-center justify-center text-purple-600 dark:text-purple-400">
+                                        <FaChalkboardTeacher size={24} />
+                                    </div>
+                                    <div className="text-3xl font-black text-slate-900 dark:text-white">5k+</div>
+                                    <div className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Expert Tutors</div>
+                                </div>
+                                <div className="p-6 bg-indigo-600 rounded-4xl text-white shadow-xl shadow-indigo-500/20 group cursor-default">
+                                    <div className="text-2xl font-black leading-tight">Start Today.</div>
+                                    <p className="text-[10px] opacity-80 mt-1">Join the future of learning.</p>
+                                </div>
+                            </div>
                         </motion.div>
-                        <motion.div
-                            className="flex items-center gap-2"
-                            whileHover={{ scale: 1.1 }}
-                        >
-                            <div className="text-3xl font-bold text-yellow-300">98%</div>
-                            <div className="text-sm">Satisfaction Rate</div>
-                        </motion.div>
-                    </motion.div>
-                </motion.div>
+                    </div>
+                </div>
             </div>
-        </div>
+        </section>
     );
 };
 
 export default CTA;
-
