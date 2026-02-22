@@ -30,8 +30,8 @@ const Banner = () => {
     ];
 
     return (
-        <section className="relative h-[60vh] md:h-[65vh] min-h-[500px] flex items-center overflow-hidden bg-white dark:bg-slate-950 transition-colors duration-500">
-            <div className="relative  z-10 max-w-7xl mx-auto px-6 lg:px-8 py-4 w-full">
+        <section className="relative h-[55vh] sm:h-[60vh] md:h-[65vh] min-h-[380px] sm:min-h-[450px] md:min-h-[500px] flex items-center overflow-hidden bg-white dark:bg-slate-950 transition-colors duration-500">
+            <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 py-4 sm:py-6">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
                     
                     <motion.div

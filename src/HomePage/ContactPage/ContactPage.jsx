@@ -19,11 +19,11 @@ const ContactPage = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 dark:bg-slate-950 py-16 px-6 lg:px-24 transition-colors duration-500">
-            <div className="max-w-7xl mx-auto">
+        <div className="min-h-screen bg-gray-50 dark:bg-slate-950 py-10 sm:py-16 px-4 sm:px-6 lg:px-12 xl:px-24 transition-colors duration-500 overflow-x-hidden">
+            <div className="w-full max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
                 {/* Header */}
                 <div className="text-center mb-16">
-                    <h1 className="text-4xl md:text-5xl font-extrabold mb-4 bg-linear-to-r from-blue-700 to-purple-600 bg-clip-text text-transparent pb-2">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-4 bg-linear-to-r from-blue-700 to-purple-600 bg-clip-text text-transparent pb-2">
                         Get in Touch
                     </h1>
                     <p className="text-gray-600 dark:text-slate-400 max-w-xl mx-auto text-lg">
@@ -90,7 +90,7 @@ const ContactPage = () => {
 
                     {/* Right Column: The Form */}
                     <div className="lg:col-span-2">
-                        <form onSubmit={handleSubmit} className="bg-white dark:bg-slate-900 p-8 md:p-12 rounded-3xl shadow-sm border border-gray-100 dark:border-slate-800 transition-colors">
+                        <form onSubmit={handleSubmit} className="bg-white dark:bg-slate-900 p-6 sm:p-8 md:p-12 rounded-2xl sm:rounded-3xl shadow-sm border border-gray-100 dark:border-slate-800 transition-colors">
                             <div className="grid md:grid-cols-2 gap-6 mb-6">
                                 <div className="space-y-2">
                                     <label className="text-sm font-semibold text-gray-700 dark:text-slate-300 ml-1">Full Name</label>

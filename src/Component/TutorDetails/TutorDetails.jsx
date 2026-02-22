@@ -95,7 +95,7 @@ const JobDetails = () => {
     if (!job) return <div className="text-center py-20 font-bold dark:text-white">Job Not Found</div>;
 
     return (
-        <div className="bg-slate-50 dark:bg-slate-950 transition-colors duration-500 pb-20 pt-6 px-4 min-h-screen">
+        <div className="bg-slate-50 dark:bg-slate-950 transition-colors duration-500 pb-20 pt-6 px-4 sm:px-6 min-h-screen overflow-x-hidden">
             <div className="max-w-6xl mx-auto">
                 <button onClick={() => navigate(-1)} className="mb-6 flex items-center gap-2 text-gray-500 dark:text-slate-400 hover:text-blue-600 transition-colors font-medium">
                     <FaArrowLeft /> Back to Listings
@@ -111,7 +111,7 @@ const JobDetails = () => {
                                 </div>
                             </div>
 
-                            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10">
+                            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-8 sm:mb-10">
                                 <DetailItem icon={FaUserGraduate} label="Target Class" value={job.Class || "Update processing..."} />
                                 <DetailItem icon={FaClock} label="Preferred Time" value={job.preferredTime || 'Update processing...'} />
                                 <DetailItem icon={FaCalendarAlt} label="Days/Week" value={`${job.daysPerWeek || "Update processing..."} Days`} />

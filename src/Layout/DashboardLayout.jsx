@@ -47,7 +47,7 @@ const DashboardLayout = () => {
     return (
         <>
         
-            <div className="drawer lg:drawer-open min-h-screen bg-gray-50 dark:bg-gray-900">
+            <div className="drawer lg:drawer-open min-h-screen bg-gray-50 dark:bg-gray-900 overflow-x-hidden">
                 <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
 
                 <div className="drawer-content flex flex-col">
@@ -60,14 +60,14 @@ const DashboardLayout = () => {
                             eTuitionBd
                         </div>
 
-                        <div className="flex items-center space-x-4">
-                            <Link to="/" className="text-sm font-medium text-gray-500 hover:text-blue-600 dark:text-gray-400">
+                        <div className="flex items-center space-x-2 sm:space-x-4">
+                            <Link to="/" className="text-xs sm:text-sm font-medium text-gray-500 hover:text-blue-600 dark:text-gray-400 truncate max-w-[120px] sm:max-w-none">
                                 <FaHome className="inline-block mr-1" /> Back to Home
                             </Link>
                         </div>
                     </nav>
 
-                    <main className="p-6 grow">
+                    <main className="p-4 sm:p-6 grow overflow-x-auto">
                         <Outlet />
                     </main>
 

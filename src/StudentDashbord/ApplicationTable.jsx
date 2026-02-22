@@ -59,7 +59,7 @@ const ApplicationTable = () => {
 
 
   return (
-    <div className="p-8 bg-gray-50 min-h-screen">
+    <div className="p-4 sm:p-6 md:p-8 bg-gray-50 min-h-screen overflow-x-hidden">
       <h2 className="text-3xl font-bold mb-6 text-gray-800">
         Tutor Applications
       </h2>

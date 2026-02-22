@@ -46,7 +46,7 @@ const Navbar = () => {
 
     return (
         <header className='sticky top-0 z-50 w-full backdrop-blur-md bg-white/95 dark:bg-slate-950/95 border-b border-gray-200 dark:border-slate-800 shadow-sm transition-colors duration-500'>
-            <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <nav className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
                 <div className="flex items-center justify-between h-16 lg:h-20">
                     
                     {/* Left: Logo */}

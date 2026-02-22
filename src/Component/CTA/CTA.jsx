@@ -12,8 +12,8 @@ const CTA = () => {
                 <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-purple-50 dark:bg-purple-900/10 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2"></div>
             </div>
 
-            <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
-                <div className="relative overflow-hidden rounded-[3rem] bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 p-8 md:p-20">
+            <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
+                <div className="relative overflow-hidden rounded-2xl sm:rounded-[3rem] bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 p-6 sm:p-8 md:p-12 lg:p-20">
                     <div className="absolute top-0 right-0 mt-[-50px] mr-[-50px] w-64 h-64 bg-linear-to-br from-indigo-500/10 to-purple-500/10 rounded-full blur-2xl"></div>
 
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -33,7 +33,7 @@ const CTA = () => {
                                 </span>
                             </div>
 
-                            <h2 className="text-4xl md:text-6xl font-black text-slate-900 dark:text-white tracking-tight leading-[1.1]">
+                            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 dark:text-white tracking-tight leading-[1.1]">
                                 Empowering Your <br />
                                 <span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400">
                                     Academic Success
@@ -69,7 +69,7 @@ const CTA = () => {
                             initial={{ opacity: 0, x: 30 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
-                            className="grid grid-cols-2 gap-4"
+                            className="grid grid-cols-2 gap-3 sm:gap-6"
                         >
                             <div className="space-y-4">
                                 <div className="p-6 bg-white dark:bg-slate-900 rounded-4xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all duration-500 group">
@@ -79,12 +79,12 @@ const CTA = () => {
                                     <div className="text-3xl font-black text-slate-900 dark:text-white">10k+</div>
                                     <div className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Total Students</div>
                                 </div>
-                                <div className="p-6 bg-white dark:bg-slate-900 rounded-4xl border border-slate-100 dark:border-slate-800 shadow-sm translate-x-6">
+                                <div className="p-6 bg-white dark:bg-slate-900 rounded-4xl border border-slate-100 dark:border-slate-800 shadow-sm sm:translate-x-6">
                                     <div className="text-3xl font-black text-indigo-600 dark:text-indigo-400">98%</div>
                                     <div className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Success Rate</div>
                                 </div>
                             </div>
-                            <div className="space-y-4 pt-8">
+                            <div className="space-y-4 pt-4 sm:pt-8">
                                 <div className="p-6 bg-white dark:bg-slate-900 rounded-4xl border border-slate-100 dark:border-slate-800 shadow-sm">
                                     <div className="w-12 h-12 mb-4 rounded-xl bg-purple-50 dark:bg-purple-950 flex items-center justify-center text-purple-600 dark:text-purple-400">
                                         <FaChalkboardTeacher size={24} />

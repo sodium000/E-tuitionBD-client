@@ -23,7 +23,7 @@ const MainHomePage = () => {
             <TuitionSelection></TuitionSelection>
             <Brand></Brand>
             <section className="bg-white dark:bg-slate-950 py-16 md:py-15 transition-colors duration-500 overflow-hidden">
-                <div className="max-w-7xl mx-auto px-6 lg:px-8">
+                <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
                     <div className="text-center mb-10 space-y-4">
                         <motion.h2
                             initial={{ opacity: 0, y: -10 }}
@@ -53,7 +53,7 @@ const MainHomePage = () => {
                         </motion.p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center min-h-[60vh]">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center min-h-0 md:min-h-[60vh] py-8 md:py-0">
                         <motion.div
                             initial={{ opacity: 0, x: -30 }}
                             whileInView={{ opacity: 1, x: 0 }}

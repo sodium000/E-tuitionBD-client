@@ -14,9 +14,9 @@ const brand = [amazon_vactor, amazon, casio, moonstar, randstas, star, star_peop
 
 const Brand = () => {
     return (
-        <div className='h-[20vh] py-15 min-h-[350px] flex flex-col justify-center items-center bg-white dark:bg-slate-950 transition-colors duration-500 overflow-hidden max-w-full'>
+        <div className='min-h-[250px] sm:min-h-[300px] md:min-h-[350px] py-8 sm:py-12 md:py-16 flex flex-col justify-center items-center bg-white dark:bg-slate-950 transition-colors duration-500 overflow-hidden max-w-full'>
             
-            <div className="w-full max-w-7xl mx-auto px-6 lg:px-8 flex flex-col gap-12">
+            <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 flex flex-col gap-8 sm:gap-12">
                 
                 <motion.div
                     initial={{ opacity: 0, y: -20 }}

@@ -20,7 +20,7 @@ const Review = ({ reviewsPromise }) => {
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[120px]"></div>
             </div>
 
-            <div className="relative z-10 max-w-7xl mx-auto px-6">
+            <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
                 
                 <div className="flex flex-col items-center text-center mb-16 space-y-4">
                     <motion.span 

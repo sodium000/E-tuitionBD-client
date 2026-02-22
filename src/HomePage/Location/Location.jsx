@@ -21,11 +21,11 @@ const Location = () => {
     const mapRef = useRef(null);
 
     return (
-        <div className='my-24 max-w-7xl mx-auto px-4 lg:px-6'>
+        <div className='my-12 sm:my-16 md:my-24 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 overflow-x-hidden'>
             <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
                 <div>
                     <span className="text-primary font-bold uppercase tracking-widest text-sm mb-2 block">Find Us</span>
-                    <h3 className="text-4xl md:text-5xl font-extrabold leading-tight bg-linear-to-r from-blue-700 to-purple-600 bg-clip-text text-transparent">
+                    <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight bg-linear-to-r from-blue-700 to-purple-600 bg-clip-text text-transparent">
                         Our Office Location
                     </h3>
                 </div>
@@ -37,7 +37,7 @@ const Location = () => {
             <div className='relative group'>
                 <div className="absolute -inset-1 bg-linear-to-r from-blue-600 to-purple-600 rounded-3xl blur opacity-25 group-hover:opacity-40 transition duration-1000"></div>
 
-                <div className='relative bg-white dark:bg-slate-900 rounded-3xl overflow-hidden shadow-2xl border border-gray-200 dark:border-slate-800 h-[600px]'>       
+                <div className='relative bg-white dark:bg-slate-900 rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-gray-200 dark:border-slate-800 h-[350px] sm:h-[450px] md:h-[550px] lg:h-[600px]'>       
                     <div className="absolute top-6 left-15 z-1000 hidden lg:block w-80">
                         <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md p-6 rounded-2xl border border-white/20 dark:border-slate-700/50 shadow-xl">
                             <div className="flex items-center gap-3 mb-6">

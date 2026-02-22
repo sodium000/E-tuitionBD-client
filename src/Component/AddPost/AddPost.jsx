@@ -53,15 +53,15 @@ const AddPost = () => {
                     <div className="absolute top-1/2 left-1/2 w-72 h-72 bg-indigo-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
                 </div>
 
-                <form onSubmit={handleSubmit(handelTution)} className="relative bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl p-8 md:p-12 w-full max-w-7xl">
+                <form onSubmit={handleSubmit(handelTution)} className="relative bg-white/95 backdrop-blur-xl rounded-2xl sm:rounded-3xl shadow-2xl p-4 sm:p-6 md:p-8 lg:p-12 w-full max-w-7xl mx-2 sm:mx-4">
                     {/* Header */}
                     <div className="text-center mb-10">
                         <div className="inline-flex items-center justify-center w-20 h-20 bg-linear-to-br from-purple-600 via-pink-500 to-indigo-600 rounded-2xl mb-6 shadow-lg transform hover:rotate-6 transition-transform duration-300">
                             <FaGraduationCap className="w-10 h-10 text-white" />
                         </div>
-                        <div className="flex items-center justify-center gap-2 mb-3">
-                            <GiSparkles className="w-6 h-6 text-purple-600" />
-                            <h1 className="text-4xl font-bold bg-linear-to-r from-purple-600 via-pink-500 to-indigo-600 bg-clip-text text-transparent">
+                        <div className="flex items-center justify-center gap-2 mb-3 flex-wrap">
+                            <GiSparkles className="w-5 h-5 sm:w-6 sm:h-6 text-purple-600" />
+                            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-linear-to-r from-purple-600 via-pink-500 to-indigo-600 bg-clip-text text-transparent">
                                 Tutoring Post
                             </h1>
                             <GiSparkles className="w-6 h-6 text-pink-500" />

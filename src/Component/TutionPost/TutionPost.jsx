@@ -105,13 +105,13 @@ const TutionPost = () => {
   return (
     <div className="min-h-screen bg-[#f8fafc] dark:bg-slate-950 transition-colors duration-500 pb-12">
       <div className="bg-white dark:bg-slate-900 border-b dark:border-slate-800 sticky top-0 z-30 shadow-sm transition-colors duration-500">
-        <div className="max-w-7xl mx-auto px-4 py-6">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 py-4 sm:py-6">
           <div className="flex flex-col gap-4">
             <h1 className="text-2xl font-bold text-gray-800 dark:text-slate-100 flex items-center gap-2">
               <MdFilterList className="text-primary" /> Available Tuitions
             </h1>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
               <div className="relative">
                 <MdSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-slate-500" />
                 <input
@@ -168,7 +168,7 @@ const TutionPost = () => {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 mt-8">
+      <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 mt-6 sm:mt-8">
         <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
           <p className="text-sm text-gray-500 dark:text-slate-400 font-medium">
             Showing <span className="text-primary font-bold">{indexOfFirstItem + 1}-{Math.min(indexOfLastItem, filteredJobs.length)}</span> of <span className="text-primary font-bold">{filteredJobs.length}</span> tuition posts

@@ -38,12 +38,12 @@ const Login = () => {
         setLoading(false);
     };
     return (
-        <div className='grid grid-cols-2 mt-20'>
-            <div className=' justify-center items-center flex'>
-                <img src='./Computerlogin.svg' alt="" className='max-h-150' />
+        <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-0 mt-12 sm:mt-20 px-4 sm:px-6 lg:px-0'>
+            <div className='flex justify-center items-center mb-6 lg:mb-0 min-w-0 overflow-visible'>
+                <img src='./Computerlogin.svg' alt="" className='max-h-[280px] xl:max-h-[350px] w-auto max-w-full object-contain' />
             </div>
-            <div >
-                <div className=" flex flex-col justify-center bg-background-light dark:bg-background-dark">
+            <div className="w-full max-w-xl mx-auto lg:max-w-none">
+                <div className="flex flex-col justify-center bg-background-light dark:bg-background-dark">
                     <div className="sm:mx-auto sm:w-full sm:max-w-10/12">
                         <h2 className="mt-6 text-center text-3xl font-bold tracking-tight">
                             Login
@@ -91,7 +91,7 @@ const Login = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
                                     <div>
                                         <button
                                             type="submit"

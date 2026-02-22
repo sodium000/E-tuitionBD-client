@@ -25,7 +25,7 @@ const SearchJob = () => {
 
     return (
         // Height limited to 60-70% of screen height
-        <div className="relative h-[65vh] min-h-[550px] bg-white dark:bg-slate-950  transition-colors duration-500 overflow-hidden flex items-center">
+        <div className="relative min-h-[450px] sm:min-h-[500px] md:min-h-[550px] md:h-[65vh] bg-white dark:bg-slate-950 transition-colors duration-500 overflow-hidden flex items-center py-12 md:py-0">
 
             <div className="absolute inset-0 pointer-events-none hidden dark:block">
                 <motion.div
@@ -41,7 +41,7 @@ const SearchJob = () => {
             </div>
 
             <section className="w-full relative z-10">
-                <div className="max-w-7xl mx-auto px-6 lg:px-8">
+                <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
                         <motion.div
                             initial={{ opacity: 0, scale: 0.95 }}

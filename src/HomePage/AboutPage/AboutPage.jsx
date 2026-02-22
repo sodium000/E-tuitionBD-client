@@ -43,7 +43,7 @@ const AboutPage = () => {
                     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-linear-to-b from-indigo-50/50 dark:from-indigo-950/20 to-transparent"></div>
                 </div>
                 
-                <div className="container relative z-10 mx-auto px-6 text-center">
+                <div className="w-full relative z-10 px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 text-center">
                     <motion.span 
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -55,7 +55,7 @@ const AboutPage = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 }}
-                        className="mt-4 text-5xl md:text-7xl font-black tracking-tight leading-tight"
+                        className="mt-4 text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tight leading-tight"
                     >
                         Crafting <span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400">Digital Futures</span>
                     </motion.h1>
@@ -71,8 +71,8 @@ const AboutPage = () => {
             </section>
 
             <section className="py-12 border-y border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/30">
-                <div className="container mx-auto px-6">
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-12">
+                <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 md:gap-12">
                         {stats.map((stat, idx) => (
                             <motion.div 
                                 key={idx}
@@ -90,14 +90,14 @@ const AboutPage = () => {
                 </div>
             </section>
 
-            <section className="py-24">
-                <div className="container mx-auto px-6">
+            <section className="py-12 sm:py-16 md:py-24">
+                <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
                     <div className="text-center mb-16 space-y-3">
-                        <h2 className="text-3xl md:text-4xl font-black tracking-tight">What Drives Us</h2>
+                        <h2 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight">What Drives Us</h2>
                         <div className="w-12 h-1.5 bg-indigo-600 mx-auto rounded-full"></div>
                     </div>
                     
-                    <div className="grid md:grid-cols-3 gap-8">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
                         {values.map((value, idx) => (
                             <motion.div 
                                 key={idx}
@@ -105,7 +105,7 @@ const AboutPage = () => {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: idx * 0.1 }}
-                                className="group p-10 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[2.5rem] shadow-xl shadow-slate-200/50 dark:shadow-none hover:border-indigo-500/50 transition-all duration-500"
+                                className="group p-6 sm:p-8 md:p-10 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl sm:rounded-[2.5rem] shadow-xl shadow-slate-200/50 dark:shadow-none hover:border-indigo-500/50 transition-all duration-500"
                             >
                                 <div className={`w-16 h-16 ${value.bg} ${value.color} rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500`}>
                                     {value.icon}
@@ -120,9 +120,9 @@ const AboutPage = () => {
                 </div>
             </section>
 
-            <section className="py-24 bg-slate-50 dark:bg-slate-900/50 transition-colors">
-                <div className="container mx-auto px-6 text-center">
-                    <h2 className="text-3xl md:text-4xl font-black tracking-tight mb-16">Meet the Leadership</h2>
+            <section className="py-12 sm:py-16 md:py-24 bg-slate-50 dark:bg-slate-900/50 transition-colors">
+                <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 text-center">
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight mb-10 sm:mb-16">Meet the Leadership</h2>
                     <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-12">
                         {[1, 2, 3].map((member) => (
                             <motion.div 

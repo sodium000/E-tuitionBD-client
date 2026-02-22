@@ -84,7 +84,7 @@ const TuitionSelection = () => {
                 <div className="absolute bottom-0 -right-20 w-96 h-96 bg-indigo-900/10 rounded-full blur-[100px] opacity-50"></div>
             </div>
 
-            <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
+            <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
 
                 <header className="mb-16 text-center space-y-3">
                     <motion.h2
@@ -112,7 +112,7 @@ const TuitionSelection = () => {
                     </motion.p>
                 </header>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
                     {tuitionTypes.map((type, index) => (
                         <TuitionTypeCard key={index} {...type} index={index} />
                     ))}

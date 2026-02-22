@@ -57,7 +57,7 @@ const Tutors = () => {
     return (
         <div className="min-h-screen bg-white dark:bg-slate-950 transition-colors duration-500 pb-20 font-sans">
             <div className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-40 shadow-sm">
-                <div className="max-w-7xl mx-auto px-6 py-8">
+                <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 py-4 sm:py-8">
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                         <div>
                             <h1 className="text-3xl font-black tracking-tight text-slate-900 dark:text-white">
@@ -98,7 +98,7 @@ const Tutors = () => {
                 </div>
             </div>
 
-            <div className="max-w-7xl mx-auto px-6 mt-10">
+            <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 mt-6 sm:mt-10">
                 <AnimatePresence mode="wait">
                     {paginatedTutors.length > 0 ? (
                         <motion.div 
